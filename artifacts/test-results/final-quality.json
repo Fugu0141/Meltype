@@ -1,0 +1,6221 @@
+{
+  "pass": 1241,
+  "total": 1243,
+  "cases": [
+    {
+      "key": "[日本語] kyouhaiitenkidesune",
+      "ok": true,
+      "detail": "kyouhaiitenkidesune → きょうはいいてんきですね (期待: きょうはいいてんきですね)"
+    },
+    {
+      "key": "[日本語] watashihagakuseidesu",
+      "ok": true,
+      "detail": "watashihagakuseidesu → わたしはがくせいです (期待: わたしはがくせいです)"
+    },
+    {
+      "key": "[日本語] arigatougozaimasu",
+      "ok": true,
+      "detail": "arigatougozaimasu → ありがとうございます (期待: ありがとうございます)"
+    },
+    {
+      "key": "[日本語] yoroshikuonegaishimasu",
+      "ok": true,
+      "detail": "yoroshikuonegaishimasu → よろしくおねがいします (期待: よろしくおねがいします)"
+    },
+    {
+      "key": "[日本語] ashitahaamedesu",
+      "ok": true,
+      "detail": "ashitahaamedesu → あしたはあめです (期待: あしたはあめです)"
+    },
+    {
+      "key": "[日本語] konnnichiha",
+      "ok": true,
+      "detail": "konnnichiha → こんにちは (期待: こんにちは)"
+    },
+    {
+      "key": "[日本語] nihongowobenkyoushiteimasu",
+      "ok": true,
+      "detail": "nihongowobenkyoushiteimasu → にほんごをべんきょうしています (期待: にほんごをべんきょうしています)"
+    },
+    {
+      "key": "[日本語] kaigiha3jikaradesu",
+      "ok": true,
+      "detail": "kaigiha3jikaradesu → かいぎは3じからです (期待: かいぎは3じからです)"
+    },
+    {
+      "key": "[日本語] sushigatabetai",
+      "ok": true,
+      "detail": "sushigatabetai → すしがたべたい (期待: すしがたべたい)"
+    },
+    {
+      "key": "[日本語] anatahadaredesuka",
+      "ok": true,
+      "detail": "anatahadaredesuka → あなたはだれですか (期待: あなたはだれですか)"
+    },
+    {
+      "key": "[日本語] sorehachigaimasu",
+      "ok": true,
+      "detail": "sorehachigaimasu → それはちがいます (期待: それはちがいます)"
+    },
+    {
+      "key": "[日本語] kinouhatanoshikatta",
+      "ok": true,
+      "detail": "kinouhatanoshikatta → きのうはたのしかった (期待: きのうはたのしかった)"
+    },
+    {
+      "key": "[日本語] mainichiasagohanwotabemasu",
+      "ok": true,
+      "detail": "mainichiasagohanwotabemasu → まいにちあさごはんをたべます (期待: まいにちあさごはんをたべます)"
+    },
+    {
+      "key": "[日本語] denshaninoriokureteshimatta",
+      "ok": true,
+      "detail": "denshaninoriokureteshimatta → でんしゃにのりおくれてしまった (期待: でんしゃにのりおくれてしまった)"
+    },
+    {
+      "key": "[日本語] nanimoshiranai",
+      "ok": true,
+      "detail": "nanimoshiranai → なにもしらない (期待: なにもしらない)"
+    },
+    {
+      "key": "[日本語] makenaide",
+      "ok": true,
+      "detail": "makenaide → まけないで (期待: まけないで)"
+    },
+    {
+      "key": "[日本語] sonotoori",
+      "ok": true,
+      "detail": "sonotoori → そのとおり (期待: そのとおり)"
+    },
+    {
+      "key": "[日本語] hontouni",
+      "ok": true,
+      "detail": "hontouni → ほんとうに (期待: ほんとうに)"
+    },
+    {
+      "key": "[日本語] dokodemoii",
+      "ok": true,
+      "detail": "dokodemoii → どこでもいい (期待: どこでもいい)"
+    },
+    {
+      "key": "[日本語] chottomatte",
+      "ok": true,
+      "detail": "chottomatte → ちょっとまって (期待: ちょっとまって)"
+    },
+    {
+      "key": "[日本語] kaimononiikimasu",
+      "ok": true,
+      "detail": "kaimononiikimasu → かいものにいきます (期待: かいものにいきます)"
+    },
+    {
+      "key": "[日本語] namaewooshiete",
+      "ok": true,
+      "detail": "namaewooshiete → なまえをおしえて (期待: なまえをおしえて)"
+    },
+    {
+      "key": "[日本語] kanjiwokaku",
+      "ok": true,
+      "detail": "kanjiwokaku → かんじをかく (期待: かんじをかく)"
+    },
+    {
+      "key": "[日本語] sakewonomu",
+      "ok": true,
+      "detail": "sakewonomu → さけをのむ (期待: さけをのむ)"
+    },
+    {
+      "key": "[日本語] animegasuki",
+      "ok": true,
+      "detail": "animegasuki → あにめがすき (期待: あにめがすき)"
+    },
+    {
+      "key": "[日本語] mangawoyomu",
+      "ok": true,
+      "detail": "mangawoyomu → まんがをよむ (期待: まんがをよむ)"
+    },
+    {
+      "key": "[日本語] karaokeniiku",
+      "ok": true,
+      "detail": "karaokeniiku → からおけにいく (期待: からおけにいく)"
+    },
+    {
+      "key": "[日本語] itadakimasu",
+      "ok": true,
+      "detail": "itadakimasu → いただきます (期待: いただきます)"
+    },
+    {
+      "key": "[日本語] otsukaresamadesu",
+      "ok": true,
+      "detail": "otsukaresamadesu → おつかれさまです (期待: おつかれさまです)"
+    },
+    {
+      "key": "[日本語] sumimasen",
+      "ok": true,
+      "detail": "sumimasen → すみません (期待: すみません)"
+    },
+    {
+      "key": "[日本語] daijoubu",
+      "ok": true,
+      "detail": "daijoubu → だいじょうぶ (期待: だいじょうぶ)"
+    },
+    {
+      "key": "[日本語] ganbatte",
+      "ok": true,
+      "detail": "ganbatte → がんばって (期待: がんばって)"
+    },
+    {
+      "key": "[日本語] tanakasannnihanashita",
+      "ok": true,
+      "detail": "tanakasannnihanashita → たなかさんにはなした (期待: たなかさんにはなした)"
+    },
+    {
+      "key": "[日本語] toukyouniiku",
+      "ok": true,
+      "detail": "toukyouniiku → とうきょうにいく (期待: とうきょうにいく)"
+    },
+    {
+      "key": "[日本語] kore ha pen desu",
+      "ok": true,
+      "detail": "kore ha pen desu → これはぺんです (期待: これはぺんです)"
+    },
+    {
+      "key": "[日本語] sore de ii",
+      "ok": true,
+      "detail": "sore de ii → それでいい (期待: それでいい)"
+    },
+    {
+      "key": "[日本語] watashi ha sushi ga suki",
+      "ok": true,
+      "detail": "watashi ha sushi ga suki → わたしはすしがすき (期待: わたしはすしがすき)"
+    },
+    {
+      "key": "[日本語] nani wo shiteru no",
+      "ok": true,
+      "detail": "nani wo shiteru no → なにをしてるの (期待: なにをしてるの)"
+    },
+    {
+      "key": "[曖昧な語] same",
+      "ok": true,
+      "detail": "same → さめ (期待: さめ)"
+    },
+    {
+      "key": "[曖昧な語] mine",
+      "ok": true,
+      "detail": "mine → みね (期待: みね)"
+    },
+    {
+      "key": "[曖昧な語] sake",
+      "ok": true,
+      "detail": "sake → さけ (期待: さけ)"
+    },
+    {
+      "key": "[曖昧な語] sushi",
+      "ok": true,
+      "detail": "sushi → すし (期待: すし)"
+    },
+    {
+      "key": "[曖昧な語] 「I like 」+ sushi",
+      "ok": true,
+      "detail": "「I like 」+ sushi → sushi (期待: sushi)"
+    },
+    {
+      "key": "[曖昧な語] 「今日は」+ sushi",
+      "ok": true,
+      "detail": "「今日は」+ sushi → すし (期待: すし)"
+    },
+    {
+      "key": "[曖昧な語] repo",
+      "ok": true,
+      "detail": "repo → れぽ (期待: れぽ)"
+    },
+    {
+      "key": "[曖昧な語] 「Please 」+ make",
+      "ok": true,
+      "detail": "「Please 」+ make → make (期待: make)"
+    },
+    {
+      "key": "[英語] hello",
+      "ok": true,
+      "detail": "hello → hello (期待: hello)"
+    },
+    {
+      "key": "[英語] google",
+      "ok": true,
+      "detail": "google → google (期待: google)"
+    },
+    {
+      "key": "[英語] github",
+      "ok": true,
+      "detail": "github → github (期待: github)"
+    },
+    {
+      "key": "[英語] python",
+      "ok": true,
+      "detail": "python → python (期待: python)"
+    },
+    {
+      "key": "[英語] javascript",
+      "ok": true,
+      "detail": "javascript → javascript (期待: javascript)"
+    },
+    {
+      "key": "[英語] thank you",
+      "ok": true,
+      "detail": "thank you → thank you (期待: thank you)"
+    },
+    {
+      "key": "[英語] good morning",
+      "ok": true,
+      "detail": "good morning → good morning (期待: good morning)"
+    },
+    {
+      "key": "[英語] I love you",
+      "ok": true,
+      "detail": "I love you → I love you (期待: I love you)"
+    },
+    {
+      "key": "[英語] see you later",
+      "ok": true,
+      "detail": "see you later → see you later (期待: see you later)"
+    },
+    {
+      "key": "[英語] what is this",
+      "ok": true,
+      "detail": "what is this → what is this (期待: what is this)"
+    },
+    {
+      "key": "[英語] how are you",
+      "ok": true,
+      "detail": "how are you → how are you (期待: how are you)"
+    },
+    {
+      "key": "[英語] the quick brown fox",
+      "ok": true,
+      "detail": "the quick brown fox → the quick brown fox (期待: the quick brown fox)"
+    },
+    {
+      "key": "[英語] please check the log",
+      "ok": true,
+      "detail": "please check the log → please check the log (期待: please check the log)"
+    },
+    {
+      "key": "[英語] open the file",
+      "ok": true,
+      "detail": "open the file → open the file (期待: open the file)"
+    },
+    {
+      "key": "[英語] run the tests",
+      "ok": true,
+      "detail": "run the tests → run the tests (期待: run the tests)"
+    },
+    {
+      "key": "[英語] git push origin main",
+      "ok": true,
+      "detail": "git push origin main → git push origin main (期待: git push origin main)"
+    },
+    {
+      "key": "[英語] npm install",
+      "ok": true,
+      "detail": "npm install → npm install (期待: npm install)"
+    },
+    {
+      "key": "[英語] meeting at nine",
+      "ok": true,
+      "detail": "meeting at nine → meeting at nine (期待: meeting at nine)"
+    },
+    {
+      "key": "[英語] I want to go to the park",
+      "ok": true,
+      "detail": "I want to go to the park → I want to go to the park (期待: I want to go to the park)"
+    },
+    {
+      "key": "[英語] make sure you have time",
+      "ok": true,
+      "detail": "make sure you have time → make sure you have time (期待: make sure you have time)"
+    },
+    {
+      "key": "[英語] this is a pen",
+      "ok": true,
+      "detail": "this is a pen → this is a pen (期待: this is a pen)"
+    },
+    {
+      "key": "[英語] my name is taro",
+      "ok": false,
+      "detail": "my name is taro → my name is たろ (期待: my name is taro)"
+    },
+    {
+      "key": "[英語] do it now",
+      "ok": true,
+      "detail": "do it now → do it now (期待: do it now)"
+    },
+    {
+      "key": "[英語] let me know",
+      "ok": true,
+      "detail": "let me know → let me know (期待: let me know)"
+    },
+    {
+      "key": "[英語] can you send me the file",
+      "ok": true,
+      "detail": "can you send me the file → can you send me the file (期待: can you send me the file)"
+    },
+    {
+      "key": "[混在] kyouhagoogledekensaku",
+      "ok": true,
+      "detail": "kyouhagoogledekensaku → きょうはgoogleでけんさく (期待: きょうはgoogleでけんさく)"
+    },
+    {
+      "key": "[混在] githubnipushshita",
+      "ok": true,
+      "detail": "githubnipushshita → githubにpushした (期待: githubにpushした)"
+    },
+    {
+      "key": "[混在] pythondekaita",
+      "ok": true,
+      "detail": "pythondekaita → pythonでかいた (期待: pythonでかいた)"
+    },
+    {
+      "key": "[混在] zoomdekaigi",
+      "ok": true,
+      "detail": "zoomdekaigi → zoomでかいぎ (期待: zoomでかいぎ)"
+    },
+    {
+      "key": "[混在] slackderenraku",
+      "ok": true,
+      "detail": "slackderenraku → slackでれんらく (期待: slackでれんらく)"
+    },
+    {
+      "key": "[混在] amazondekaimono",
+      "ok": true,
+      "detail": "amazondekaimono → amazonでかいもの (期待: amazonでかいもの)"
+    },
+    {
+      "key": "[混在] youtubewomiru",
+      "ok": true,
+      "detail": "youtubewomiru → youtubeをみる (期待: youtubeをみる)"
+    },
+    {
+      "key": "[混在] chatgptnikiku",
+      "ok": true,
+      "detail": "chatgptnikiku → chatgptにきく (期待: chatgptにきく)"
+    },
+    {
+      "key": "[混在] netflixdemiru",
+      "ok": true,
+      "detail": "netflixdemiru → netflixでみる (期待: netflixでみる)"
+    },
+    {
+      "key": "[混在] discordnisanka",
+      "ok": true,
+      "detail": "discordnisanka → discordにさんか (期待: discordにさんか)"
+    },
+    {
+      "key": "[混在] linewookuru",
+      "ok": true,
+      "detail": "linewookuru → lineをおくる (期待: lineをおくる)"
+    },
+    {
+      "key": "[混在] apinoerror",
+      "ok": false,
+      "detail": "apinoerror → あぴのerror (期待: apiのerror)"
+    },
+    {
+      "key": "[混在] bugwonaosu",
+      "ok": true,
+      "detail": "bugwonaosu → bugをなおす (期待: bugをなおす)"
+    },
+    {
+      "key": "[混在] windowsnoupdate",
+      "ok": true,
+      "detail": "windowsnoupdate → windowsのupdate (期待: windowsのupdate)"
+    },
+    {
+      "key": "[日本語] shiryouwookurimasu",
+      "ok": true,
+      "detail": "shiryouwookurimasu → しりょうをおくります (期待: しりょうをおくります)"
+    },
+    {
+      "key": "[日本語] kakuninshitekudasai",
+      "ok": true,
+      "detail": "kakuninshitekudasai → かくにんしてください (期待: かくにんしてください)"
+    },
+    {
+      "key": "[日本語] yoroshiidesuka",
+      "ok": true,
+      "detail": "yoroshiidesuka → よろしいですか (期待: よろしいですか)"
+    },
+    {
+      "key": "[日本語] ryoukaishimashita",
+      "ok": true,
+      "detail": "ryoukaishimashita → りょうかいしました (期待: りょうかいしました)"
+    },
+    {
+      "key": "[日本語] ashitanokaiginitsuite",
+      "ok": true,
+      "detail": "ashitanokaiginitsuite → あしたのかいぎについて (期待: あしたのかいぎについて)"
+    },
+    {
+      "key": "[日本語] shoushouomachikudasai",
+      "ok": true,
+      "detail": "shoushouomachikudasai → しょうしょうおまちください (期待: しょうしょうおまちください)"
+    },
+    {
+      "key": "[日本語] otsukaresamadeshita",
+      "ok": true,
+      "detail": "otsukaresamadeshita → おつかれさまでした (期待: おつかれさまでした)"
+    },
+    {
+      "key": "[日本語] tesutogaowarimashita",
+      "ok": true,
+      "detail": "tesutogaowarimashita → てすとがおわりました (期待: てすとがおわりました)"
+    },
+    {
+      "key": "[日本語] sonokenhakentoushimasu",
+      "ok": true,
+      "detail": "sonokenhakentoushimasu → そのけんはけんとうします (期待: そのけんはけんとうします)"
+    },
+    {
+      "key": "[日本語] mouichidoonegaishimasu",
+      "ok": true,
+      "detail": "mouichidoonegaishimasu → もういちどおねがいします (期待: もういちどおねがいします)"
+    },
+    {
+      "key": "[日本語] nanjigaiidesuka",
+      "ok": true,
+      "detail": "nanjigaiidesuka → なんじがいいですか (期待: なんじがいいですか)"
+    },
+    {
+      "key": "[日本語] zenzenmondainai",
+      "ok": true,
+      "detail": "zenzenmondainai → ぜんぜんもんだいない (期待: ぜんぜんもんだいない)"
+    },
+    {
+      "key": "[日本語] tokorodesa",
+      "ok": true,
+      "detail": "tokorodesa → ところでさ (期待: ところでさ)"
+    },
+    {
+      "key": "[日本語] hayakukaerou",
+      "ok": true,
+      "detail": "hayakukaerou → はやくかえろう (期待: はやくかえろう)"
+    },
+    {
+      "key": "[日本語] kyouhasamuine",
+      "ok": true,
+      "detail": "kyouhasamuine → きょうはさむいね (期待: きょうはさむいね)"
+    },
+    {
+      "key": "[英語] good job",
+      "ok": true,
+      "detail": "good job → good job (期待: good job)"
+    },
+    {
+      "key": "[英語] see you tomorrow",
+      "ok": true,
+      "detail": "see you tomorrow → see you tomorrow (期待: see you tomorrow)"
+    },
+    {
+      "key": "[英語] no problem",
+      "ok": true,
+      "detail": "no problem → no problem (期待: no problem)"
+    },
+    {
+      "key": "[英語] hello world",
+      "ok": true,
+      "detail": "hello world → hello world (期待: hello world)"
+    },
+    {
+      "key": "[英語] thank you so much",
+      "ok": true,
+      "detail": "thank you so much → thank you so much (期待: thank you so much)"
+    },
+    {
+      "key": "[英語] we need to fix the bug",
+      "ok": true,
+      "detail": "we need to fix the bug → we need to fix the bug (期待: we need to fix the bug)"
+    },
+    {
+      "key": "[英語] please take a look at this",
+      "ok": true,
+      "detail": "please take a look at this → please take a look at this (期待: please take a look at this)"
+    },
+    {
+      "key": "[英語] the meeting is at nine",
+      "ok": true,
+      "detail": "the meeting is at nine → the meeting is at nine (期待: the meeting is at nine)"
+    },
+    {
+      "key": "[英語] happy birthday",
+      "ok": true,
+      "detail": "happy birthday → happy birthday (期待: happy birthday)"
+    },
+    {
+      "key": "[英語] what time is it",
+      "ok": true,
+      "detail": "what time is it → what time is it (期待: what time is it)"
+    },
+    {
+      "key": "[混在] reactdekaita",
+      "ok": true,
+      "detail": "reactdekaita → reactでかいた (期待: reactでかいた)"
+    },
+    {
+      "key": "[混在] dockergaugokanai",
+      "ok": true,
+      "detail": "dockergaugokanai → dockerがうごかない (期待: dockerがうごかない)"
+    },
+    {
+      "key": "[混在] typescriptnikaeta",
+      "ok": true,
+      "detail": "typescriptnikaeta → typescriptにかえた (期待: typescriptにかえた)"
+    },
+    {
+      "key": "[混在] excelnofairu",
+      "ok": true,
+      "detail": "excelnofairu → excelのふぁいる (期待: excelのふぁいる)"
+    },
+    {
+      "key": "[混在] spotifydekiku",
+      "ok": true,
+      "detail": "spotifydekiku → spotifyできく (期待: spotifyできく)"
+    },
+    {
+      "key": "[混在] microsoftnokaisha",
+      "ok": true,
+      "detail": "microsoftnokaisha → microsoftのかいしゃ (期待: microsoftのかいしゃ)"
+    },
+    {
+      "key": "[混在] kyouhaclaudetohanashita",
+      "ok": true,
+      "detail": "kyouhaclaudetohanashita → きょうはclaudeとはなした (期待: きょうはclaudeとはなした)"
+    },
+    {
+      "key": "[混在] pythonnobug",
+      "ok": true,
+      "detail": "pythonnobug → pythonのbug (期待: pythonのbug)"
+    },
+    {
+      "key": "[混在] GitHub no repo",
+      "ok": true,
+      "detail": "GitHub no repo → GitHub のれぽ (期待: GitHub のれぽ)"
+    },
+    {
+      "key": "[混在] Google to Apple",
+      "ok": true,
+      "detail": "Google to Apple → Google とApple (期待: Google とApple)"
+    },
+    {
+      "key": "[短い語] 「GitHub」+ no",
+      "ok": true,
+      "detail": "「GitHub」+ no → の (期待: の)"
+    },
+    {
+      "key": "[短い語] 「Chrome」+ de",
+      "ok": true,
+      "detail": "「Chrome」+ de → で (期待: で)"
+    },
+    {
+      "key": "[短い語] 「今日は GitHub 」+ ni",
+      "ok": true,
+      "detail": "「今日は GitHub 」+ ni → に (期待: に)"
+    },
+    {
+      "key": "[短い語] 「Python」+ ga",
+      "ok": true,
+      "detail": "「Python」+ ga → が (期待: が)"
+    },
+    {
+      "key": "[短い語] 「I want 」+ to",
+      "ok": true,
+      "detail": "「I want 」+ to → to (期待: to)"
+    },
+    {
+      "key": "[短い語] 「this 」+ is",
+      "ok": true,
+      "detail": "「this 」+ is → is (期待: is)"
+    },
+    {
+      "key": "[短い語] 「look 」+ at",
+      "ok": true,
+      "detail": "「look 」+ at → at (期待: at)"
+    },
+    {
+      "key": "[短い語] 「this is 」+ a",
+      "ok": true,
+      "detail": "「this is 」+ a → a (期待: a)"
+    },
+    {
+      "key": "[記号・数字] !",
+      "ok": true,
+      "detail": "! → ！ (期待: ！)"
+    },
+    {
+      "key": "[記号・数字] ?",
+      "ok": true,
+      "detail": "? → ？ (期待: ？)"
+    },
+    {
+      "key": "[記号・数字] ~",
+      "ok": true,
+      "detail": "~ → ～ (期待: ～)"
+    },
+    {
+      "key": "[記号・数字] 「Hello」+ !",
+      "ok": true,
+      "detail": "「Hello」+ ! → ! (期待: !)"
+    },
+    {
+      "key": "[記号・数字] kore,sore.",
+      "ok": true,
+      "detail": "kore,sore. → これ、それ。 (期待: これ、それ。)"
+    },
+    {
+      "key": "[記号・数字] [kagi]",
+      "ok": true,
+      "detail": "[kagi] → 「かぎ」 (期待: 「かぎ」)"
+    },
+    {
+      "key": "[記号・数字] ra-men",
+      "ok": true,
+      "detail": "ra-men → らーめん (期待: らーめん)"
+    },
+    {
+      "key": "[記号・数字] 3.14",
+      "ok": true,
+      "detail": "3.14 → 3.14 (期待: 3.14)"
+    },
+    {
+      "key": "[記号・数字] 2026/09/30",
+      "ok": true,
+      "detail": "2026/09/30 → 2026/09/30 (期待: 2026/09/30)"
+    },
+    {
+      "key": "[記号・数字] 10ji",
+      "ok": true,
+      "detail": "10ji → 10じ (期待: 10じ)"
+    },
+    {
+      "key": "[綴り] xa",
+      "ok": true,
+      "detail": "xa → ぁ (期待: ぁ)"
+    },
+    {
+      "key": "[綴り] la",
+      "ok": true,
+      "detail": "la → ぁ (期待: ぁ)"
+    },
+    {
+      "key": "[綴り] mala",
+      "ok": true,
+      "detail": "mala → まぁ (期待: まぁ)"
+    },
+    {
+      "key": "[綴り] ltu",
+      "ok": true,
+      "detail": "ltu → っ (期待: っ)"
+    },
+    {
+      "key": "[綴り] thi",
+      "ok": true,
+      "detail": "thi → てぃ (期待: てぃ)"
+    },
+    {
+      "key": "[綴り] fa",
+      "ok": true,
+      "detail": "fa → ふぁ (期待: ふぁ)"
+    },
+    {
+      "key": "[綴り] je",
+      "ok": true,
+      "detail": "je → じぇ (期待: じぇ)"
+    },
+    {
+      "key": "[綴り] nn",
+      "ok": true,
+      "detail": "nn → ん (期待: ん)"
+    },
+    {
+      "key": "[綴り] kanji",
+      "ok": true,
+      "detail": "kanji → かんじ (期待: かんじ)"
+    },
+    {
+      "key": "[大文字] Tokyo",
+      "ok": true,
+      "detail": "Tokyo → Tokyo (期待: Tokyo)"
+    },
+    {
+      "key": "[大文字] Apple",
+      "ok": true,
+      "detail": "Apple → Apple (期待: Apple)"
+    },
+    {
+      "key": "[大文字] I",
+      "ok": true,
+      "detail": "I → I (期待: I)"
+    },
+    {
+      "key": "[大文字] W",
+      "ok": true,
+      "detail": "W → W (期待: W)"
+    },
+    {
+      "key": "[大文字] kaW",
+      "ok": true,
+      "detail": "kaW → かW (期待: かW)"
+    },
+    {
+      "key": "[かな入力] キー byiaf",
+      "ok": true,
+      "detail": "キー byiaf → こんにちは (期待: こんにちは)"
+    },
+    {
+      "key": "[かな入力] キー google",
+      "ok": true,
+      "detail": "キー google → google (期待: google)"
+    },
+    {
+      "key": "[かな入力] キー t@u",
+      "ok": true,
+      "detail": "キー t@u → がな (期待: がな)"
+    },
+    {
+      "key": "[かな入力] キー github",
+      "ok": true,
+      "detail": "キー github → github (期待: github)"
+    },
+    {
+      "key": "[コードの行] 「int x = 0;」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「int x = 0;」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「// コメント」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「// コメント」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「x = 1  // note 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「x = 1  // note 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「# comment 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「# comment 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「    ## 見出し」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「    ## 見出し」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「#include <stdio.h>」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「#include <stdio.h>」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「#region Foo」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「#region Foo」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「print(\"hello 」→ String (期待: String)",
+      "ok": true,
+      "detail": "「print(\"hello 」→ String (期待: String)"
+    },
+    {
+      "key": "[コードの行] 「print(\"hi\") 」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「print(\"hi\") 」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「console.log('abc」→ String (期待: String)",
+      "ok": true,
+      "detail": "「console.log('abc」→ String (期待: String)"
+    },
+    {
+      "key": "[コードの行] 「if (x) { // TODO 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「if (x) { // TODO 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「it's fine」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「it's fine」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「/* block 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「/* block 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「/* done */ x = 」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「/* done */ x = 」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「 * continued 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「 * continued 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「-- SQL comment 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「-- SQL comment 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「x--;」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「x--;」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「i--」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「i--」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「<!-- html 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「<!-- html 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「git commit -m \"」→ String (期待: String)",
+      "ok": true,
+      "detail": "「git commit -m \"」→ String (期待: String)"
+    },
+    {
+      "key": "[コードの行] 「echo `date」→ String (期待: String)",
+      "ok": true,
+      "detail": "「echo `date」→ String (期待: String)"
+    },
+    {
+      "key": "[コードの行] 「REM バッチ 」→ Comment (期待: Comment)",
+      "ok": true,
+      "detail": "「REM バッチ 」→ Comment (期待: Comment)"
+    },
+    {
+      "key": "[コードの行] 「s = \"a\\\"b」→ String (期待: String)",
+      "ok": true,
+      "detail": "「s = \"a\\\"b」→ String (期待: String)"
+    },
+    {
+      "key": "[コードの行] 「url = 'http://x' + 」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「url = 'http://x' + 」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「const s = `template ${x} 」→ String (期待: String)",
+      "ok": true,
+      "detail": "「const s = `template ${x} 」→ String (期待: String)"
+    },
+    {
+      "key": "[コードの行] 「> 」→ Prompt (期待: Prompt)",
+      "ok": true,
+      "detail": "「> 」→ Prompt (期待: Prompt)"
+    },
+    {
+      "key": "[コードの行] 「│ > こんにちは」→ Prompt (期待: Prompt)",
+      "ok": true,
+      "detail": "「│ > こんにちは」→ Prompt (期待: Prompt)"
+    },
+    {
+      "key": "[コードの行] 「› fix the bug 」→ Prompt (期待: Prompt)",
+      "ok": true,
+      "detail": "「› fix the bug 」→ Prompt (期待: Prompt)"
+    },
+    {
+      "key": "[コードの行] 「>> 」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「>> 」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「PS C:\\Users\\me> 」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「PS C:\\Users\\me> 」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「$ ls 」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「$ ls 」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「❯ git status 」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「❯ git status 」→ Code (期待: Code)"
+    },
+    {
+      "key": "[コードの行] 「」→ Code (期待: Code)",
+      "ok": true,
+      "detail": "「」→ Code (期待: Code)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「Editor content;Press Alt+F1 for Accessibility Options.」()",
+      "ok": true,
+      "detail": "Code.exe 「Editor content;Press Alt+F1 for Accessibility Options.」() → Editor (期待: Editor)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「The editor is not accessible at this time.」()",
+      "ok": true,
+      "detail": "Code.exe 「The editor is not accessible at this time.」() → Editor (期待: Editor)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「エディターのコンテンツ」()",
+      "ok": true,
+      "detail": "Code.exe 「エディターのコンテンツ」() → Editor (期待: Editor)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「Chat Input」()",
+      "ok": true,
+      "detail": "Code.exe 「Chat Input」() → None (期待: None)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「チャット入力」()",
+      "ok": true,
+      "detail": "Code.exe 「チャット入力」() → None (期待: None)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「」()",
+      "ok": true,
+      "detail": "Code.exe 「」() → None (期待: None)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「Message Claude…」()",
+      "ok": true,
+      "detail": "Code.exe 「Message Claude…」() → None (期待: None)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「Terminal 1, pwsh」()",
+      "ok": true,
+      "detail": "Code.exe 「Terminal 1, pwsh」() → Terminal (期待: Terminal)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「ターミナル 1、bash」()",
+      "ok": true,
+      "detail": "Code.exe 「ターミナル 1、bash」() → Terminal (期待: Terminal)"
+    },
+    {
+      "key": "[入力欄の種類] Code.exe 「Type the name of a command to run.」()",
+      "ok": true,
+      "detail": "Code.exe 「Type the name of a command to run.」() → Editor (期待: Editor)"
+    },
+    {
+      "key": "[入力欄の種類] Cursor.exe 「Composer」()",
+      "ok": true,
+      "detail": "Cursor.exe 「Composer」() → None (期待: None)"
+    },
+    {
+      "key": "[入力欄の種類] WindowsTerminal.exe 「」(TermControl)",
+      "ok": true,
+      "detail": "WindowsTerminal.exe 「」(TermControl) → Terminal (期待: Terminal)"
+    },
+    {
+      "key": "[入力欄の種類] pwsh.exe 「」()",
+      "ok": true,
+      "detail": "pwsh.exe 「」() → Terminal (期待: Terminal)"
+    },
+    {
+      "key": "[入力欄の種類] idea64.exe 「Editor」()",
+      "ok": true,
+      "detail": "idea64.exe 「Editor」() → Editor (期待: Editor)"
+    },
+    {
+      "key": "[入力欄の種類] idea64.exe 「AI Assistant chat」()",
+      "ok": true,
+      "detail": "idea64.exe 「AI Assistant chat」() → None (期待: None)"
+    },
+    {
+      "key": "[入力欄の種類] devenv.exe 「」()",
+      "ok": true,
+      "detail": "devenv.exe 「」() → Editor (期待: Editor)"
+    },
+    {
+      "key": "[文章ファイル] 「README.md - Meltype - Visual Studio Code」→ True (期待: True)",
+      "ok": true,
+      "detail": "「README.md - Meltype - Visual Studio Code」→ True (期待: True)"
+    },
+    {
+      "key": "[文章ファイル] 「Program.cs - Meltype - Visual Studio Code」→ False (期待: False)",
+      "ok": true,
+      "detail": "「Program.cs - Meltype - Visual Studio Code」→ False (期待: False)"
+    },
+    {
+      "key": "[文章ファイル] 「notes.txt - メモ帳」→ True (期待: True)",
+      "ok": true,
+      "detail": "「notes.txt - メモ帳」→ True (期待: True)"
+    },
+    {
+      "key": "[文章ファイル] 「page.mdx - site - Visual Studio Code」→ False (期待: False)",
+      "ok": true,
+      "detail": "「page.mdx - site - Visual Studio Code」→ False (期待: False)"
+    },
+    {
+      "key": "[文章ファイル] 「Windows PowerShell」→ False (期待: False)",
+      "ok": true,
+      "detail": "「Windows PowerShell」→ False (期待: False)"
+    },
+    {
+      "key": "[自動切替: 日本語] konnichiwa",
+      "ok": true,
+      "detail": "konnichiwa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] konnichiha",
+      "ok": true,
+      "detail": "konnichiha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] konbanwa",
+      "ok": true,
+      "detail": "konbanwa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] konbanha",
+      "ok": true,
+      "detail": "konbanha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ohayou",
+      "ok": true,
+      "detail": "ohayou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ohayougozaimasu",
+      "ok": true,
+      "detail": "ohayougozaimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] arigatou",
+      "ok": true,
+      "detail": "arigatou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] arigatougozaimasu",
+      "ok": true,
+      "detail": "arigatougozaimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sayounara",
+      "ok": true,
+      "detail": "sayounara → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sayonara",
+      "ok": true,
+      "detail": "sayonara → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sumimasen",
+      "ok": true,
+      "detail": "sumimasen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gomen",
+      "ok": true,
+      "detail": "gomen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gomennasai",
+      "ok": true,
+      "detail": "gomennasai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] onegai",
+      "ok": true,
+      "detail": "onegai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] onegaishimasu",
+      "ok": true,
+      "detail": "onegaishimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoroshiku",
+      "ok": true,
+      "detail": "yoroshiku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoroshikuonegaishimasu",
+      "ok": true,
+      "detail": "yoroshikuonegaishimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] otsukare",
+      "ok": true,
+      "detail": "otsukare → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] otsukaresama",
+      "ok": true,
+      "detail": "otsukaresama → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] otsukaresamadesu",
+      "ok": true,
+      "detail": "otsukaresamadesu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oyasumi",
+      "ok": true,
+      "detail": "oyasumi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oyasuminasai",
+      "ok": true,
+      "detail": "oyasuminasai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itadakimasu",
+      "ok": true,
+      "detail": "itadakimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gochisousama",
+      "ok": true,
+      "detail": "gochisousama → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gochisousamadeshita",
+      "ok": true,
+      "detail": "gochisousamadeshita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tadaima",
+      "ok": true,
+      "detail": "tadaima → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okaeri",
+      "ok": true,
+      "detail": "okaeri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okaerinasai",
+      "ok": true,
+      "detail": "okaerinasai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itterasshai",
+      "ok": true,
+      "detail": "itterasshai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ittekimasu",
+      "ok": true,
+      "detail": "ittekimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hajimemashite",
+      "ok": true,
+      "detail": "hajimemashite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] douzo",
+      "ok": true,
+      "detail": "douzo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] doumo",
+      "ok": true,
+      "detail": "doumo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] moshimoshi",
+      "ok": true,
+      "detail": "moshimoshi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omedetou",
+      "ok": true,
+      "detail": "omedetou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shitsurei",
+      "ok": true,
+      "detail": "shitsurei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shitsureishimasu",
+      "ok": true,
+      "detail": "shitsureishimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] daijoubu",
+      "ok": true,
+      "detail": "daijoubu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] osewaninatteorimasu",
+      "ok": true,
+      "detail": "osewaninatteorimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] osewani",
+      "ok": true,
+      "detail": "osewani → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoroshiidesuka",
+      "ok": true,
+      "detail": "yoroshiidesuka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] watashi",
+      "ok": true,
+      "detail": "watashi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] watakushi",
+      "ok": true,
+      "detail": "watakushi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] boku",
+      "ok": true,
+      "detail": "boku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] anata",
+      "ok": true,
+      "detail": "anata → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kimi",
+      "ok": true,
+      "detail": "kimi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kare",
+      "ok": true,
+      "detail": "kare → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] kanojo",
+      "ok": true,
+      "detail": "kanojo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] karera",
+      "ok": true,
+      "detail": "karera → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] minna",
+      "ok": true,
+      "detail": "minna → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] minasan",
+      "ok": true,
+      "detail": "minasan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jibun",
+      "ok": true,
+      "detail": "jibun → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dareka",
+      "ok": true,
+      "detail": "dareka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nanika",
+      "ok": true,
+      "detail": "nanika → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nanimo",
+      "ok": true,
+      "detail": "nanimo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] doko",
+      "ok": true,
+      "detail": "doko → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dare",
+      "ok": true,
+      "detail": "dare → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] nani",
+      "ok": true,
+      "detail": "nani → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nanda",
+      "ok": true,
+      "detail": "nanda → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nande",
+      "ok": true,
+      "detail": "nande → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] naze",
+      "ok": true,
+      "detail": "naze → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dore",
+      "ok": true,
+      "detail": "dore → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] docchi",
+      "ok": true,
+      "detail": "docchi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dochira",
+      "ok": true,
+      "detail": "dochira → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kochira",
+      "ok": true,
+      "detail": "kochira → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sochira",
+      "ok": true,
+      "detail": "sochira → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] achira",
+      "ok": true,
+      "detail": "achira → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kocchi",
+      "ok": true,
+      "detail": "kocchi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] socchi",
+      "ok": true,
+      "detail": "socchi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kore",
+      "ok": true,
+      "detail": "kore → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] sore",
+      "ok": true,
+      "detail": "sore → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] kono",
+      "ok": true,
+      "detail": "kono → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sono",
+      "ok": true,
+      "detail": "sono → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] koko",
+      "ok": true,
+      "detail": "koko → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] soko",
+      "ok": true,
+      "detail": "soko → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] asoko",
+      "ok": true,
+      "detail": "asoko → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] konna",
+      "ok": true,
+      "detail": "konna → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sonna",
+      "ok": true,
+      "detail": "sonna → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] anna",
+      "ok": true,
+      "detail": "anna → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] donna",
+      "ok": true,
+      "detail": "donna → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] doushite",
+      "ok": true,
+      "detail": "doushite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] doushiyou",
+      "ok": true,
+      "detail": "doushiyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ikutsu",
+      "ok": true,
+      "detail": "ikutsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ikura",
+      "ok": true,
+      "detail": "ikura → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itsu",
+      "ok": true,
+      "detail": "itsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyou",
+      "ok": true,
+      "detail": "kyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ashita",
+      "ok": true,
+      "detail": "ashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] asatte",
+      "ok": true,
+      "detail": "asatte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kinou",
+      "ok": true,
+      "detail": "kinou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ototoi",
+      "ok": true,
+      "detail": "ototoi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] imamade",
+      "ok": true,
+      "detail": "imamade → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mainichi",
+      "ok": true,
+      "detail": "mainichi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] maiasa",
+      "ok": true,
+      "detail": "maiasa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] maiban",
+      "ok": true,
+      "detail": "maiban → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] maishuu",
+      "ok": true,
+      "detail": "maishuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] raishuu",
+      "ok": true,
+      "detail": "raishuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] senshuu",
+      "ok": true,
+      "detail": "senshuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] konshuu",
+      "ok": true,
+      "detail": "konshuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] raigetsu",
+      "ok": true,
+      "detail": "raigetsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sengetsu",
+      "ok": true,
+      "detail": "sengetsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kongetsu",
+      "ok": true,
+      "detail": "kongetsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] rainen",
+      "ok": true,
+      "detail": "rainen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kotoshi",
+      "ok": true,
+      "detail": "kotoshi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyonen",
+      "ok": true,
+      "detail": "kyonen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hiru",
+      "ok": true,
+      "detail": "hiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoru",
+      "ok": true,
+      "detail": "yoru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gozen",
+      "ok": true,
+      "detail": "gozen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gogo",
+      "ok": true,
+      "detail": "gogo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jikan",
+      "ok": true,
+      "detail": "jikan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jikoku",
+      "ok": true,
+      "detail": "jikoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] zutto",
+      "ok": true,
+      "detail": "zutto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mada",
+      "ok": true,
+      "detail": "mada → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sugu",
+      "ok": true,
+      "detail": "sugu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mazu",
+      "ok": true,
+      "detail": "mazu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsugi",
+      "ok": true,
+      "detail": "tsugi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] saigo",
+      "ok": true,
+      "detail": "saigo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] saisho",
+      "ok": true,
+      "detail": "saisho → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sakki",
+      "ok": true,
+      "detail": "sakki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] atode",
+      "ok": true,
+      "detail": "atode → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] korekara",
+      "ok": true,
+      "detail": "korekara → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ichiban",
+      "ok": true,
+      "detail": "ichiban → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hayaku",
+      "ok": true,
+      "detail": "hayaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] suru",
+      "ok": true,
+      "detail": "suru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shimasu",
+      "ok": true,
+      "detail": "shimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shimashita",
+      "ok": true,
+      "detail": "shimashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shita",
+      "ok": true,
+      "detail": "shita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shite",
+      "ok": true,
+      "detail": "shite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinai",
+      "ok": true,
+      "detail": "shinai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinakereba",
+      "ok": true,
+      "detail": "shinakereba → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dekiru",
+      "ok": true,
+      "detail": "dekiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dekimasu",
+      "ok": true,
+      "detail": "dekimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dekinai",
+      "ok": true,
+      "detail": "dekinai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dekita",
+      "ok": true,
+      "detail": "dekita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ikimasu",
+      "ok": true,
+      "detail": "ikimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itta",
+      "ok": true,
+      "detail": "itta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itte",
+      "ok": true,
+      "detail": "itte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ikanai",
+      "ok": true,
+      "detail": "ikanai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ikou",
+      "ok": true,
+      "detail": "ikou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ikimashou",
+      "ok": true,
+      "detail": "ikimashou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kuru",
+      "ok": true,
+      "detail": "kuru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kimasu",
+      "ok": true,
+      "detail": "kimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kita",
+      "ok": true,
+      "detail": "kita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kite",
+      "ok": true,
+      "detail": "kite → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] konai",
+      "ok": true,
+      "detail": "konai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kimashita",
+      "ok": true,
+      "detail": "kimashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] miru",
+      "ok": true,
+      "detail": "miru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mimasu",
+      "ok": true,
+      "detail": "mimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mita",
+      "ok": true,
+      "detail": "mita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mite",
+      "ok": true,
+      "detail": "mite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] minai",
+      "ok": true,
+      "detail": "minai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mimashita",
+      "ok": true,
+      "detail": "mimashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] taberu",
+      "ok": true,
+      "detail": "taberu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tabemasu",
+      "ok": true,
+      "detail": "tabemasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tabeta",
+      "ok": true,
+      "detail": "tabeta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tabete",
+      "ok": true,
+      "detail": "tabete → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tabetai",
+      "ok": true,
+      "detail": "tabetai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tabemashou",
+      "ok": true,
+      "detail": "tabemashou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nomu",
+      "ok": true,
+      "detail": "nomu → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] nomimasu",
+      "ok": true,
+      "detail": "nomimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nonda",
+      "ok": true,
+      "detail": "nonda → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nonde",
+      "ok": true,
+      "detail": "nonde → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nomitai",
+      "ok": true,
+      "detail": "nomitai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yomu",
+      "ok": true,
+      "detail": "yomu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yomimasu",
+      "ok": true,
+      "detail": "yomimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yonda",
+      "ok": true,
+      "detail": "yonda → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yonde",
+      "ok": true,
+      "detail": "yonde → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaku",
+      "ok": true,
+      "detail": "kaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kakimasu",
+      "ok": true,
+      "detail": "kakimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaita",
+      "ok": true,
+      "detail": "kaita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaite",
+      "ok": true,
+      "detail": "kaite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hanasu",
+      "ok": true,
+      "detail": "hanasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hanashimasu",
+      "ok": true,
+      "detail": "hanashimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hanashita",
+      "ok": true,
+      "detail": "hanashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hanashite",
+      "ok": true,
+      "detail": "hanashite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kiku",
+      "ok": true,
+      "detail": "kiku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kikimasu",
+      "ok": true,
+      "detail": "kikimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kiita",
+      "ok": true,
+      "detail": "kiita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kiite",
+      "ok": true,
+      "detail": "kiite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omou",
+      "ok": true,
+      "detail": "omou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omoimasu",
+      "ok": true,
+      "detail": "omoimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omotta",
+      "ok": true,
+      "detail": "omotta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omotte",
+      "ok": true,
+      "detail": "omotte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] wakaru",
+      "ok": true,
+      "detail": "wakaru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] wakarimasu",
+      "ok": true,
+      "detail": "wakarimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] wakatta",
+      "ok": true,
+      "detail": "wakatta → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] wakaranai",
+      "ok": true,
+      "detail": "wakaranai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] wakarimashita",
+      "ok": true,
+      "detail": "wakarimashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiru",
+      "ok": true,
+      "detail": "shiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shitte",
+      "ok": true,
+      "detail": "shitte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiranai",
+      "ok": true,
+      "detail": "shiranai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shitteru",
+      "ok": true,
+      "detail": "shitteru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] arimasu",
+      "ok": true,
+      "detail": "arimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] atta",
+      "ok": true,
+      "detail": "atta → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] atte",
+      "ok": true,
+      "detail": "atte → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] nakatta",
+      "ok": true,
+      "detail": "nakatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] arimasen",
+      "ok": true,
+      "detail": "arimasen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] imasu",
+      "ok": true,
+      "detail": "imasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] inai",
+      "ok": true,
+      "detail": "inai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] imashita",
+      "ok": true,
+      "detail": "imashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oshieru",
+      "ok": true,
+      "detail": "oshieru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oshiete",
+      "ok": true,
+      "detail": "oshiete → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukau",
+      "ok": true,
+      "detail": "tsukau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukaimasu",
+      "ok": true,
+      "detail": "tsukaimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukatta",
+      "ok": true,
+      "detail": "tsukatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukatte",
+      "ok": true,
+      "detail": "tsukatte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukuru",
+      "ok": true,
+      "detail": "tsukuru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukurimasu",
+      "ok": true,
+      "detail": "tsukurimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukutta",
+      "ok": true,
+      "detail": "tsukutta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukutte",
+      "ok": true,
+      "detail": "tsukutte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaeru",
+      "ok": true,
+      "detail": "kaeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaerimasu",
+      "ok": true,
+      "detail": "kaerimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaetta",
+      "ok": true,
+      "detail": "kaetta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaette",
+      "ok": true,
+      "detail": "kaette → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaimasu",
+      "ok": true,
+      "detail": "kaimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] katta",
+      "ok": true,
+      "detail": "katta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] katte",
+      "ok": true,
+      "detail": "katte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] matsu",
+      "ok": true,
+      "detail": "matsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] machimasu",
+      "ok": true,
+      "detail": "machimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] matte",
+      "ok": true,
+      "detail": "matte → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] yaru",
+      "ok": true,
+      "detail": "yaru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yarimasu",
+      "ok": true,
+      "detail": "yarimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yatte",
+      "ok": true,
+      "detail": "yatte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yatta",
+      "ok": true,
+      "detail": "yatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tanomu",
+      "ok": true,
+      "detail": "tanomu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tanomimasu",
+      "ok": true,
+      "detail": "tanomimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kangaeru",
+      "ok": true,
+      "detail": "kangaeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kangaete",
+      "ok": true,
+      "detail": "kangaete → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hajimeru",
+      "ok": true,
+      "detail": "hajimeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hajimemasu",
+      "ok": true,
+      "detail": "hajimemasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hajimeta",
+      "ok": true,
+      "detail": "hajimeta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] owaru",
+      "ok": true,
+      "detail": "owaru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] owarimasu",
+      "ok": true,
+      "detail": "owarimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] owatta",
+      "ok": true,
+      "detail": "owatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsuzuku",
+      "ok": true,
+      "detail": "tsuzuku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsuzukeru",
+      "ok": true,
+      "detail": "tsuzukeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okuru",
+      "ok": true,
+      "detail": "okuru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okurimasu",
+      "ok": true,
+      "detail": "okurimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okutte",
+      "ok": true,
+      "detail": "okutte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ukeru",
+      "ok": true,
+      "detail": "ukeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] uketoru",
+      "ok": true,
+      "detail": "uketoru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mitsukeru",
+      "ok": true,
+      "detail": "mitsukeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mitsukaru",
+      "ok": true,
+      "detail": "mitsukaru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiraberu",
+      "ok": true,
+      "detail": "shiraberu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shirabete",
+      "ok": true,
+      "detail": "shirabete → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] naosu",
+      "ok": true,
+      "detail": "naosu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] naoshimasu",
+      "ok": true,
+      "detail": "naoshimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] naoshita",
+      "ok": true,
+      "detail": "naoshita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kakunin",
+      "ok": true,
+      "detail": "kakunin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kakuninshimasu",
+      "ok": true,
+      "detail": "kakuninshimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shuusei",
+      "ok": true,
+      "detail": "shuusei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] henkou",
+      "ok": true,
+      "detail": "henkou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sakujo",
+      "ok": true,
+      "detail": "sakujo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsuika",
+      "ok": true,
+      "detail": "tsuika → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] setsumei",
+      "ok": true,
+      "detail": "setsumei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kentou",
+      "ok": true,
+      "detail": "kentou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] taiou",
+      "ok": true,
+      "detail": "taiou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] renraku",
+      "ok": true,
+      "detail": "renraku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] soudan",
+      "ok": true,
+      "detail": "soudan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hanashiai",
+      "ok": true,
+      "detail": "hanashiai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoyaku",
+      "ok": true,
+      "detail": "yoyaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] junbi",
+      "ok": true,
+      "detail": "junbi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sanka",
+      "ok": true,
+      "detail": "sanka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyouryoku",
+      "ok": true,
+      "detail": "kyouryoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] houkoku",
+      "ok": true,
+      "detail": "houkoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] teishutsu",
+      "ok": true,
+      "detail": "teishutsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] warui",
+      "ok": true,
+      "detail": "warui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ookii",
+      "ok": true,
+      "detail": "ookii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chiisai",
+      "ok": true,
+      "detail": "chiisai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] atarashii",
+      "ok": true,
+      "detail": "atarashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] furui",
+      "ok": true,
+      "detail": "furui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] takai",
+      "ok": true,
+      "detail": "takai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yasui",
+      "ok": true,
+      "detail": "yasui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hayai",
+      "ok": true,
+      "detail": "hayai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] osoi",
+      "ok": true,
+      "detail": "osoi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omoshiroi",
+      "ok": true,
+      "detail": "omoshiroi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tanoshii",
+      "ok": true,
+      "detail": "tanoshii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ureshii",
+      "ok": true,
+      "detail": "ureshii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kanashii",
+      "ok": true,
+      "detail": "kanashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sabishii",
+      "ok": true,
+      "detail": "sabishii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] muzukashii",
+      "ok": true,
+      "detail": "muzukashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yasashii",
+      "ok": true,
+      "detail": "yasashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kawaii",
+      "ok": true,
+      "detail": "kawaii → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] kirei",
+      "ok": true,
+      "detail": "kirei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sugoi",
+      "ok": true,
+      "detail": "sugoi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sugoku",
+      "ok": true,
+      "detail": "sugoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] samui",
+      "ok": true,
+      "detail": "samui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] atsui",
+      "ok": true,
+      "detail": "atsui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsumetai",
+      "ok": true,
+      "detail": "tsumetai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] atatakai",
+      "ok": true,
+      "detail": "atatakai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] isogashii",
+      "ok": true,
+      "detail": "isogashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hima",
+      "ok": true,
+      "detail": "hima → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] genki",
+      "ok": true,
+      "detail": "genki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] daisuki",
+      "ok": true,
+      "detail": "daisuki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] suki",
+      "ok": true,
+      "detail": "suki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kirai",
+      "ok": true,
+      "detail": "kirai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jouzu",
+      "ok": true,
+      "detail": "jouzu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] heta",
+      "ok": true,
+      "detail": "heta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] benri",
+      "ok": true,
+      "detail": "benri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] fuben",
+      "ok": true,
+      "detail": "fuben → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] taihen",
+      "ok": true,
+      "detail": "taihen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] daiji",
+      "ok": true,
+      "detail": "daiji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] taisetsu",
+      "ok": true,
+      "detail": "taisetsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hontou",
+      "ok": true,
+      "detail": "hontou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hontoni",
+      "ok": true,
+      "detail": "hontoni → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] honto",
+      "ok": true,
+      "detail": "honto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mochiron",
+      "ok": true,
+      "detail": "mochiron → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tabun",
+      "ok": true,
+      "detail": "tabun → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kitto",
+      "ok": true,
+      "detail": "kitto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] zenzen",
+      "ok": true,
+      "detail": "zenzen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] totemo",
+      "ok": true,
+      "detail": "totemo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chotto",
+      "ok": true,
+      "detail": "chotto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sukoshi",
+      "ok": true,
+      "detail": "sukoshi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] takusan",
+      "ok": true,
+      "detail": "takusan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ippai",
+      "ok": true,
+      "detail": "ippai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] zenbu",
+      "ok": true,
+      "detail": "zenbu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yappari",
+      "ok": true,
+      "detail": "yappari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yahari",
+      "ok": true,
+      "detail": "yahari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tashikani",
+      "ok": true,
+      "detail": "tashikani → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mattaku",
+      "ok": true,
+      "detail": "mattaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nakanaka",
+      "ok": true,
+      "detail": "nakanaka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dandan",
+      "ok": true,
+      "detail": "dandan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sorosoro",
+      "ok": true,
+      "detail": "sorosoro → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mettani",
+      "ok": true,
+      "detail": "mettani → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tokidoki",
+      "ok": true,
+      "detail": "tokidoki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itsumo",
+      "ok": true,
+      "detail": "itsumo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoku",
+      "ok": true,
+      "detail": "yoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] amari",
+      "ok": true,
+      "detail": "amari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hotondo",
+      "ok": true,
+      "detail": "hotondo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] daitai",
+      "ok": true,
+      "detail": "daitai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] zettai",
+      "ok": true,
+      "detail": "zettai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nihon",
+      "ok": true,
+      "detail": "nihon → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nihongo",
+      "ok": true,
+      "detail": "nihongo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nippon",
+      "ok": true,
+      "detail": "nippon → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] eigo",
+      "ok": true,
+      "detail": "eigo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kotoba",
+      "ok": true,
+      "detail": "kotoba → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shigoto",
+      "ok": true,
+      "detail": "shigoto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaisha",
+      "ok": true,
+      "detail": "kaisha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gakkou",
+      "ok": true,
+      "detail": "gakkou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] daigaku",
+      "ok": true,
+      "detail": "daigaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gakusei",
+      "ok": true,
+      "detail": "gakusei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tomodachi",
+      "ok": true,
+      "detail": "tomodachi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kazoku",
+      "ok": true,
+      "detail": "kazoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okaasan",
+      "ok": true,
+      "detail": "okaasan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] otousan",
+      "ok": true,
+      "detail": "otousan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oniisan",
+      "ok": true,
+      "detail": "oniisan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oneesan",
+      "ok": true,
+      "detail": "oneesan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kodomo",
+      "ok": true,
+      "detail": "kodomo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hito",
+      "ok": true,
+      "detail": "hito → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] otoko",
+      "ok": true,
+      "detail": "otoko → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] onna",
+      "ok": true,
+      "detail": "onna → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] namae",
+      "ok": true,
+      "detail": "namae → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] denwa",
+      "ok": true,
+      "detail": "denwa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] meeru",
+      "ok": true,
+      "detail": "meeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shashin",
+      "ok": true,
+      "detail": "shashin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] eiga",
+      "ok": true,
+      "detail": "eiga → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ongaku",
+      "ok": true,
+      "detail": "ongaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] terebi",
+      "ok": true,
+      "detail": "terebi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinbun",
+      "ok": true,
+      "detail": "shinbun → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kuruma",
+      "ok": true,
+      "detail": "kuruma → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] densha",
+      "ok": true,
+      "detail": "densha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] michi",
+      "ok": true,
+      "detail": "michi → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] uchi",
+      "ok": true,
+      "detail": "uchi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] heya",
+      "ok": true,
+      "detail": "heya → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mise",
+      "ok": true,
+      "detail": "mise → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] tabemono",
+      "ok": true,
+      "detail": "tabemono → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nomimono",
+      "ok": true,
+      "detail": "nomimono → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gohan",
+      "ok": true,
+      "detail": "gohan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] asagohan",
+      "ok": true,
+      "detail": "asagohan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hirugohan",
+      "ok": true,
+      "detail": "hirugohan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] bangohan",
+      "ok": true,
+      "detail": "bangohan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mizu",
+      "ok": true,
+      "detail": "mizu → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] ocha",
+      "ok": true,
+      "detail": "ocha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kouhii",
+      "ok": true,
+      "detail": "kouhii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okane",
+      "ok": true,
+      "detail": "okane → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaimono",
+      "ok": true,
+      "detail": "kaimono → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ryokou",
+      "ok": true,
+      "detail": "ryokou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tenki",
+      "ok": true,
+      "detail": "tenki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yuki",
+      "ok": true,
+      "detail": "yuki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaze",
+      "ok": true,
+      "detail": "kaze → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sora",
+      "ok": true,
+      "detail": "sora → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yama",
+      "ok": true,
+      "detail": "yama → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] kawa",
+      "ok": true,
+      "detail": "kawa → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] hana",
+      "ok": true,
+      "detail": "hana → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] neko",
+      "ok": true,
+      "detail": "neko → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sakana",
+      "ok": true,
+      "detail": "sakana → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] niku",
+      "ok": true,
+      "detail": "niku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yasai",
+      "ok": true,
+      "detail": "yasai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kudamono",
+      "ok": true,
+      "detail": "kudamono → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] byouki",
+      "ok": true,
+      "detail": "byouki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] byouin",
+      "ok": true,
+      "detail": "byouin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kusuri",
+      "ok": true,
+      "detail": "kusuri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] karada",
+      "ok": true,
+      "detail": "karada → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] atama",
+      "ok": true,
+      "detail": "atama → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kuchi",
+      "ok": true,
+      "detail": "kuchi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kokoro",
+      "ok": true,
+      "detail": "kokoro → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kimochi",
+      "ok": true,
+      "detail": "kimochi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] bunshou",
+      "ok": true,
+      "detail": "bunshou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shitsumon",
+      "ok": true,
+      "detail": "shitsumon → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kotae",
+      "ok": true,
+      "detail": "kotae → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mondai",
+      "ok": true,
+      "detail": "mondai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] riyuu",
+      "ok": true,
+      "detail": "riyuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] basho",
+      "ok": true,
+      "detail": "basho → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] houhou",
+      "ok": true,
+      "detail": "houhou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kekka",
+      "ok": true,
+      "detail": "kekka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] keikaku",
+      "ok": true,
+      "detail": "keikaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yotei",
+      "ok": true,
+      "detail": "yotei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaigi",
+      "ok": true,
+      "detail": "kaigi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiryou",
+      "ok": true,
+      "detail": "shiryou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kikaku",
+      "ok": true,
+      "detail": "kikaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hinshitsu",
+      "ok": true,
+      "detail": "hinshitsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tantou",
+      "ok": true,
+      "detail": "tantou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tantousha",
+      "ok": true,
+      "detail": "tantousha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyaku",
+      "ok": true,
+      "detail": "kyaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okyakusama",
+      "ok": true,
+      "detail": "okyakusama → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gyoumu",
+      "ok": true,
+      "detail": "gyoumu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shouhin",
+      "ok": true,
+      "detail": "shouhin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jouhou",
+      "ok": true,
+      "detail": "jouhou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] naiyou",
+      "ok": true,
+      "detail": "naiyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] settei",
+      "ok": true,
+      "detail": "settei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kankyou",
+      "ok": true,
+      "detail": "kankyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiyou",
+      "ok": true,
+      "detail": "shiyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sekkei",
+      "ok": true,
+      "detail": "sekkei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jissou",
+      "ok": true,
+      "detail": "jissou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaihatsu",
+      "ok": true,
+      "detail": "kaihatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shuuryou",
+      "ok": true,
+      "detail": "shuuryou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaishi",
+      "ok": true,
+      "detail": "kaishi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] seikou",
+      "ok": true,
+      "detail": "seikou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shippai",
+      "ok": true,
+      "detail": "shippai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] genin",
+      "ok": true,
+      "detail": "genin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaiketsu",
+      "ok": true,
+      "detail": "kaiketsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kinyuu",
+      "ok": true,
+      "detail": "kinyuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] toiawase",
+      "ok": true,
+      "detail": "toiawase → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dakara",
+      "ok": true,
+      "detail": "dakara → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] demo",
+      "ok": true,
+      "detail": "demo → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] shikashi",
+      "ok": true,
+      "detail": "shikashi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] soshite",
+      "ok": true,
+      "detail": "soshite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sorede",
+      "ok": true,
+      "detail": "sorede → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sorekara",
+      "ok": true,
+      "detail": "sorekara → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] keredo",
+      "ok": true,
+      "detail": "keredo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kedo",
+      "ok": true,
+      "detail": "kedo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] node",
+      "ok": true,
+      "detail": "node → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] nado",
+      "ok": true,
+      "detail": "nado → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dake",
+      "ok": true,
+      "detail": "dake → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shika",
+      "ok": true,
+      "detail": "shika → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] desu",
+      "ok": true,
+      "detail": "desu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] deshita",
+      "ok": true,
+      "detail": "deshita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dewa",
+      "ok": true,
+      "detail": "dewa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] janai",
+      "ok": true,
+      "detail": "janai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] masu",
+      "ok": true,
+      "detail": "masu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mashita",
+      "ok": true,
+      "detail": "mashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] masen",
+      "ok": true,
+      "detail": "masen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mashou",
+      "ok": true,
+      "detail": "mashou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] darou",
+      "ok": true,
+      "detail": "darou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] deshou",
+      "ok": true,
+      "detail": "deshou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kamoshirenai",
+      "ok": true,
+      "detail": "kamoshirenai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hazu",
+      "ok": true,
+      "detail": "hazu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] rashii",
+      "ok": true,
+      "detail": "rashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] soudesu",
+      "ok": true,
+      "detail": "soudesu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] soudesune",
+      "ok": true,
+      "detail": "soudesune → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] naruhodo",
+      "ok": true,
+      "detail": "naruhodo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sayou",
+      "ok": true,
+      "detail": "sayou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsumari",
+      "ok": true,
+      "detail": "tsumari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tatoeba",
+      "ok": true,
+      "detail": "tatoeba → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] toriaezu",
+      "ok": true,
+      "detail": "toriaezu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ichiou",
+      "ok": true,
+      "detail": "ichiou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yabai",
+      "ok": true,
+      "detail": "yabai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] maji",
+      "ok": true,
+      "detail": "maji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] majide",
+      "ok": true,
+      "detail": "majide → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sugee",
+      "ok": true,
+      "detail": "sugee → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] usso",
+      "ok": true,
+      "detail": "usso → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ussou",
+      "ok": true,
+      "detail": "ussou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yarimashou",
+      "ok": true,
+      "detail": "yarimashou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kudasai",
+      "ok": true,
+      "detail": "kudasai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kudasaimasen",
+      "ok": true,
+      "detail": "kudasaimasen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itadakemasuka",
+      "ok": true,
+      "detail": "itadakemasuka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ryoukai",
+      "ok": true,
+      "detail": "ryoukai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ryou",
+      "ok": true,
+      "detail": "ryou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shouchi",
+      "ok": true,
+      "detail": "shouchi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kashikomarimashita",
+      "ok": true,
+      "detail": "kashikomarimashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shoushou",
+      "ok": true,
+      "detail": "shoushou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omachikudasai",
+      "ok": true,
+      "detail": "omachikudasai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] onaka",
+      "ok": true,
+      "detail": "onaka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] suita",
+      "ok": true,
+      "detail": "suita → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] onakasuita",
+      "ok": true,
+      "detail": "onakasuita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] suku",
+      "ok": true,
+      "detail": "suku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nemui",
+      "ok": true,
+      "detail": "nemui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nemuku",
+      "ok": true,
+      "detail": "nemuku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nemutai",
+      "ok": true,
+      "detail": "nemutai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukareta",
+      "ok": true,
+      "detail": "tsukareta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukareru",
+      "ok": true,
+      "detail": "tsukareru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukare",
+      "ok": true,
+      "detail": "tsukare → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kibun",
+      "ok": true,
+      "detail": "kibun → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] guai",
+      "ok": true,
+      "detail": "guai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] itai",
+      "ok": true,
+      "detail": "itai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kowai",
+      "ok": true,
+      "detail": "kowai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] abunai",
+      "ok": true,
+      "detail": "abunai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] urusai",
+      "ok": true,
+      "detail": "urusai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mendou",
+      "ok": true,
+      "detail": "mendou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mendokusai",
+      "ok": true,
+      "detail": "mendokusai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hazukashii",
+      "ok": true,
+      "detail": "hazukashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] natsukashii",
+      "ok": true,
+      "detail": "natsukashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kuyashii",
+      "ok": true,
+      "detail": "kuyashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinpai",
+      "ok": true,
+      "detail": "shinpai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] anshin",
+      "ok": true,
+      "detail": "anshin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tanoshimi",
+      "ok": true,
+      "detail": "tanoshimi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ochitsuku",
+      "ok": true,
+      "detail": "ochitsuku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yuugata",
+      "ok": true,
+      "detail": "yuugata → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yuugohan",
+      "ok": true,
+      "detail": "yuugohan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinya",
+      "ok": true,
+      "detail": "shinya → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ichiji",
+      "ok": true,
+      "detail": "ichiji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] niji",
+      "ok": true,
+      "detail": "niji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sanji",
+      "ok": true,
+      "detail": "sanji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoji",
+      "ok": true,
+      "detail": "yoji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] goji",
+      "ok": true,
+      "detail": "goji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] rokuji",
+      "ok": true,
+      "detail": "rokuji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shichiji",
+      "ok": true,
+      "detail": "shichiji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hachiji",
+      "ok": true,
+      "detail": "hachiji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kuji",
+      "ok": true,
+      "detail": "kuji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] juuji",
+      "ok": true,
+      "detail": "juuji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] getsuyoubi",
+      "ok": true,
+      "detail": "getsuyoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kayoubi",
+      "ok": true,
+      "detail": "kayoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] suiyoubi",
+      "ok": true,
+      "detail": "suiyoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mokuyoubi",
+      "ok": true,
+      "detail": "mokuyoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kinyoubi",
+      "ok": true,
+      "detail": "kinyoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] doyoubi",
+      "ok": true,
+      "detail": "doyoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nichiyoubi",
+      "ok": true,
+      "detail": "nichiyoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shuumatsu",
+      "ok": true,
+      "detail": "shuumatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] heijitsu",
+      "ok": true,
+      "detail": "heijitsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yasumi",
+      "ok": true,
+      "detail": "yasumi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] natsuyasumi",
+      "ok": true,
+      "detail": "natsuyasumi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] fuyuyasumi",
+      "ok": true,
+      "detail": "fuyuyasumi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] haru",
+      "ok": true,
+      "detail": "haru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] natsu",
+      "ok": true,
+      "detail": "natsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] fuyu",
+      "ok": true,
+      "detail": "fuyu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tanjoubi",
+      "ok": true,
+      "detail": "tanjoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] otanjoubi",
+      "ok": true,
+      "detail": "otanjoubi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kinenbi",
+      "ok": true,
+      "detail": "kinenbi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shougatsu",
+      "ok": true,
+      "detail": "shougatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oshougatsu",
+      "ok": true,
+      "detail": "oshougatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ichi",
+      "ok": true,
+      "detail": "ichi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hachi",
+      "ok": true,
+      "detail": "hachi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyuu",
+      "ok": true,
+      "detail": "kyuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hyaku",
+      "ok": true,
+      "detail": "hyaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hitotsu",
+      "ok": true,
+      "detail": "hitotsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] futatsu",
+      "ok": true,
+      "detail": "futatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mittsu",
+      "ok": true,
+      "detail": "mittsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yottsu",
+      "ok": true,
+      "detail": "yottsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] otouto",
+      "ok": true,
+      "detail": "otouto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] imouto",
+      "ok": true,
+      "detail": "imouto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] musuko",
+      "ok": true,
+      "detail": "musuko → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] musume",
+      "ok": true,
+      "detail": "musume → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsuma",
+      "ok": true,
+      "detail": "tsuma → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kareshi",
+      "ok": true,
+      "detail": "kareshi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kouhai",
+      "ok": true,
+      "detail": "kouhai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] joushi",
+      "ok": true,
+      "detail": "joushi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] buka",
+      "ok": true,
+      "detail": "buka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] douryou",
+      "ok": true,
+      "detail": "douryou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shachou",
+      "ok": true,
+      "detail": "shachou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] buchou",
+      "ok": true,
+      "detail": "buchou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kachou",
+      "ok": true,
+      "detail": "kachou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tenchou",
+      "ok": true,
+      "detail": "tenchou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] isha",
+      "ok": true,
+      "detail": "isha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kangoshi",
+      "ok": true,
+      "detail": "kangoshi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okusan",
+      "ok": true,
+      "detail": "okusan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] goshujin",
+      "ok": true,
+      "detail": "goshujin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] obaachan",
+      "ok": true,
+      "detail": "obaachan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ojiichan",
+      "ok": true,
+      "detail": "ojiichan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] obasan",
+      "ok": true,
+      "detail": "obasan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ojisan",
+      "ok": true,
+      "detail": "ojisan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] akachan",
+      "ok": true,
+      "detail": "akachan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] keitai",
+      "ok": true,
+      "detail": "keitai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sumaho",
+      "ok": true,
+      "detail": "sumaho → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] pasokon",
+      "ok": true,
+      "detail": "pasokon → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaban",
+      "ok": true,
+      "detail": "kaban → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] saifu",
+      "ok": true,
+      "detail": "saifu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kagi",
+      "ok": true,
+      "detail": "kagi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] megane",
+      "ok": true,
+      "detail": "megane → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kutsu",
+      "ok": true,
+      "detail": "kutsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] boushi",
+      "ok": true,
+      "detail": "boushi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kasa",
+      "ok": true,
+      "detail": "kasa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tokei",
+      "ok": true,
+      "detail": "tokei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukue",
+      "ok": true,
+      "detail": "tsukue → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tobira",
+      "ok": true,
+      "detail": "tobira → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kabe",
+      "ok": true,
+      "detail": "kabe → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yuka",
+      "ok": true,
+      "detail": "yuka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tenjou",
+      "ok": true,
+      "detail": "tenjou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] daidokoro",
+      "ok": true,
+      "detail": "daidokoro → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] genkan",
+      "ok": true,
+      "detail": "genkan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] niwa",
+      "ok": true,
+      "detail": "niwa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kouen",
+      "ok": true,
+      "detail": "kouen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ginkou",
+      "ok": true,
+      "detail": "ginkou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yuubinkyoku",
+      "ok": true,
+      "detail": "yuubinkyoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] toshokan",
+      "ok": true,
+      "detail": "toshokan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] eigakan",
+      "ok": true,
+      "detail": "eigakan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] konbini",
+      "ok": true,
+      "detail": "konbini → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] suupaa",
+      "ok": true,
+      "detail": "suupaa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] depaato",
+      "ok": true,
+      "detail": "depaato → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kuukou",
+      "ok": true,
+      "detail": "kuukou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hoteru",
+      "ok": true,
+      "detail": "hoteru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] toukyou",
+      "ok": true,
+      "detail": "toukyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oosaka",
+      "ok": true,
+      "detail": "oosaka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyouto",
+      "ok": true,
+      "detail": "kyouto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hokkaidou",
+      "ok": true,
+      "detail": "hokkaidou → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] okinawa",
+      "ok": true,
+      "detail": "okinawa → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyuushuu",
+      "ok": true,
+      "detail": "kyuushuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gyuudon",
+      "ok": true,
+      "detail": "gyuudon → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] karee",
+      "ok": true,
+      "detail": "karee → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okashi",
+      "ok": true,
+      "detail": "okashi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gyuunyuu",
+      "ok": true,
+      "detail": "gyuunyuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tamago",
+      "ok": true,
+      "detail": "tamago → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] mikan",
+      "ok": true,
+      "detail": "mikan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] biiru",
+      "ok": true,
+      "detail": "biiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] osake",
+      "ok": true,
+      "detail": "osake → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] koohii",
+      "ok": true,
+      "detail": "koohii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yakiniku",
+      "ok": true,
+      "detail": "yakiniku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oyatsu",
+      "ok": true,
+      "detail": "oyatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] obentou",
+      "ok": true,
+      "detail": "obentou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ohiru",
+      "ok": true,
+      "detail": "ohiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] neru",
+      "ok": true,
+      "detail": "neru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okiru",
+      "ok": true,
+      "detail": "okiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nemuru",
+      "ok": true,
+      "detail": "nemuru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hashiru",
+      "ok": true,
+      "detail": "hashiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] aruku",
+      "ok": true,
+      "detail": "aruku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oyogu",
+      "ok": true,
+      "detail": "oyogu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] asobu",
+      "ok": true,
+      "detail": "asobu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] utau",
+      "ok": true,
+      "detail": "utau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] odoru",
+      "ok": true,
+      "detail": "odoru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] warau",
+      "ok": true,
+      "detail": "warau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] okoru",
+      "ok": true,
+      "detail": "okoru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tetsudau",
+      "ok": true,
+      "detail": "tetsudau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tasukeru",
+      "ok": true,
+      "detail": "tasukeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] wasureru",
+      "ok": true,
+      "detail": "wasureru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oboeru",
+      "ok": true,
+      "detail": "oboeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinjiru",
+      "ok": true,
+      "detail": "shinjiru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] erabu",
+      "ok": true,
+      "detail": "erabu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kimeru",
+      "ok": true,
+      "detail": "kimeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsutaeru",
+      "ok": true,
+      "detail": "tsutaeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kotaeru",
+      "ok": true,
+      "detail": "kotaeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tazuneru",
+      "ok": true,
+      "detail": "tazuneru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] aimasu",
+      "ok": true,
+      "detail": "aimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] motsu",
+      "ok": true,
+      "detail": "motsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] motte",
+      "ok": true,
+      "detail": "motte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] toru",
+      "ok": true,
+      "detail": "toru → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] totte",
+      "ok": true,
+      "detail": "totte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ireru",
+      "ok": true,
+      "detail": "ireru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dasu",
+      "ok": true,
+      "detail": "dasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shimeru",
+      "ok": true,
+      "detail": "shimeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] akeru",
+      "ok": true,
+      "detail": "akeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsukeru",
+      "ok": true,
+      "detail": "tsukeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kesu",
+      "ok": true,
+      "detail": "kesu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hairu",
+      "ok": true,
+      "detail": "hairu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] deru",
+      "ok": true,
+      "detail": "deru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] noru",
+      "ok": true,
+      "detail": "noru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oriru",
+      "ok": true,
+      "detail": "oriru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] suwaru",
+      "ok": true,
+      "detail": "suwaru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tatsu",
+      "ok": true,
+      "detail": "tatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yasumu",
+      "ok": true,
+      "detail": "yasumu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hataraku",
+      "ok": true,
+      "detail": "hataraku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] benkyou",
+      "ok": true,
+      "detail": "benkyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] renshuu",
+      "ok": true,
+      "detail": "renshuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiken",
+      "ok": true,
+      "detail": "shiken → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shukudai",
+      "ok": true,
+      "detail": "shukudai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jugyou",
+      "ok": true,
+      "detail": "jugyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kougi",
+      "ok": true,
+      "detail": "kougi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kenkyuu",
+      "ok": true,
+      "detail": "kenkyuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ronbun",
+      "ok": true,
+      "detail": "ronbun → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] happyou",
+      "ok": true,
+      "detail": "happyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sentaku",
+      "ok": true,
+      "detail": "sentaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] souji",
+      "ok": true,
+      "detail": "souji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ryouri",
+      "ok": true,
+      "detail": "ryouri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ofuro",
+      "ok": true,
+      "detail": "ofuro → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ganbaru",
+      "ok": true,
+      "detail": "ganbaru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ganbatte",
+      "ok": true,
+      "detail": "ganbatte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ganbarimasu",
+      "ok": true,
+      "detail": "ganbarimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ganbarou",
+      "ok": true,
+      "detail": "ganbarou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mitsukenai",
+      "ok": true,
+      "detail": "mitsukenai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] wasureta",
+      "ok": true,
+      "detail": "wasureta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oboeteru",
+      "ok": true,
+      "detail": "oboeteru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiranakatta",
+      "ok": true,
+      "detail": "shiranakatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omoidashita",
+      "ok": true,
+      "detail": "omoidashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kizuita",
+      "ok": true,
+      "detail": "kizuita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] oishii",
+      "ok": true,
+      "detail": "oishii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mazui",
+      "ok": true,
+      "detail": "mazui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] amai",
+      "ok": true,
+      "detail": "amai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] karai",
+      "ok": true,
+      "detail": "karai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shoppai",
+      "ok": true,
+      "detail": "shoppai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nagai",
+      "ok": true,
+      "detail": "nagai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mijikai",
+      "ok": true,
+      "detail": "mijikai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hiroi",
+      "ok": true,
+      "detail": "hiroi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] semai",
+      "ok": true,
+      "detail": "semai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] omoi",
+      "ok": true,
+      "detail": "omoi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] karui",
+      "ok": true,
+      "detail": "karui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsuyoi",
+      "ok": true,
+      "detail": "tsuyoi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yowai",
+      "ok": true,
+      "detail": "yowai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] akarui",
+      "ok": true,
+      "detail": "akarui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kurai",
+      "ok": true,
+      "detail": "kurai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shizuka",
+      "ok": true,
+      "detail": "shizuka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nigiyaka",
+      "ok": true,
+      "detail": "nigiyaka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yuumei",
+      "ok": true,
+      "detail": "yuumei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tekitou",
+      "ok": true,
+      "detail": "tekitou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hitsuyou",
+      "ok": true,
+      "detail": "hitsuyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] fuan",
+      "ok": true,
+      "detail": "fuan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] muri",
+      "ok": true,
+      "detail": "muri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kantan",
+      "ok": true,
+      "detail": "kantan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] fukuzatsu",
+      "ok": true,
+      "detail": "fukuzatsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tadashii",
+      "ok": true,
+      "detail": "tadashii → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] machigai",
+      "ok": true,
+      "detail": "machigai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] onaji",
+      "ok": true,
+      "detail": "onaji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chigau",
+      "ok": true,
+      "detail": "chigau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] betsu",
+      "ok": true,
+      "detail": "betsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hoka",
+      "ok": true,
+      "detail": "hoka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] migi",
+      "ok": true,
+      "detail": "migi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hidari",
+      "ok": true,
+      "detail": "hidari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chikai",
+      "ok": true,
+      "detail": "chikai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tooi",
+      "ok": true,
+      "detail": "tooi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yukkuri",
+      "ok": true,
+      "detail": "yukkuri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sukkari",
+      "ok": true,
+      "detail": "sukkari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hakkiri",
+      "ok": true,
+      "detail": "hakkiri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chanto",
+      "ok": true,
+      "detail": "chanto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kichinto",
+      "ok": true,
+      "detail": "kichinto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shikkari",
+      "ok": true,
+      "detail": "shikkari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kyuuni",
+      "ok": true,
+      "detail": "kyuuni → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] totsuzen",
+      "ok": true,
+      "detail": "totsuzen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ikinari",
+      "ok": true,
+      "detail": "ikinari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yatto",
+      "ok": true,
+      "detail": "yatto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsuini",
+      "ok": true,
+      "detail": "tsuini → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kekkyoku",
+      "ok": true,
+      "detail": "kekkyoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kanarazu",
+      "ok": true,
+      "detail": "kanarazu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] zehi",
+      "ok": true,
+      "detail": "zehi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dekireba",
+      "ok": true,
+      "detail": "dekireba → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nantoka",
+      "ok": true,
+      "detail": "nantoka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nandemo",
+      "ok": true,
+      "detail": "nandemo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nanka",
+      "ok": true,
+      "detail": "nanka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] motto",
+      "ok": true,
+      "detail": "motto → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] zuibun",
+      "ok": true,
+      "detail": "zuibun → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kanari",
+      "ok": true,
+      "detail": "kanari → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hijouni",
+      "ok": true,
+      "detail": "hijouni → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hontouni",
+      "ok": true,
+      "detail": "hontouni → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shiawase",
+      "ok": true,
+      "detail": "shiawase → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yume",
+      "ok": true,
+      "detail": "yume → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kibou",
+      "ok": true,
+      "detail": "kibou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mirai",
+      "ok": true,
+      "detail": "mirai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kako",
+      "ok": true,
+      "detail": "kako → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] genzai",
+      "ok": true,
+      "detail": "genzai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] rekishi",
+      "ok": true,
+      "detail": "rekishi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] bunka",
+      "ok": true,
+      "detail": "bunka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shakai",
+      "ok": true,
+      "detail": "shakai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] keizai",
+      "ok": true,
+      "detail": "keizai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] seiji",
+      "ok": true,
+      "detail": "seiji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kankei",
+      "ok": true,
+      "detail": "kankei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shumi",
+      "ok": true,
+      "detail": "shumi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tokui",
+      "ok": true,
+      "detail": "tokui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nigate",
+      "ok": true,
+      "detail": "nigate → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] keiken",
+      "ok": true,
+      "detail": "keiken → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chishiki",
+      "ok": true,
+      "detail": "chishiki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gijutsu",
+      "ok": true,
+      "detail": "gijutsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yakusoku",
+      "ok": true,
+      "detail": "yakusoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tetsuzuki",
+      "ok": true,
+      "detail": "tetsuzuki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinsei",
+      "ok": true,
+      "detail": "shinsei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shounin",
+      "ok": true,
+      "detail": "shounin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kanryou",
+      "ok": true,
+      "detail": "kanryou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] irai",
+      "ok": true,
+      "detail": "irai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hikitsugi",
+      "ok": true,
+      "detail": "hikitsugi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shinchoku",
+      "ok": true,
+      "detail": "shinchoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kadai",
+      "ok": true,
+      "detail": "kadai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kousei",
+      "ok": true,
+      "detail": "kousei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] henshuu",
+      "ok": true,
+      "detail": "henshuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sakusei",
+      "ok": true,
+      "detail": "sakusei → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] koushin",
+      "ok": true,
+      "detail": "koushin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hozon",
+      "ok": true,
+      "detail": "hozon → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kidou",
+      "ok": true,
+      "detail": "kidou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] setsuzoku",
+      "ok": true,
+      "detail": "setsuzoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] douki",
+      "ok": true,
+      "detail": "douki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gamen",
+      "ok": true,
+      "detail": "gamen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kensaku",
+      "ok": true,
+      "detail": "kensaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hyouji",
+      "ok": true,
+      "detail": "hyouji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nyuuryoku",
+      "ok": true,
+      "detail": "nyuuryoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shutsuryoku",
+      "ok": true,
+      "detail": "shutsuryoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] henkan",
+      "ok": true,
+      "detail": "henkan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] moji",
+      "ok": true,
+      "detail": "moji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] bangou",
+      "ok": true,
+      "detail": "bangou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] juusho",
+      "ok": true,
+      "detail": "juusho → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kakaku",
+      "ok": true,
+      "detail": "kakaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mitsumori",
+      "ok": true,
+      "detail": "mitsumori → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] seikyuusho",
+      "ok": true,
+      "detail": "seikyuusho → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] keiyaku",
+      "ok": true,
+      "detail": "keiyaku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nouki",
+      "ok": true,
+      "detail": "nouki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shimekiri",
+      "ok": true,
+      "detail": "shimekiri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] douitashimashite",
+      "ok": true,
+      "detail": "douitashimashite → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yokatta",
+      "ok": true,
+      "detail": "yokatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] zannen",
+      "ok": true,
+      "detail": "zannen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] osoreirimasu",
+      "ok": true,
+      "detail": "osoreirimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] moushiwake",
+      "ok": true,
+      "detail": "moushiwake → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] moushiwakearimasen",
+      "ok": true,
+      "detail": "moushiwakearimasen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] onegaiitashimasu",
+      "ok": true,
+      "detail": "onegaiitashimasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shouchishimashita",
+      "ok": true,
+      "detail": "shouchishimashita → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gomenne",
+      "ok": true,
+      "detail": "gomenne → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] ohisashiburi",
+      "ok": true,
+      "detail": "ohisashiburi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hisashiburi",
+      "ok": true,
+      "detail": "hisashiburi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] matane",
+      "ok": true,
+      "detail": "matane → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jaane",
+      "ok": true,
+      "detail": "jaane → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sorenara",
+      "ok": true,
+      "detail": "sorenara → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tokorode",
+      "ok": true,
+      "detail": "tokorode → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] datte",
+      "ok": true,
+      "detail": "datte → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sasuga",
+      "ok": true,
+      "detail": "sasuga → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] etto",
+      "ok": true,
+      "detail": "etto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] eeto",
+      "ok": true,
+      "detail": "eeto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] anone",
+      "ok": true,
+      "detail": "anone → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] desuka",
+      "ok": true,
+      "detail": "desuka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] masuka",
+      "ok": true,
+      "detail": "masuka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] deshouka",
+      "ok": true,
+      "detail": "deshouka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kamo",
+      "ok": true,
+      "detail": "kamo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yone",
+      "ok": true,
+      "detail": "yone → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dayo",
+      "ok": true,
+      "detail": "dayo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] desho",
+      "ok": true,
+      "detail": "desho → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chatta",
+      "ok": true,
+      "detail": "chatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shimatta",
+      "ok": true,
+      "detail": "shimatta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yoroshikune",
+      "ok": true,
+      "detail": "yoroshikune → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] atashi",
+      "ok": true,
+      "detail": "atashi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] watashitachi",
+      "ok": true,
+      "detail": "watashitachi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] dono",
+      "ok": true,
+      "detail": "dono → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] saikin",
+      "ok": true,
+      "detail": "saikin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mukashi",
+      "ok": true,
+      "detail": "mukashi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] maitsuki",
+      "ok": true,
+      "detail": "maitsuki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mainen",
+      "ok": true,
+      "detail": "mainen → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yonaka",
+      "ok": true,
+      "detail": "yonaka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] byou",
+      "ok": true,
+      "detail": "byou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nichi",
+      "ok": true,
+      "detail": "nichi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shuu",
+      "ok": true,
+      "detail": "shuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsuki",
+      "ok": true,
+      "detail": "tsuki → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] toshi",
+      "ok": true,
+      "detail": "toshi → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] otona",
+      "ok": true,
+      "detail": "otona → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] chichi",
+      "ok": true,
+      "detail": "chichi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] haha",
+      "ok": true,
+      "detail": "haha → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] sensei",
+      "ok": true,
+      "detail": "sensei → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] senpai",
+      "ok": true,
+      "detail": "senpai → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] okyakusan",
+      "ok": true,
+      "detail": "okyakusan → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tannin",
+      "ok": true,
+      "detail": "tannin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] naru",
+      "ok": true,
+      "detail": "naru → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] ageru",
+      "ok": true,
+      "detail": "ageru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] morau",
+      "ok": true,
+      "detail": "morau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kureru",
+      "ok": true,
+      "detail": "kureru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] narau",
+      "ok": true,
+      "detail": "narau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] manabu",
+      "ok": true,
+      "detail": "manabu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] yameru",
+      "ok": true,
+      "detail": "yameru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sagasu",
+      "ok": true,
+      "detail": "sagasu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mieru",
+      "ok": true,
+      "detail": "mieru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kikoeru",
+      "ok": true,
+      "detail": "kikoeru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] todoku",
+      "ok": true,
+      "detail": "todoku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] harau",
+      "ok": true,
+      "detail": "harau → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kariru",
+      "ok": true,
+      "detail": "kariru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaesu",
+      "ok": true,
+      "detail": "kaesu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hikui",
+      "ok": true,
+      "detail": "hikui → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tsumaranai",
+      "ok": true,
+      "detail": "tsumaranai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tamani",
+      "ok": true,
+      "detail": "tamani → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sankou",
+      "ok": true,
+      "detail": "sankou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] mikanryou",
+      "ok": true,
+      "detail": "mikanryou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] gennin",
+      "ok": true,
+      "detail": "gennin → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] eikyou",
+      "ok": true,
+      "detail": "eikyou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] seika",
+      "ok": true,
+      "detail": "seika → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hyouka",
+      "ok": true,
+      "detail": "hyouka → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tesuto",
+      "ok": true,
+      "detail": "tesuto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] honban",
+      "ok": true,
+      "detail": "honban → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] teishi",
+      "ok": true,
+      "detail": "teishi → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] saikidou",
+      "ok": true,
+      "detail": "saikidou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] fuguai",
+      "ok": true,
+      "detail": "fuguai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shougai",
+      "ok": true,
+      "detail": "shougai → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kaizen",
+      "ok": true,
+      "detail": "kaizen → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] kouritsu",
+      "ok": true,
+      "detail": "kouritsu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jidou",
+      "ok": true,
+      "detail": "jidou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] shudou",
+      "ok": true,
+      "detail": "shudou → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sousa",
+      "ok": true,
+      "detail": "sousa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] basu",
+      "ok": true,
+      "detail": "basu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] jitensha",
+      "ok": true,
+      "detail": "jitensha → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] kumori",
+      "ok": true,
+      "detail": "kumori → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] hare",
+      "ok": true,
+      "detail": "hare → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] kion",
+      "ok": true,
+      "detail": "kion → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] tasuku",
+      "ok": true,
+      "detail": "tasuku → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sukejuuru",
+      "ok": true,
+      "detail": "sukejuuru → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] purojekuto",
+      "ok": true,
+      "detail": "purojekuto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] miitingu",
+      "ok": true,
+      "detail": "miitingu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] fairu",
+      "ok": true,
+      "detail": "fairu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] foruda",
+      "ok": true,
+      "detail": "foruda → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] pasuwaado",
+      "ok": true,
+      "detail": "pasuwaado → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] akaunto",
+      "ok": true,
+      "detail": "akaunto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] rogu",
+      "ok": true,
+      "detail": "rogu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] botan",
+      "ok": true,
+      "detail": "botan → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 日本語] messeeji",
+      "ok": true,
+      "detail": "messeeji → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] menyuu",
+      "ok": true,
+      "detail": "menyuu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] risuto",
+      "ok": true,
+      "detail": "risuto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] deeta",
+      "ok": true,
+      "detail": "deeta → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] saabaa",
+      "ok": true,
+      "detail": "saabaa → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] apuri",
+      "ok": true,
+      "detail": "apuri → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] sofuto",
+      "ok": true,
+      "detail": "sofuto → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] baagu",
+      "ok": true,
+      "detail": "baagu → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] koodo",
+      "ok": true,
+      "detail": "koodo → Japanese (日本語スコアが閾値を超えた)"
+    },
+    {
+      "key": "[自動切替: 日本語] nikon",
+      "ok": true,
+      "detail": "nikon → Unknown (判断できない)"
+    },
+    {
+      "key": "[自動切替: 英語] the",
+      "ok": true,
+      "detail": "the → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] this",
+      "ok": true,
+      "detail": "this → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] that",
+      "ok": true,
+      "detail": "that → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] with",
+      "ok": true,
+      "detail": "with → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] from",
+      "ok": true,
+      "detail": "from → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] have",
+      "ok": true,
+      "detail": "have → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] what",
+      "ok": true,
+      "detail": "what → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] when",
+      "ok": true,
+      "detail": "when → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] where",
+      "ok": true,
+      "detail": "where → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] which",
+      "ok": true,
+      "detail": "which → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] there",
+      "ok": true,
+      "detail": "there → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] their",
+      "ok": true,
+      "detail": "their → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] would",
+      "ok": true,
+      "detail": "would → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] could",
+      "ok": true,
+      "detail": "could → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] should",
+      "ok": true,
+      "detail": "should → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] about",
+      "ok": true,
+      "detail": "about → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] after",
+      "ok": true,
+      "detail": "after → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] before",
+      "ok": true,
+      "detail": "before → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] because",
+      "ok": true,
+      "detail": "because → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] people",
+      "ok": true,
+      "detail": "people → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] think",
+      "ok": true,
+      "detail": "think → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] know",
+      "ok": true,
+      "detail": "know → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] want",
+      "ok": true,
+      "detail": "want → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] need",
+      "ok": true,
+      "detail": "need → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] like",
+      "ok": true,
+      "detail": "like → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] just",
+      "ok": true,
+      "detail": "just → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] only",
+      "ok": true,
+      "detail": "only → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] also",
+      "ok": true,
+      "detail": "also → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] very",
+      "ok": true,
+      "detail": "very → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] really",
+      "ok": true,
+      "detail": "really → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] hello",
+      "ok": true,
+      "detail": "hello → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] thanks",
+      "ok": true,
+      "detail": "thanks → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] please",
+      "ok": true,
+      "detail": "please → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] sorry",
+      "ok": true,
+      "detail": "sorry → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] okay",
+      "ok": true,
+      "detail": "okay → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] great",
+      "ok": true,
+      "detail": "great → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] good",
+      "ok": true,
+      "detail": "good → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] nice",
+      "ok": true,
+      "detail": "nice → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] cool",
+      "ok": true,
+      "detail": "cool → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] awesome",
+      "ok": true,
+      "detail": "awesome → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] right",
+      "ok": true,
+      "detail": "right → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] left",
+      "ok": true,
+      "detail": "left → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] yes",
+      "ok": true,
+      "detail": "yes → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] google",
+      "ok": true,
+      "detail": "google → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] github",
+      "ok": true,
+      "detail": "github → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] python",
+      "ok": true,
+      "detail": "python → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] javascript",
+      "ok": true,
+      "detail": "javascript → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] windows",
+      "ok": true,
+      "detail": "windows → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] microsoft",
+      "ok": true,
+      "detail": "microsoft → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] apple",
+      "ok": true,
+      "detail": "apple → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] amazon",
+      "ok": true,
+      "detail": "amazon → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] youtube",
+      "ok": true,
+      "detail": "youtube → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] twitter",
+      "ok": true,
+      "detail": "twitter → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] discord",
+      "ok": true,
+      "detail": "discord → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] slack",
+      "ok": true,
+      "detail": "slack → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] function",
+      "ok": true,
+      "detail": "function → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] return",
+      "ok": true,
+      "detail": "return → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] class",
+      "ok": true,
+      "detail": "class → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] const",
+      "ok": true,
+      "detail": "const → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] static",
+      "ok": true,
+      "detail": "static → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] public",
+      "ok": true,
+      "detail": "public → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] private",
+      "ok": true,
+      "detail": "private → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] import",
+      "ok": true,
+      "detail": "import → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] export",
+      "ok": true,
+      "detail": "export → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] default",
+      "ok": true,
+      "detail": "default → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] async",
+      "ok": true,
+      "detail": "async → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] await",
+      "ok": true,
+      "detail": "await → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] string",
+      "ok": true,
+      "detail": "string → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] number",
+      "ok": true,
+      "detail": "number → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] boolean",
+      "ok": true,
+      "detail": "boolean → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] array",
+      "ok": true,
+      "detail": "array → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] object",
+      "ok": true,
+      "detail": "object → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] value",
+      "ok": true,
+      "detail": "value → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] index",
+      "ok": true,
+      "detail": "index → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] count",
+      "ok": true,
+      "detail": "count → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] length",
+      "ok": true,
+      "detail": "length → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] result",
+      "ok": true,
+      "detail": "result → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] error",
+      "ok": true,
+      "detail": "error → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] debug",
+      "ok": true,
+      "detail": "debug → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] test",
+      "ok": true,
+      "detail": "test → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] meeting",
+      "ok": true,
+      "detail": "meeting → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] schedule",
+      "ok": true,
+      "detail": "schedule → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] project",
+      "ok": true,
+      "detail": "project → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] update",
+      "ok": true,
+      "detail": "update → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] message",
+      "ok": true,
+      "detail": "message → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] email",
+      "ok": true,
+      "detail": "email → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] password",
+      "ok": true,
+      "detail": "password → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] account",
+      "ok": true,
+      "detail": "account → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] settings",
+      "ok": true,
+      "detail": "settings → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] download",
+      "ok": true,
+      "detail": "download → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] install",
+      "ok": true,
+      "detail": "install → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] morning",
+      "ok": true,
+      "detail": "morning → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] tonight",
+      "ok": true,
+      "detail": "tonight → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] tomorrow",
+      "ok": true,
+      "detail": "tomorrow → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] yesterday",
+      "ok": true,
+      "detail": "yesterday → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] weekend",
+      "ok": true,
+      "detail": "weekend → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] holiday",
+      "ok": true,
+      "detail": "holiday → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] birthday",
+      "ok": true,
+      "detail": "birthday → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] friend",
+      "ok": true,
+      "detail": "friend → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] family",
+      "ok": true,
+      "detail": "family → English (英語の語と一致)"
+    },
+    {
+      "key": "[自動切替: 英語] school",
+      "ok": true,
+      "detail": "school → English (日本語の入力として成立しない)"
+    },
+    {
+      "key": "[自動切替: 英語] office",
+      "ok": true,
+      "detail": "office → English (英語の語と一致)"
+    },
+    {
+      "key": "[絵文字] えがお",
+      "ok": true,
+      "detail": "えがお → \uD83D\uDE0A \uD83D\uDE04 ☺️ (^^) (*^^*) (´▽｀) (期待: \uD83D\uDE0A を含む)"
+    },
+    {
+      "key": "[絵文字] かおもじ",
+      "ok": true,
+      "detail": "かおもじ → (^^) (^_^) (*^^*) (´・ω・｀) (｀・ω・´) (*´▽｀*) (期待: (^^) を含む)"
+    },
+    {
+      "key": "[絵文字] ねこ",
+      "ok": true,
+      "detail": "ねこ → \uD83D\uDC31 \uD83D\uDC08 (=^・^=) \uD83D\uDE3A \uD83D\uDE38 \uD83D\uDE39 (期待: \uD83D\uDC31 を含む)"
+    },
+    {
+      "key": "[絵文字] わらい",
+      "ok": true,
+      "detail": "わらい → \uD83D\uDE02 \uD83E\uDD23 \uD83D\uDE06 (笑) ｗ (≧▽≦) (期待: (笑) を含む)"
+    },
+    {
+      "key": "[絵文字] ありがとう",
+      "ok": true,
+      "detail": "ありがとう → \uD83D\uDE4F (*_ _) \uD83E\uDEC2 (期待: \uD83D\uDE4F を含む)"
+    },
+    {
+      "key": "[絵文字] ばんざい",
+      "ok": true,
+      "detail": "ばんざい → \\(^o^)/ \uD83D\uDE4C (期待: \\(^o^)/ を含む)"
+    },
+    {
+      "key": "[絵文字] かんがえるかお",
+      "ok": true,
+      "detail": "かんがえるかお → \uD83E\uDD14 (期待: \uD83E\uDD14 を含む)"
+    },
+    {
+      "key": "[絵文字] かんがえる",
+      "ok": true,
+      "detail": "かんがえる → \uD83E\uDD14 \uD83E\uDDD0 (期待: \uD83E\uDD14 を含む)"
+    },
+    {
+      "key": "[絵文字] にほん",
+      "ok": true,
+      "detail": "にほん → \uD83D\uDDFE \uD83C\uDFEF \uD83C\uDF8B \uD83C\uDF8D \uD83C\uDF8E \uD83C\uDF8C (期待: \uD83C\uDDEF\uD83C\uDDF5 を含む)"
+    },
+    {
+      "key": "[絵文字] てへぺろ",
+      "ok": true,
+      "detail": "てへぺろ → (・ω<) \uD83D\uDE1C (ﾉ≧ڡ≦) (期待: (・ω<) を含む)"
+    },
+    {
+      "key": "[絵文字] ぴえん",
+      "ok": true,
+      "detail": "ぴえん → \uD83E\uDD7A (´；ω；｀) (期待: \uD83E\uDD7A を含む)"
+    },
+    {
+      "key": "[絵文字] すし",
+      "ok": true,
+      "detail": "すし → \uD83C\uDF63 (期待: \uD83C\uDF63 を含む)"
+    },
+    {
+      "key": "[絵文字] はくしゅ",
+      "ok": true,
+      "detail": "はくしゅ → \uD83D\uDC4F (期待: \uD83D\uDC4F を含む)"
+    },
+    {
+      "key": "[絵文字] ろけっと",
+      "ok": true,
+      "detail": "ろけっと → \uD83D\uDE80 \uD83E\uDDD1‍\uD83D\uDE80 (期待: \uD83D\uDE80 を含む)"
+    },
+    {
+      "key": "[絵文字] おすし",
+      "ok": true,
+      "detail": "おすし → \uD83C\uDF63 (期待: \uD83C\uDF63 を含む)"
+    },
+    {
+      "key": "[絵文字] ほのお",
+      "ok": true,
+      "detail": "ほのお → \uD83D\uDD25 ❤‍\uD83D\uDD25 (期待: \uD83D\uDD25 を含む)"
+    },
+    {
+      "key": "[もしかして] ぶれすれっど",
+      "ok": true,
+      "detail": "ぶれすれっど → ブレスレット (期待: ブレスレット)"
+    },
+    {
+      "key": "[もしかして] しゅみれーしょん",
+      "ok": true,
+      "detail": "しゅみれーしょん → シミュレーション (期待: シミュレーション)"
+    },
+    {
+      "key": "[もしかして] ばとみんとん",
+      "ok": true,
+      "detail": "ばとみんとん → バドミントン (期待: バドミントン)"
+    },
+    {
+      "key": "[もしかして] ふぃぎあすけーと",
+      "ok": true,
+      "detail": "ふぃぎあすけーと → フィギュア (期待: フィギュア)"
+    },
+    {
+      "key": "[もしかして] ぶれーすれっと",
+      "ok": true,
+      "detail": "ぶれーすれっと → ブレスレット (期待: ブレスレット)"
+    },
+    {
+      "key": "[もしかして] こみにゅけーしょん",
+      "ok": true,
+      "detail": "こみにゅけーしょん → コミュニケーション (期待: コミュニケーション)"
+    },
+    {
+      "key": "[もしかして] でばっく",
+      "ok": true,
+      "detail": "でばっく → デバッグ (期待: デバッグ)"
+    },
+    {
+      "key": "[もしかして] でぃすくとっぷ",
+      "ok": true,
+      "detail": "でぃすくとっぷ → デスクトップ (期待: デスクトップ)"
+    },
+    {
+      "key": "[もしかして] すたんだーと",
+      "ok": true,
+      "detail": "すたんだーと → スタンダード (期待: スタンダード)"
+    },
+    {
+      "key": "[もしかして] えくすぷれっそ",
+      "ok": true,
+      "detail": "えくすぷれっそ → エスプレッソ (期待: エスプレッソ)"
+    },
+    {
+      "key": "[もしかして] はいぶりっと",
+      "ok": true,
+      "detail": "はいぶりっと → ハイブリッド (期待: ハイブリッド)"
+    },
+    {
+      "key": "[もしかして] ぶれすれっと",
+      "ok": true,
+      "detail": "ぶれすれっと → (なし) (期待: (なし))"
+    },
+    {
+      "key": "[もしかして] でばっぐ",
+      "ok": true,
+      "detail": "でばっぐ → (なし) (期待: (なし))"
+    },
+    {
+      "key": "[もしかして] ぷろぐらみんぐ",
+      "ok": true,
+      "detail": "ぷろぐらみんぐ → (なし) (期待: (なし))"
+    },
+    {
+      "key": "[もしかして] きょうはいいてんき",
+      "ok": true,
+      "detail": "きょうはいいてんき → (なし) (期待: (なし))"
+    },
+    {
+      "key": "[もしかして] ばっくをもつ",
+      "ok": true,
+      "detail": "ばっくをもつ → (なし) (期待: (なし))"
+    },
+    {
+      "key": "[もしかして] しみゅれーしょん",
+      "ok": true,
+      "detail": "しみゅれーしょん → (なし) (期待: (なし))"
+    },
+    {
+      "key": "[もしかして] こーひーをのむ",
+      "ok": true,
+      "detail": "こーひーをのむ → (なし) (期待: (なし))"
+    }
+  ]
+}

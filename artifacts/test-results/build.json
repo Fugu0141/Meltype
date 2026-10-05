@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "elapsed_ms": 13792.2663,
+  "command": "dotnet build Meltype.sln -c Release"
+}

@@ -1,0 +1,1 @@
+{"total":10000,"source":"Quality.Typing repository authored seeds + synthetic concatenation/numeric/context templates","license":"GPL-3.0-or-later","limitations":"Derived expectations are hypotheses; failed concatenations require oracle review. Code cases exercise LineContext, not an editor. Unicode covered separately."}

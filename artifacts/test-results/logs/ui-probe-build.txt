@@ -1,0 +1,21 @@
+  Meltype.Core -> C:\Users\kengo\Documents\Meltype\artifacts\test-results\ui-probe\bin\Meltype.Core.dll
+  Meltype.Core.Tests -> C:\Users\kengo\Documents\Meltype\artifacts\test-results\ui-probe\bin\Meltype.Core.Tests.dll
+C:\Users\kengo\Documents\Meltype\src\Meltype\Composition\FocusInspector.cs(226,94): warning CS8604: 'FocusInfo.FocusInfo(bool IsTextInput, bool IsPassword, Rectangle? Bounds, string Description, string Name = "", string ClassName = "")' 内のパラメーター 'ClassName' に Null 参照引数がある可能性があります。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(315,129): warning CS8602: null 参照の可能性があるものの逆参照です。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(315,168): warning CS8604: 'void DataGridViewRowCollection.Remove(DataGridViewRow dataGridViewRow)' 内のパラメーター 'dataGridViewRow' に Null 参照引数がある可能性があります。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(377,21): warning CS8600: Null リテラルまたは Null の可能性がある値を Null 非許容型に変換しています。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(377,21): warning CS8602: null 参照の可能性があるものの逆参照です。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+  Meltype -> C:\Users\kengo\Documents\Meltype\artifacts\test-results\ui-probe\bin\Meltype.dll
+  Meltype.Tests -> C:\Users\kengo\Documents\Meltype\artifacts\test-results\ui-probe\bin\Meltype.Tests.dll
+
+ビルドに成功しました。
+
+C:\Users\kengo\Documents\Meltype\src\Meltype\Composition\FocusInspector.cs(226,94): warning CS8604: 'FocusInfo.FocusInfo(bool IsTextInput, bool IsPassword, Rectangle? Bounds, string Description, string Name = "", string ClassName = "")' 内のパラメーター 'ClassName' に Null 参照引数がある可能性があります。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(315,129): warning CS8602: null 参照の可能性があるものの逆参照です。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(315,168): warning CS8604: 'void DataGridViewRowCollection.Remove(DataGridViewRow dataGridViewRow)' 内のパラメーター 'dataGridViewRow' に Null 参照引数がある可能性があります。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(377,21): warning CS8600: Null リテラルまたは Null の可能性がある値を Null 非許容型に変換しています。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Users\kengo\Documents\Meltype\src\Meltype\UI\SettingsForm.cs(377,21): warning CS8602: null 参照の可能性があるものの逆参照です。 [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+    5 個の警告
+    0 エラー
+
+経過時間 00:00:03.78

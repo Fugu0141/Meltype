@@ -12,6 +12,8 @@ internal static class TestRunner
     [STAThread]
     public static int Main(string[] args)
     {
+        if (args.FirstOrDefault() == "--validate-focus") return WindowsValidation.Focus(args);
+        if (args.FirstOrDefault() == "--gui-validation") return GuiValidation.Run(args);
         TestSupport.WordChecker = Detection.WindowsSpellChecker.Shared;
         // dotnet run --project src/Meltype.Tests -- --convert きょうはいいてんきです
         // で、Microsoft IME の変換エンジン (MSIME.Japan) が使えるかを確かめる。

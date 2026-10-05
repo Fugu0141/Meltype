@@ -1,0 +1,27 @@
+name: additional-validation-quick
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/Meltype.Core/**'
+      - 'src/Meltype.Core.Tests/**'
+      - 'tools/test-validation.ps1'
+      - '.github/workflows/validation-quick.yml'
+permissions:
+  contents: read
+jobs:
+  quick:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - shell: pwsh
+        run: ./tools/test-validation.ps1 -Profile Quick -Output artifacts/validation-quick
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-quick
+          path: artifacts/validation-quick/

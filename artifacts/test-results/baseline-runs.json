@@ -1,0 +1,22 @@
+[
+  {
+    "elapsed_ms": 1328.859,
+    "id": "windows-tests",
+    "exit_code": 1
+  },
+  {
+    "elapsed_ms": 1049.3593,
+    "id": "windows-eval",
+    "exit_code": 1
+  },
+  {
+    "elapsed_ms": 5348.925,
+    "id": "core-tests",
+    "exit_code": 0
+  },
+  {
+    "elapsed_ms": 2544.0446,
+    "id": "core-eval",
+    "exit_code": 0
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "BackupTests": 1,
+  "CodeProfileTests": 4,
+  "CompositionTests": 79,
+  "DetectionTests": 22,
+  "FeedbackTests": 11,
+  "KanaInputTests": 4,
+  "LanguageLearningTests": 10,
+  "MisspellingTests": 3,
+  "ProfileTests": 3,
+  "Quality": 1,
+  "RawCandidateTests": 2,
+  "RomajiTypoTests": 3,
+  "SessionFacadeTests": 7,
+  "SessionTests": 17,
+  "UserDictionaryFileTests": 2,
+  "UserModelTests": 4
+}

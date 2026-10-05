@@ -1,0 +1,235 @@
+{
+  "Enabled": true,
+  "Mode": "Keyboard",
+  "HankakuTogglesKeyboard": true,
+  "AutoCorrectAfterCommit": true,
+  "DirectModeAutoDetect": true,
+  "LiveConversion": true,
+  "ConversionEngine": "Hybrid",
+  "TranslationCandidates": true,
+  "ShowCandidateMeanings": true,
+  "CorrectTypos": true,
+  "ShowModeIndicator": true,
+  "ShowModeIndicatorOnFocus": true,
+  "CompositionPlacement": "Overlay",
+  "CompositionSize": "Auto",
+  "ShowNotifications": true,
+  "AutoUpdate": true,
+  "InputStyle": "Romaji",
+  "DetectionLevel": "Balanced",
+  "JapaneseThreshold": 4,
+  "TypoEnabled": true,
+  "MaxPendingKeys": 6,
+  "IdleFlushMs": -1,
+  "MaxHoldMs": 2500,
+  "SettingsVersion": 5,
+  "WelcomeShown": false,
+  "Profiles": [],
+  "ActiveProfile": "\u6A19\u6E96",
+  "ProfileNames": [],
+  "SessionIdleMs": 1500,
+  "ContinueEnglishAfterSpace": false,
+  "LearningEnabled": true,
+  "FeedbackWindowMs": 4000,
+  "UseTsf": true,
+  "ImeTimeoutMs": 300,
+  "ExcludeFullscreen": true,
+  "StopInGames": true,
+  "AppRules": [
+    {
+      "Process": "mstsc.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "msrdc.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "vmconnect.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "VirtualBoxVM.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "vmware-vmx.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "vmware.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "Code.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "Code - Insiders.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "Cursor.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "Windsurf.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "zed.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "devenv.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "idea64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "pycharm64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "webstorm64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "rider64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "clion64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "goland64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "phpstorm64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "rubymine64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "datagrip64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "studio64.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "sublime_text.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "notepad\u002B\u002B.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "WindowsTerminal.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "cmd.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "powershell.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "pwsh.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "wezterm-gui.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "alacritty.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "mintty.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    },
+    {
+      "Process": "maya.exe",
+      "Enabled": true,
+      "Profile": "Code",
+      "Kind": null
+    }
+  ],
+  "AppKinds": [],
+  "FileLog": false,
+  "LogTypedText": false
+}

@@ -1,0 +1,8 @@
+  Meltype.Core -> C:\Users\kengo\Documents\Meltype\src\Meltype.Core\bin\Release\net10.0\Meltype.Core.dll
+  Meltype.Core.Tests -> C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\bin\Release\net10.0\Meltype.Core.Tests.dll
+
+ビルドに成功しました。
+    0 個の警告
+    0 エラー
+
+経過時間 00:00:02.05

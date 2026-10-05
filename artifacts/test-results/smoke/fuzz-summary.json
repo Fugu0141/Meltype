@@ -1,0 +1,1 @@
+{"sequences":1000,"events":113376,"replay_events":113376,"seed":20261005,"failures":585,"exceptions":0,"hangs":0,"lost":0,"duplicated":0,"reordered":0,"elapsed_ms":4907.1396,"scope":"Serial managed InputSession with delayed drains, timers, abort, context change and CompositionController using fake host/converter. No OS hook, SendInput, concurrency or target focus guarantee."}

@@ -1,0 +1,23 @@
+  復元対象のプロジェクトを決定しています...
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error : 許可されていないアクセスのために NuGet.Config を読み取れませんでした。パス: 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config'。 [C:\Users\kengo\Documents\Meltype\src\Meltype.Core\Meltype.Core.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error :   Access to the path 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Core\Meltype.Core.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error : 許可されていないアクセスのために NuGet.Config を読み取れませんでした。パス: 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config'。 [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error :   Access to the path 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+
+ビルドに失敗しました。
+
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error : 許可されていないアクセスのために NuGet.Config を読み取れませんでした。パス: 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config'。 [C:\Users\kengo\Documents\Meltype\src\Meltype.Core\Meltype.Core.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error :   Access to the path 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Core\Meltype.Core.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error : 許可されていないアクセスのために NuGet.Config を読み取れませんでした。パス: 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config'。 [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(780,5): error :   Access to the path 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+    0 個の警告
+    2 エラー
+
+経過時間 00:00:00.93
+Core test build failed
+At C:\Users\kengo\Documents\Meltype\tools\test-validation.ps1:15 char:32
++     if ($LASTEXITCODE -ne 0) { throw 'Core test build failed' }
++                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Core test build failed:String) [], RuntimeException
+    + FullyQualifiedErrorId : Core test build failed
+ 

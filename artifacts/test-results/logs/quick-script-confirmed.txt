@@ -1,0 +1,10 @@
+  復元対象のプロジェクトを決定しています...
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(196,5): error : 許可されていないアクセスのために NuGet.Config を読み取れませんでした。パス: 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config'。 [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(196,5): error :   Access to the path 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(196,5): error :   許可されていないアクセスのために NuGet.Config を読み取れませんでした。パス: 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config'。 [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\NuGet.targets(196,5): error :   Access to the path 'C:\Users\kengo\AppData\Roaming\NuGet\NuGet.Config' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Core.Tests\Meltype.Core.Tests.csproj]
+Exception: C:\Users\kengo\Documents\Meltype\tools\test-validation.ps1:15
+Line |
+  15 |      if ($LASTEXITCODE -ne 0) { throw 'Core test restore failed' }
+     |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Core test restore failed

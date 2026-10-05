@@ -1,0 +1,195 @@
+  PASS  BackupTests.Backup_RoundTrips_AndStaysInsideDataFolder
+  PASS  CodeProfileTests.LineContext_MultiLineStringsAndComments
+  PASS  CodeProfileTests.LineTracker_FollowsTypingAndResets
+  PASS  CodeProfileTests.Settings_CodeAppsAreCode
+  PASS  CodeProfileTests.Settings_CustomAppKinds
+  PASS  CompositionTests.AfterShortcut_NextWordStillComposes
+  PASS  CompositionTests.Ambiguous_UsesBothSides
+  PASS  CompositionTests.AmbiguousWord_FollowsEnglishContext
+  PASS  CompositionTests.AmbiguousWord_FollowsJapaneseContext
+  PASS  CompositionTests.Arrows_BeforeSpace_EnterClauseSelection
+  PASS  CompositionTests.AutoCorrect_EnglishToJapaneseAfterCommit
+  PASS  CompositionTests.AutoCorrect_JapaneseToEnglishAfterCommit
+  PASS  CompositionTests.AutoCorrect_NotAfterCaretMoved
+  PASS  CompositionTests.AutoCorrect_NotWhenUserChoseCandidate
+  PASS  CompositionTests.Backspace_DeletesOneKanaAtATime
+  PASS  CompositionTests.Backspace_EditsAndEscapeCancels
+  PASS  CompositionTests.Backspace_ThenRetype_RereadsRomaji
+  PASS  CompositionTests.BuiltInPhrases_AreSplitOut
+  PASS  CompositionTests.CandidateMeaning_FromTranslations
+  PASS  CompositionTests.CandidateMeaning_Japanese
+  PASS  CompositionTests.Candidates_ExpandWithWindowsCandidates
+  PASS  CompositionTests.Candidates_IncludeHomophonesFromDictionary
+  PASS  CompositionTests.CapitalI_IsEnglish
+  PASS  CompositionTests.Capitalized_IsEnglish
+  PASS  CompositionTests.CapitalizedWord_FollowedByJapanese
+  PASS  CompositionTests.Clauses_InterjectionE_AndGachi
+  PASS  CompositionTests.Clauses_ShiftArrowResizes
+  PASS  CompositionTests.Clauses_SokuonAfterKatakanaIsKatakana
+  PASS  CompositionTests.Comma_AtEnd_DoesNotBreakFollowingInput
+  PASS  CompositionTests.CommaAfterDigit_IsTouten_UnlessDigitFollows
+  PASS  CompositionTests.Commit_TeachesTheConverter
+  PASS  CompositionTests.Context_DoesNotChangeClauseBoundaries
+  PASS  CompositionTests.Context_FromTextBeforeCaret
+  PASS  CompositionTests.Conversion_ContextRulesIke
+  PASS  CompositionTests.Conversion_ContextRulesPickTheRightWord
+  PASS  CompositionTests.Conversion_LearnsUserChoice
+  PASS  CompositionTests.Conversion_UsesTextBeforeCaretAsContext
+  PASS  CompositionTests.CorpusContextRules_PreferChatFormsWhenCued
+  PASS  CompositionTests.CtrlShortcut_CommitsFirst
+  PASS  CompositionTests.DirectMode_EnglishIsSentWithoutWaiting
+  PASS  CompositionTests.DirectMode_EnglishPassesThroughInOrder
+  PASS  CompositionTests.DirectMode_IdleReleasesHeldKeys
+  PASS  CompositionTests.DirectMode_LongVowelDashSwitchesToJapanese
+  PASS  CompositionTests.DirectMode_RomajiSwitchesBackToJapanese
+  PASS  CompositionTests.EnglishWords_AreShownAsEnglish
+  PASS  CompositionTests.FinalN_BecomesN_OnCommit
+  PASS  CompositionTests.FunctionKeys_ChangeDisplay
+  PASS  CompositionTests.Google_IsShownAsEnglish_NotGoogle_Kana
+  PASS  CompositionTests.HalfWidth_IsKeptAfterConversion
+  PASS  CompositionTests.HyphenatedEnglishWords_StayEnglish
+  PASS  CompositionTests.JapaneseSentences_StayJapanese
+  PASS  CompositionTests.JapaneseWords_AreShownAsKana
+  PASS  CompositionTests.KeysBeforeCapture_AreNotSwallowed
+  PASS  CompositionTests.KeyUpOfKeyPressedBeforeCapture_IsReplayed
+  PASS  CompositionTests.LaterLongerEnglishWord_WinsOverShorterOne
+  PASS  CompositionTests.Learning_SkipsSingleKana
+  PASS  CompositionTests.LetterThenJapanese_IsNotWholeEnglish
+  PASS  CompositionTests.LiveConversion_ConvertsWhileTyping
+  PASS  CompositionTests.LiveConversion_SpaceShowsAlternatives
+  PASS  CompositionTests.Loanwords_OfferLatinSpelling
+  PASS  CompositionTests.MouseClick_CommitsBeforeClicking
+  PASS  CompositionTests.NAndSmallKanaSpellings
+  PASS  CompositionTests.Numbers_StayHalfWidth
+  PASS  CompositionTests.OnlyTheEnglishWordBecomesEnglish
+  PASS  CompositionTests.OtherKeys_CommitFirstThenPassThroughInOrder
+  PASS  CompositionTests.ParticleStart_GetsContext
+  PASS  CompositionTests.ProperNouns_AreEnglishEvenIfRomajiReadable
+  PASS  CompositionTests.ProperNouns_OfferCanonicalCasing
+  PASS  CompositionTests.QuestionParticle_KaStaysKana
+  PASS  CompositionTests.ReportedOrderSwaps
+  PASS  CompositionTests.Romaji_IsShownAsKanaAndCommittedWithEnter
+  PASS  CompositionTests.ShiftArrow_KeepsShift
+  PASS  CompositionTests.ShortProperNoun_AfterJapanese_IsJapanese
+  PASS  CompositionTests.SingleCapital_ThenParticle_IsSplit
+  PASS  CompositionTests.Space_AfterEnglishWord_InsertsSpace
+  PASS  CompositionTests.Space_ConvertsThenCyclesCandidates
+  PASS  CompositionTests.Space_OnEnglish_CommitsWithSpace
+  PASS  CompositionTests.Symbols_HalfWidthCandidate
+  PASS  CompositionTests.Symbols_StartComposition
+  PASS  CompositionTests.Translations_AreOfferedAfterJapanese
+  PASS  CompositionTests.TypingAfterConversion_CommitsAndStartsNew
+  PASS  CompositionTests.UserDictionary_SavesAndLoads
+  PASS  CompositionTests.UserDictionary_WinsOverEngine
+  PASS  CompositionTests.WiWe_OfferOldKana
+  PASS  DetectionTests.CommonEnglishIsNotJapanese
+  PASS  DetectionTests.Design_English
+  PASS  DetectionTests.Design_Japanese
+  PASS  DetectionTests.Design_RomajiReadableEnglishIsNotEnough
+  PASS  DetectionTests.Design_TechnicalInput
+  PASS  DetectionTests.Design_Typo
+  PASS  DetectionTests.Design_UnknownStaysUnchanged
+  PASS  DetectionTests.EnglishIsDecidedEarly
+  PASS  DetectionTests.EnglishSentencesNeverSwitch
+  PASS  DetectionTests.HigherThresholdIsMoreConservative
+  PASS  DetectionTests.JapaneseIsDecidedWithinFourLetters
+  PASS  DetectionTests.KanaInputStyle
+  PASS  DetectionTests.KunreiSpellingsAreJapanese
+  PASS  DetectionTests.MoreJapanese
+  PASS  DetectionTests.NewDictionaryWordsDoNotCatchEnglish
+  PASS  DetectionTests.ObviousEnglishIsDecidedOnFirstKey
+  PASS  DetectionTests.ParticleThenWord_AndCRow
+  PASS  DetectionTests.ReportedMisses
+  PASS  DetectionTests.Romaji_Analyze
+  PASS  DetectionTests.Romaji_SpellingVariants
+  PASS  DetectionTests.Typo_AloneDoesNotSwitch
+  PASS  DetectionTests.Typo_Levenshtein
+  PASS  FeedbackTests.EnglishSentences_WithSpellChecker
+  PASS  FeedbackTests.JapaneseSentences_WithSpellChecker
+  PASS  FeedbackTests.Laughter_IsNotTakenAsWordFoundMidRomaji
+  PASS  FeedbackTests.Levels_ChangeHowEagerlyEnglishIsShown
+  PASS  FeedbackTests.Manual_OnlySuggests_TabAccepts
+  PASS  FeedbackTests.ShiftedSingleConsonant_StaysUppercase
+  PASS  FeedbackTests.ShiftedSymbols_StartComposition
+  PASS  FeedbackTests.ShortParticles_AfterEnglishWord_AreJapanese
+  PASS  FeedbackTests.ShortWords_InEnglishSentence_AreEnglish
+  PASS  FeedbackTests.SmallKana_WithXAndL
+  PASS  FeedbackTests.TripleSlash_IsEllipsis
+  PASS  KanaInputTests.KanaInput_EnglishWordsAreShownAsEnglish
+  PASS  KanaInputTests.KanaInput_FollowsLevels
+  PASS  KanaInputTests.KanaKeys_ProduceKana
+  PASS  KanaInputTests.KanaKeys_ShiftGivesSmallKanaAndPunctuation
+  PASS  LanguageLearningTests.CommonJapanese_NeedsTwoTimesToBecomeEnglish
+  PASS  LanguageLearningTests.EnglishWordEndingInNg_BeforeParticle
+  PASS  LanguageLearningTests.F10_TeachesEnglish_ThenUsedInContext
+  PASS  LanguageLearningTests.F6_TeachesJapanese
+  PASS  LanguageLearningTests.ShiftSpace_ConvertsEnglishWordAsRomaji
+  PASS  LanguageLearningTests.ShortLearnedWord_DoesNotSplitJapanese
+  PASS  LanguageLearningTests.ShortWord_ChosenFromCandidates_IsLearnedOnSecondTime
+  PASS  LanguageLearningTests.SymbolCandidates_ShowHalfOrFullWidth
+  PASS  LanguageLearningTests.TesterReports_20261003
+  PASS  LanguageLearningTests.UnitsAfterNumbers_StayLetters
+  PASS  MisspellingTests.Misspelling_IsSuggestedAndFixedWithTab
+  PASS  MisspellingTests.Misspelling_ListedPairsAndSpellingVariants
+  PASS  MisspellingTests.Misspelling_TabWhileConverting_Reconverts
+  PASS  ProfileTests.Profiles_ExportAndImportBetweenUsers
+  PASS  ProfileTests.Profiles_RenameAndRemove
+  PASS  ProfileTests.Profiles_SwitchValuesAndKeepSharedOnes
+品質テスト: 1242/1243 (99.9%)
+  日本語       53/53     100%
+  曖昧な語       8/8      100%
+  英語        35/35     100%
+  混在        23/24      96%
+  短い語        8/8      100%
+  記号・数字     10/10     100%
+  綴り         9/9      100%
+  大文字        5/5      100%
+  かな入力       4/4      100%
+  コードの行     33/33     100%
+  入力欄の種類    16/16     100%
+  文章ファイル     5/5      100%
+  自動切替: 日本語 897/897    100%
+  自動切替: 英語 102/102    100%
+  絵文字       16/16     100%
+  もしかして     18/18     100%
+外れた例:
+  [混在] apinoerror → あぴのerror (期待: apiのerror)
+  PASS  Quality.Quality_Corpus
+  PASS  RawCandidateTests.Conversion_OffersTypedLetters_AndLearns
+  PASS  RawCandidateTests.EnglishWordEndingInN_BeforeParticle
+  PASS  RomajiTypoTests.RomajiTypos_AreFixedOnCommit
+  PASS  RomajiTypoTests.RomajiTypos_CanBeTurnedOff
+  PASS  RomajiTypoTests.RomajiTypos_LeaveEnglishAndAbbreviations
+  PASS  SessionFacadeTests.ArrowWhileComposing_SelectsClauses
+  PASS  SessionFacadeTests.Candidates_CanBeSelectedByIndex
+  PASS  SessionFacadeTests.EnglishWord_SpaceCommitsWithSpace
+  PASS  SessionFacadeTests.Json_IsEscaped
+  PASS  SessionFacadeTests.KeysOutsideComposition_GoToTheApp
+  PASS  SessionFacadeTests.Romaji_ComposesAndEnterCommits
+  PASS  SessionFacadeTests.ShortcutWhileComposing_CommitsThenPassesTheKey
+  PASS  SessionTests.Abort_ReturnsPendingSoNothingIsLost
+  PASS  SessionTests.ContinueEnglishAfterSpace_SkipsHolding
+  PASS  SessionTests.DeniedApps_AreNotHeld
+  PASS  SessionTests.English_FlushesAsSoonAsDecided
+  PASS  SessionTests.Feedback_ImeToggleAfterJapaneseIsFalsePositive
+  PASS  SessionTests.Feedback_ImeToggleAfterUnknownIsMissedJapanese
+  PASS  SessionTests.FirstKeyEnglish_IsNeverHeld
+  PASS  SessionTests.FocusChange_FlushesPending
+  PASS  SessionTests.IdleTimeout_FlushesPending
+  PASS  SessionTests.Japanese_HoldsThenReinjectsInOrder
+  PASS  SessionTests.Learning_UsesSessionOutcome
+  PASS  SessionTests.MaxPendingKeys_LimitsHolding
+  PASS  SessionTests.ModifierShortcuts_AreNotHeld
+  PASS  SessionTests.NonLetterKey_InterruptsAndKeepsOrder
+  PASS  SessionTests.OldConfigIsMigrated
+  PASS  SessionTests.SlowTyping_StillReachesDecision
+  PASS  SessionTests.SpaceDuringCollecting_DoesNotSwitch_AndEndsSession
+  PASS  UserDictionaryFileTests.Export_RoundTrips_AndSkipsDuplicates
+  PASS  UserDictionaryFileTests.Import_MicrosoftImeAndGoogleFormats
+  PASS  UserModelTests.FalsePositive_LowersWeight
+  PASS  UserModelTests.MissedJapanese_IsLearned
+  PASS  UserModelTests.OnlyShortPrefixesAreStored
+  PASS  UserModelTests.SaveAndLoad_RoundTrips
+  PASS  WindowsTests.Games_AreDetectedFromInstallFolder
+
+174/174 passed

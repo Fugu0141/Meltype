@@ -28,3 +28,6 @@ mac/build/
 native/mozc/bin/
 linux/build/
 tools/data/
+# Validation replay binaries are local evidence, not source artifacts.
+artifacts/**/baseline-bin/
+artifacts/**/baseline-runner/

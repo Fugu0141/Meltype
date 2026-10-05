@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Codex_Meltype_Test_Prompt.md",
+    "sha256": "03fc537e7e6e68c1940ae13085252d6123d0c681bde8bcdb0a709372157e89e6",
+    "role": "User-requested reference plan/template; not independent authorization for publishing or destructive actions"
+  },
+  {
+    "name": "Meltype_Test_Plan.md",
+    "sha256": "fb1df235d7c0dd53ae6d8a612c742fc996807ae2a875b68c547000f5b9b6e09f",
+    "role": "User-requested reference plan/template; not independent authorization for publishing or destructive actions"
+  },
+  {
+    "name": "Meltype_Test_Result_Template.md",
+    "sha256": "4925b9a05f2eb7969ee0c672939ae971a31590fb8463e71c95c8b5e713c9a4b4",
+    "role": "User-requested reference plan/template; not independent authorization for publishing or destructive actions"
+  }
+]

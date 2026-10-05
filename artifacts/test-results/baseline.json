@@ -1,0 +1,284 @@
+{
+  "commit": "467255bfe3e36b803a3fd3f5a1480fe35d5058c9",
+  "branch": "main",
+  "date": "2026-10-05",
+  "timezone": "Asia/Tokyo",
+  "os": "Windows-11-10.0.26200-SP0",
+  "architecture": "AMD64",
+  "sdk": "10.0.203",
+  "runtime": "10.0.7",
+  "seed": 20261005,
+  "build": {
+    "exit_code": 0,
+    "elapsed_ms": 13792.2663,
+    "command": "dotnet build Meltype.sln -c Release"
+  },
+  "warnings": 5,
+  "errors": 0,
+  "core_tests": {
+    "passed": 173,
+    "total": 173,
+    "failed": 0,
+    "skip": "runner has no skip accounting"
+  },
+  "windows_tests": {
+    "passed": 174,
+    "total": 174,
+    "failed": 0,
+    "includes_core": true,
+    "skip": "runner has no skip accounting"
+  },
+  "runs": [
+    {
+      "elapsed_ms": 1328.859,
+      "id": "windows-tests",
+      "exit_code": 1
+    },
+    {
+      "elapsed_ms": 1049.3593,
+      "id": "windows-eval",
+      "exit_code": 1
+    },
+    {
+      "elapsed_ms": 5348.925,
+      "id": "core-tests",
+      "exit_code": 0
+    },
+    {
+      "elapsed_ms": 2544.0446,
+      "id": "core-eval",
+      "exit_code": 0
+    },
+    {
+      "elapsed_ms": 11557.9515,
+      "id": "windows-tests",
+      "exit_code": 0
+    },
+    {
+      "elapsed_ms": 5272.8808,
+      "id": "windows-eval",
+      "exit_code": 0
+    }
+  ],
+  "core_quality": {
+    "passed": 1241,
+    "total": 1243,
+    "categories": [
+      {
+        "category": "日本語",
+        "passed": 53,
+        "total": 53,
+        "rate": 1.0
+      },
+      {
+        "category": "曖昧な語",
+        "passed": 8,
+        "total": 8,
+        "rate": 1.0
+      },
+      {
+        "category": "英語",
+        "passed": 34,
+        "total": 35,
+        "rate": 0.9714285714285714
+      },
+      {
+        "category": "混在",
+        "passed": 23,
+        "total": 24,
+        "rate": 0.9583333333333334
+      },
+      {
+        "category": "短い語",
+        "passed": 8,
+        "total": 8,
+        "rate": 1.0
+      },
+      {
+        "category": "記号・数字",
+        "passed": 10,
+        "total": 10,
+        "rate": 1.0
+      },
+      {
+        "category": "綴り",
+        "passed": 9,
+        "total": 9,
+        "rate": 1.0
+      },
+      {
+        "category": "大文字",
+        "passed": 5,
+        "total": 5,
+        "rate": 1.0
+      },
+      {
+        "category": "かな入力",
+        "passed": 4,
+        "total": 4,
+        "rate": 1.0
+      },
+      {
+        "category": "コードの行",
+        "passed": 33,
+        "total": 33,
+        "rate": 1.0
+      },
+      {
+        "category": "入力欄の種類",
+        "passed": 16,
+        "total": 16,
+        "rate": 1.0
+      },
+      {
+        "category": "文章ファイル",
+        "passed": 5,
+        "total": 5,
+        "rate": 1.0
+      },
+      {
+        "category": "自動切替: 日本語",
+        "passed": 897,
+        "total": 897,
+        "rate": 1.0
+      },
+      {
+        "category": "自動切替: 英語",
+        "passed": 102,
+        "total": 102,
+        "rate": 1.0
+      },
+      {
+        "category": "絵文字",
+        "passed": 16,
+        "total": 16,
+        "rate": 1.0
+      },
+      {
+        "category": "もしかして",
+        "passed": 18,
+        "total": 18,
+        "rate": 1.0
+      }
+    ],
+    "failures": [
+      "[英語] my name is taro → my name is たろ (期待: my name is taro)",
+      "  [混在] apinoerror → あぴのerror (期待: apiのerror)"
+    ]
+  },
+  "windows_quality": {
+    "passed": 1242,
+    "total": 1243,
+    "categories": [
+      {
+        "category": "日本語",
+        "passed": 53,
+        "total": 53,
+        "rate": 1.0
+      },
+      {
+        "category": "曖昧な語",
+        "passed": 8,
+        "total": 8,
+        "rate": 1.0
+      },
+      {
+        "category": "英語",
+        "passed": 35,
+        "total": 35,
+        "rate": 1.0
+      },
+      {
+        "category": "混在",
+        "passed": 23,
+        "total": 24,
+        "rate": 0.9583333333333334
+      },
+      {
+        "category": "短い語",
+        "passed": 8,
+        "total": 8,
+        "rate": 1.0
+      },
+      {
+        "category": "記号・数字",
+        "passed": 10,
+        "total": 10,
+        "rate": 1.0
+      },
+      {
+        "category": "綴り",
+        "passed": 9,
+        "total": 9,
+        "rate": 1.0
+      },
+      {
+        "category": "大文字",
+        "passed": 5,
+        "total": 5,
+        "rate": 1.0
+      },
+      {
+        "category": "かな入力",
+        "passed": 4,
+        "total": 4,
+        "rate": 1.0
+      },
+      {
+        "category": "コードの行",
+        "passed": 33,
+        "total": 33,
+        "rate": 1.0
+      },
+      {
+        "category": "入力欄の種類",
+        "passed": 16,
+        "total": 16,
+        "rate": 1.0
+      },
+      {
+        "category": "文章ファイル",
+        "passed": 5,
+        "total": 5,
+        "rate": 1.0
+      },
+      {
+        "category": "自動切替: 日本語",
+        "passed": 897,
+        "total": 897,
+        "rate": 1.0
+      },
+      {
+        "category": "自動切替: 英語",
+        "passed": 102,
+        "total": 102,
+        "rate": 1.0
+      },
+      {
+        "category": "絵文字",
+        "passed": 16,
+        "total": 16,
+        "rate": 1.0
+      },
+      {
+        "category": "もしかして",
+        "passed": 18,
+        "total": 18,
+        "rate": 1.0
+      }
+    ],
+    "failures": [
+      "[混在] apinoerror → あぴのerror (期待: apiのerror)"
+    ]
+  },
+  "selftest": {
+    "checks": 17,
+    "failed": 0,
+    "elapsed_ms": null,
+    "log": "logs/selftest.txt"
+  },
+  "sandbox_initial_build": "MSB4184: SDK discovery denied by sandbox; unrestricted retry succeeded",
+  "product_core_sha256": "50b22ccbbfeac95759a2330309dff620ce54b036b80f43f465cc69512076facd",
+  "final_product_core_sha256": "50b22ccbbfeac95759a2330309dff620ce54b036b80f43f465cc69512076facd",
+  "product_binary_unchanged": true
+}

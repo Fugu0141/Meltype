@@ -1,0 +1,34 @@
+{"kind":"started","isolated":"C:\\Users\\kengo\\Documents\\Meltype\\artifacts\\test-results\\gui-session","ime":true}
+{"kind":"started","isolated":"C:\\Users\\kengo\\Documents\\Meltype\\artifacts\\test-results\\gui-session","ime":true}
+{"kind":"armed","name":"JA","scope":"CaptureGate feed -\u003E real CompositionService / UI / Windows delivery; physical hook bypassed"}
+{"kind":"armed","name":"JA","scope":"CaptureGate feed -\u003E real CompositionService / UI / Windows delivery; physical hook bypassed"}
+{"kind":"guard_rejected","name":"JA","title_match":false,"can_capture":false}
+{"kind":"commit","text":"\u4ECA\u65E5\u306E\u5929\u6C17\u306F","at":"2026-10-05T23:00:04.4466157+09:00"}
+{"kind":"commit","text":"\u306F\u308C\u3067\u3059\u3002","at":"2026-10-05T23:00:07.9850045+09:00"}
+{"kind":"commit","text":"Github","at":"2026-10-05T23:00:12.3540046+09:00"}
+{"kind":"commit","text":"\u306B","at":"2026-10-05T23:00:13.3540924+09:00"}
+{"kind":"commit","text":"\u4ECA\u65E5\u306E","at":"2026-10-05T23:00:17.0988931+09:00"}
+{"kind":"commit","text":"Commit\u3092\u53CD\u6620\u3055\u305B\u307E\u3059","at":"2026-10-05T23:00:23.8542353+09:00"}
+{"kind":"commit","text":"\u3002","at":"2026-10-05T23:00:25.3033385+09:00"}
+{"kind":"commit","text":"\u4ECA\u65E5\u306F","at":"2026-10-05T23:00:27.8428453+09:00"}
+{"kind":"commit","text":"PC ","at":"2026-10-05T23:00:31.5492784+09:00"}
+{"kind":"commit","text":"\u65E5\u672C\u306Esushini","at":"2026-10-05T23:01:22.8952075+09:00"}
+{"kind":"commit","text":"\u306B","at":"2026-10-05T23:01:25.3862262+09:00"}
+{"kind":"commit","text":"\u8208\u5473\u304C\u3042\u308A\u307E\u3059","at":"2026-10-05T23:01:29.7671797+09:00"}
+{"kind":"commit","text":"\u3002","at":"2026-10-05T23:01:30.9745493+09:00"}
+{"kind":"commit_outside_test_target","text_length":2,"at":"2026-10-05T23:01:58.7563025+09:00","redaction_reason":"User chat reply outside the designated test document"}
+{"kind":"commit_outside_test_target","text_length":4,"at":"2026-10-05T23:02:00.2074508+09:00","redaction_reason":"User chat reply outside the designated test document"}
+{"kind":"commit_outside_test_target","text_length":8,"at":"2026-10-05T23:02:03.5512809+09:00","redaction_reason":"User chat reply outside the designated test document"}
+{"kind":"stopped"}
+{"kind":"started","isolated":"C:\\Users\\kengo\\Documents\\Meltype\\artifacts\\test-results\\gui-session","ime":true,"physical_capture_enabled":false}
+{"kind":"armed","name":"JA","scope":"CaptureGate feed -\u003E real CompositionService / UI / Windows delivery; physical hook bypassed"}
+{"kind":"guard_rejected","name":"JA","title_match":false,"can_capture":false}
+{"kind":"stopped"}
+{"kind":"started","isolated":"C:\\Users\\kengo\\Documents\\Meltype\\artifacts\\test-results\\gui-session","ime":true,"physical_capture_enabled":false}
+{"kind":"armed","name":"COMMITNI","at":"2026-10-05T23:14:52.2315176+09:00","scope":"CaptureGate feed -\u003E real CompositionService / UI / Windows delivery; physical hook bypassed"}
+{"kind":"loaded","name":"COMMITNI","text":"Commitni","at":"2026-10-05T23:15:07.4513301+09:00"}
+{"kind":"key","name":"COMMITNI","vk":32,"composing":true}
+{"kind":"key","name":"COMMITNI","vk":40,"composing":true}
+{"kind":"commit","text":"COMMIT\u306B","at":"2026-10-05T23:15:31.4287273+09:00"}
+{"kind":"key","name":"COMMITNI","vk":13,"composing":false}
+{"kind":"stopped"}

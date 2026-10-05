@@ -1,0 +1,35 @@
+'C:\Users\CodexSandboxOffline\.dotnet\tools' を PATH 環境変数に追加できませんでした。'dotnet tool install' でインストールしたツールを使用するには、このディレクトリを PATH に追加します。
+
+.NET 10.0 へようこそ!
+---------------------
+SDK バージョン: 10.0.203
+
+テレメトリ
+---------
+.NET ツールは、エクスペリエンスの向上のために利用状況データを収集します。データは Microsoft によって収集され、コミュニティと共有されます。テレメトリをオプトアウトするには、好みのシェルを使用して、DOTNET_CLI_TELEMETRY_OPTOUT 環境変数を '1' または 'true' に設定できます。
+
+.NET CLI ツールのテレメトリの詳細をご覧ください: https://aka.ms/dotnet-cli-telemetry
+
+----------------
+ASP.NET Core HTTPS 開発証明書をインストールしました。
+証明書を信頼するには、'dotnet dev-certs https --trust' を実行します
+HTTPS の詳細情報: https://aka.ms/dotnet-https
+
+----------------
+最初のアプリを作成するには、https://aka.ms/dotnet-hello-world を参照してください
+最新情報については、https://aka.ms/dotnet-whats-new を参照してください
+ドキュメントを探すには、https://aka.ms/dotnet-docs を参照してください
+GitHub で問題の報告とソースの検索を行うには、https://github.com/dotnet/core を参照してください
+'dotnet --help' を使用して使用可能なコマンドを確認するか、https://aka.ms/dotnet-cli にアクセスしてください
+--------------------------------------------------------------------------------------
+C:\Program Files\dotnet\sdk\10.0.203\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(1497,5): error MSB4184: 式 "[Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformSDKDisplayName(Windows, 7.0)" を評価できません。Access to the path 'C:\Users\kengo\AppData\Local\Microsoft SDKs' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(1497,5): error MSB4184: 式 "[Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformSDKDisplayName(Windows, 7.0)" を評価できません。Access to the path 'C:\Users\kengo\AppData\Local\Microsoft SDKs' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Tests\Meltype.Tests.csproj]
+
+ビルドに失敗しました。
+
+C:\Program Files\dotnet\sdk\10.0.203\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(1497,5): error MSB4184: 式 "[Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformSDKDisplayName(Windows, 7.0)" を評価できません。Access to the path 'C:\Users\kengo\AppData\Local\Microsoft SDKs' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype\Meltype.csproj]
+C:\Program Files\dotnet\sdk\10.0.203\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(1497,5): error MSB4184: 式 "[Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformSDKDisplayName(Windows, 7.0)" を評価できません。Access to the path 'C:\Users\kengo\AppData\Local\Microsoft SDKs' is denied. [C:\Users\kengo\Documents\Meltype\src\Meltype.Tests\Meltype.Tests.csproj]
+    0 個の警告
+    2 エラー
+
+経過時間 00:00:01.41

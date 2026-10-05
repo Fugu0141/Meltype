@@ -1,0 +1,19 @@
+﻿OK   バージョン: 1.0.0
+OK   設定: Keyboard
+OK   設定の保存と読み込み: Keyboard
+OK   判定 (IME 自動切替): Japanese
+OK   変換ボックスの英語判定: きょうはgoogle
+OK   英語のスペルチェッカー: meeting=True
+OK   書き間違い辞書: ブレスレット
+OK   補助辞書: 橋,箸,端,🍜,🥡,🥢,🌉
+OK   文脈の手がかり辞書: 暑い
+OK   ユーザー辞書: 登録できる
+OK   変換エンジン: 今日はいい天気
+OK   文節: 単位を|取る
+OK   Windows の変換候補: 橋,端,箸,は市,はし
+OK   UI Automation: ControlType 50033
+OK   画面: Meltype 設定, Meltype ユーザー辞書, Meltype ログ / 判定理由
+OK   タスクトレイ: OK
+OK   学習データ・ログの保存: conversions.json,meltype.log,model.json
+すべて OK
+LOADED: Accessibility Meltype Meltype.Core Microsoft.Win32.Primitives Microsoft.Win32.SystemEvents System.Collections System.Collections.Concurrent System.Collections.NonGeneric System.Collections.Specialized System.ComponentModel System.ComponentModel.EventBasedAsync System.ComponentModel.Primitives System.ComponentModel.TypeConverter System.Diagnostics.Process System.Drawing.Common System.Drawing.Primitives System.IO.Pipelines System.Linq System.Memory System.Numerics.Vectors System.ObjectModel System.Private.CoreLib System.Private.Uri System.Private.Windows.Core System.Private.Windows.GdiPlus System.Reflection.Emit.ILGeneration System.Reflection.Emit.Lightweight System.Reflection.Primitives System.Runtime System.Runtime.InteropServices System.Runtime.Loader System.Text.Encoding.Extensions System.Text.Encodings.Web System.Text.Json System.Text.RegularExpressions System.Threading System.Threading.Thread System.Threading.ThreadPool System.Windows.Forms System.Windows.Forms.Primitives System.Windows.Forms.resources

@@ -1,0 +1,926 @@
+{
+  "Enabled": false,
+  "Mode": "Keyboard",
+  "HankakuTogglesKeyboard": true,
+  "AutoCorrectAfterCommit": true,
+  "DirectModeAutoDetect": true,
+  "LiveConversion": true,
+  "ConversionEngine": "System",
+  "TranslationCandidates": true,
+  "ShowCandidateMeanings": true,
+  "CorrectTypos": true,
+  "ShowModeIndicator": true,
+  "ShowModeIndicatorOnFocus": true,
+  "CompositionPlacement": "Overlay",
+  "CompositionSize": "Auto",
+  "ShowNotifications": true,
+  "AutoUpdate": false,
+  "InputStyle": "Romaji",
+  "DetectionLevel": "Balanced",
+  "JapaneseThreshold": 4,
+  "TypoEnabled": true,
+  "MaxPendingKeys": 6,
+  "IdleFlushMs": 700,
+  "MaxHoldMs": 2500,
+  "SettingsVersion": 5,
+  "WelcomeShown": true,
+  "Profiles": [
+    {
+      "Name": "\u6A19\u6E96",
+      "Values": null
+    }
+  ],
+  "ActiveProfile": "\u6A19\u6E96",
+  "ProfileNames": [
+    "\u6A19\u6E96"
+  ],
+  "SessionIdleMs": 1500,
+  "ContinueEnglishAfterSpace": false,
+  "LearningEnabled": true,
+  "FeedbackWindowMs": 4000,
+  "UseTsf": true,
+  "ImeTimeoutMs": 300,
+  "ExcludeFullscreen": true,
+  "StopInGames": true,
+  "AppRules": [
+    {
+      "Process": "Idle.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "System.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "Secure System.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "Registry.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "smss.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "csrss.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "wininit.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "services.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "LsaIso.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "lsass.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "svchost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "fontdrvhost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "WUDFCompanionHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "WUDFHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "NVDisplay.Container.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "atiesrxx.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "amdfendrsr.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusCertService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "Memory Compression.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusOptimization.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "WmiPrvSE.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "spoolsv.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "NgcIso.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AmdPpkgSvc.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AuraWallpaperService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ArmouryCrate.Service.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusSwitch.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusAppService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusSoftwareManager.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusSystemAnalysis.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusSystemDiagnosis.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "GameSDK.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "DAX3API.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "logi_lamparray_service.AMD64.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "LightingService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "MpDefenderCoreService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "nvcontainer.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ROGLiveService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "RtkAudUService64.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "MsMpEng.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AggregatorHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "wlanext.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "vmcompute.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "unsecapp.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "NisSrv.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AUEPDU.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SecurityHealthService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "OfficeClickToRun.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SearchIndexer.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "lghub_updater.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "dllhost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "msdtc.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "GlideXService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "GlideXServiceExt.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "GlideXRemoteService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "cowork-svc.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "codex-windows-sandbox-service.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "winlogon.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "dwm.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "atieclxx.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusOptimizationStartupTask.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "DefenderSessionHelper.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ArmouryCrate.UserSessionHelper.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "conhost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "sihost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AcPowerNotification.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ASUSSmartDisplayControl.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "taskhostw.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsHotplugCtrl.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsMonitorControl.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "rundll32.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "explorer.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ShellHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "CrossDeviceResume.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "CrossDeviceService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SearchHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "StartMenuExperienceHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "WidgetBoard.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "RuntimeBroker.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "WidgetService.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ArmouryCrate.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "msedgewebview2.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ctfmon.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "nvsphelper64.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "NVIDIA Overlay.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "LockApp.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "MicrosoftStartFeedProvider.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ArmourySocketServer.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ArmouryHtmlDebugServer.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "MoNotificationUx.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "asus_framework.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "PhoneExperienceHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "TextInputHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ShellExperienceHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SecurityHealthSystray.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SteelSeriesGGEZ.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AUEPMaster.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "lghub_system_tray.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "lghub_agent.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SteelSeriesGG.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "steam.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SteelSeriesEngine.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "logi_crashpad_handler.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "steamwebhelper.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "steamservice.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SteelSeriesPrism.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ms-teams.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "RadeonSoftware.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "CPUMetricsServer.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "Discord.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "cncmd.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "cmd.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AMDRSServ.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AMDRSSrcExt.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "amdow.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "mscopilot.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ChatGPT Classic.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "m365copilot_autostarter.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusOSD.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "FAHClient.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ollama app.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ONENOTEM.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ollama.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "backgroundTaskHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "ChatGPT.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "codex.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "codex-computer-use-swift.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "python.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "node_repl.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "node.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "codex-code-mode-host.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AppActions.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "UserOOBEBroker.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "codex-command-runner-0.160.0.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "copilot-runtime.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SnippingTool.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "SearchProtocolHost.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "AsusSoftwareManagerAgent.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "codex-computer-use.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "dotnet.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "MoUsoCoreWorker.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "TrustedInstaller.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "TiWorker.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "smartscreen.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "VBCSCompiler.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    },
+    {
+      "Process": "pwsh.exe",
+      "Enabled": false,
+      "Profile": "General",
+      "Kind": null
+    }
+  ],
+  "AppKinds": [],
+  "FileLog": false,
+  "LogTypedText": false
+}

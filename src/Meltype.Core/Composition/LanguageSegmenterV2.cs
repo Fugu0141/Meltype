@@ -992,44 +992,20 @@ internal sealed class LanguageSegmenterV2
         string pending,
         bool final)
     {
-        var offset = 0;
-        var firstUnit = -1;
-        var lastUnitExclusive = -1;
-
-        for (var i = 0; i < units.Count; i++)
-        {
-            var next = offset + units[i].Raw.Length;
-            if (offset == start) firstUnit = i;
-            if (next == end) lastUnitExclusive = i + 1;
-            offset = next;
-        }
-
+        // V2 treats raw keystrokes as the source of truth. Legacy units may have
+        // finalized a letter as literal English before V2 later discovers that it
+        // belongs to Japanese (linux|tsukau used to leave t:t + su:す => tす).
+        //
+        // Reparse the normalized part of every Japanese span from its own raw
+        // letters. The still-pending tail is deliberately excluded here because
+        // CompositionText appends PendingText separately while typing.
         var unitsRawLength = units.Sum(u => u.Raw.Length);
-
-        if (firstUnit >= 0 && lastUnitExclusive >= firstUnit && end <= unitsRawLength)
-        {
-            var kana = string.Concat(
-                units.Skip(firstUnit).Take(lastUnitExclusive - firstUnit).Select(u => u.Kana));
-            return new CompositionSegment(false, kana, raw);
-        }
-
-        // Pending is rendered separately by CompositionText.RenderSegments.
-        if (firstUnit >= 0 && end == unitsRawLength + pending.Length && start <= unitsRawLength)
-        {
-            var kana = string.Concat(units.Skip(firstUnit).Select(u => u.Kana));
-            return new CompositionSegment(false, kana, raw);
-        }
-
         if (start >= unitsRawLength)
             return new CompositionSegment(false, "", raw);
 
-        // Boundary lies inside a legacy unit. Convert only the normalized part;
-        // pending is appended by CompositionText after the segment.
         var convertedEnd = Math.Min(end, unitsRawLength);
         var convertedLength = Math.Max(0, convertedEnd - start);
-        var convertedRaw = convertedLength > 0
-            ? raw[..Math.Min(raw.Length, convertedLength)]
-            : "";
+        var convertedRaw = raw[..Math.Min(raw.Length, convertedLength)];
 
         return new CompositionSegment(
             false,

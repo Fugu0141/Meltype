@@ -286,7 +286,7 @@ internal static class LanguageAnchorSegmenterTests
                     $"{(s.IsEnglish ? "E" : "J")}:{s.Raw}:{s.Kana}"));
 
                 Assert.Equal(sigA, sigB, $"determinism: {raw}");
-                Assert.False(sa.Any(s => s.Raw.Length == 0), $"empty segment: {raw}");
+                Assert.True(!sa.Any(s => s.Raw.Length == 0), $"empty segment: {raw}");
             }
         }
         finally

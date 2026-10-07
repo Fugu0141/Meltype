@@ -101,6 +101,30 @@ internal sealed class LanguageSegmenterV3
 
             var mapped = RestoreOriginalCase(original, analyzed);
 
+            // A known token touching digits is part of an alphanumeric identifier
+            // much more often than Japanese romaji: win11, ubuntu24, rfc9110.
+            var touchesDigit =
+                position > 0 && char.IsAsciiDigit(raw[position - 1]) ||
+                end < raw.Length && char.IsAsciiDigit(raw[end]);
+
+            if (mapped.Count == 1 &&
+                !mapped[0].IsEnglish &&
+                touchesDigit &&
+                IsLexicalEnglish(lower))
+            {
+                mapped = [new CompositionSegment(true, "", original)];
+            }
+
+            // If a run remained entirely Japanese, still allow the opposite
+            // direction of a mixed boundary: de|issue, no|error. V2 focused on
+            // English->Japanese; V3 stream segmentation must be bidirectional.
+            if (mapped.Count == 1 &&
+                !mapped[0].IsEnglish &&
+                TryLeadingParticleEnglishTail(original) is { } particleSplit)
+            {
+                mapped = particleSplit;
+            }
+
             // Capitalization is evidence, not an input-mode switch. If a whole
             // known/proper token begins with a capital and the lattice remained
             // Japanese, prefer the lexical English interpretation.
@@ -157,11 +181,44 @@ internal sealed class LanguageSegmenterV3
         return MergeAdjacent(result);
     }
 
-    private bool IsCapitalizedEnglish(string lower) =>
+    private bool IsCapitalizedEnglish(string lower) => IsLexicalEnglish(lower);
+
+    private bool IsLexicalEnglish(string lower) =>
         _detector.IsListedEnglishWord(lower) ||
         _detector.IsKnownEnglishWord(lower) ||
         _detector.IsBroadEnglishWord(lower) ||
         _detector.ProperNouns.Contains(lower);
+
+    private List<CompositionSegment>? TryLeadingParticleEnglishTail(string original)
+    {
+        var lower = original.ToLowerInvariant();
+        string[] particles = ["ha", "wa", "ga", "wo", "ni", "de", "to", "mo", "he", "no"];
+
+        foreach (var particle in particles.OrderByDescending(p => p.Length))
+        {
+            if (!lower.StartsWith(particle, StringComparison.Ordinal))
+                continue;
+
+            var tail = lower[particle.Length..];
+            // Keep this rule conservative. Short tails are common accidental
+            // matches inside Japanese, while issue/error/build/kernel are strong.
+            if (tail.Length < 4 || !IsLexicalEnglish(tail))
+                continue;
+
+            var rawParticle = original[..particle.Length];
+            var rawTail = original[particle.Length..];
+            return
+            [
+                new CompositionSegment(
+                    false,
+                    _detector.Romaji.ConvertLenient(rawParticle.ToLowerInvariant(), final: true),
+                    rawParticle),
+                new CompositionSegment(true, "", rawTail),
+            ];
+        }
+
+        return null;
+    }
 
     private IReadOnlyList<CompositionSegment> Flatten(
         string raw,

@@ -422,6 +422,37 @@ internal static class CompositionTests
         }
     }
 
+    [Test]
+    public static void LanguageSegmenterV2_SplitsKnownEnglishFromJapaneseContinuation()
+    {
+        var cases = new Dictionary<string, string>
+        {
+            // Boundary falls inside the legacy "tha" romaji unit.
+            ["commitha"] = "commitは",
+
+            // Existing reports with the same English -> Japanese boundary failure.
+            ["issuetateta"] = "issueたてた",
+            ["reflectsareta"] = "reflectされた",
+            ["inviteshimashita"] = "inviteしました",
+
+            // Technical mixed input should remain natural.
+            ["githubnipush"] = "githubにpush",
+            ["commitshitai"] = "commitしたい",
+
+            // Short English dictionary matches inside ordinary romaji must not win.
+            ["nihongowohanasu"] = "にほんごをはなす",
+            ["koreha"] = "これは",
+            ["repo"] = "れぽ",
+        };
+
+        foreach (var (typed, expected) in cases)
+        {
+            var k = new Keyboard();
+            k.Type(typed);
+            Assert.Equal(expected, k.Showing, $"V2: 「{typed}」");
+        }
+    }
+
     // 実機で報告: 「やあやあ、私だよ」→「やあやあ、だよ私」、「ところでgoogleって」→「ところでってgoogle」
     [Test]
     public static void ReportedOrderSwaps()

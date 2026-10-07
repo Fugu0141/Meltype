@@ -277,8 +277,8 @@ internal static class LanguageAnchorSegmenterTests
                     return;
                 }
 
-                Assert.Equal(raw, string.Concat(sa.Select(s => s.Raw)),
-                    $"raw preservation: {raw}");
+                Assert.Equal(a.Raw, string.Concat(sa.Select(s => s.Raw)),
+                    $"raw preservation after CompositionText normalization: {raw}");
 
                 var sigA = string.Join("|", sa.Select(s =>
                     $"{(s.IsEnglish ? "E" : "J")}:{s.Raw}:{s.Kana}"));

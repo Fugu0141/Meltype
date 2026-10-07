@@ -815,6 +815,15 @@ internal sealed class LanguageSegmenterV2
         int end,
         DetectionLevel level)
     {
+        // Prefer a longer strong lexical span starting at the same point.
+        // terminal dominates term, package dominates pack, network dominates net.
+        for (var laterEnd = raw.Length; laterEnd > end; laterEnd--)
+        {
+            var longer = raw[start..laterEnd];
+            if (IsStrongWholeEnglish(longer, level))
+                return true;
+        }
+
         // Prefer the longest strong lexical span ending at the same point.
         // This is a lattice dominance rule, not a word-specific exception:
         // debug dominates de|bug, deploy dominates de|ploy.

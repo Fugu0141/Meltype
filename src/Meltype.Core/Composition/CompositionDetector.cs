@@ -22,6 +22,14 @@ public sealed class CompositionDetector
     private readonly TypoDetector _typo;
     private readonly ProperNouns _proper;
     private readonly KanaDetector? _kana;
+    private LanguageSegmenterV2? _segmenterV2;
+
+    /// <summary>
+    /// Experimental branch switch. Romaji-only alphabetic input is segmented by
+    /// the lattice-based V2 algorithm; kana input, manual mode and symbols keep
+    /// the legacy path while the experiment is being validated.
+    /// </summary>
+    public bool UseExperimentalLanguageSegmenterV2 { get; set; } = true;
 
     private static readonly HashSet<string> DomainSuffixes = ["ai", "app", "au", "biz", "ca", "cn", "co", "com", "de", "dev", "edu", "eu", "fr", "gg", "gov", "info", "in", "io", "jp", "kr", "me", "net", "org", "uk", "us", "xyz"];
 
@@ -78,6 +86,17 @@ public sealed class CompositionDetector
     public IReadOnlyList<CompositionSegment> Segment(IReadOnlyList<CompositionUnit> units, string pending, bool? precedingEnglish = null, bool? followingEnglish = null,
         DetectionLevel level = DetectionLevel.Balanced, bool englishSentence = false, bool kanaInput = false, bool final = false)
     {
+        var rawInput = Raw(units, 0, units.Count) + pending;
+        if (UseExperimentalLanguageSegmenterV2 &&
+            !kanaInput &&
+            level != DetectionLevel.Manual &&
+            rawInput.Length > 0 &&
+            rawInput.All(char.IsAsciiLetter))
+        {
+            _segmenterV2 ??= new LanguageSegmenterV2(this);
+            return _segmenterV2.Segment(rawInput, precedingEnglish, followingEnglish, level, englishSentence, final);
+        }
+
         var segments = FindSpans(units, pending, precedingEnglish, followingEnglish, level, englishSentence && precedingEnglish == true, kanaInput, final);
         if (kanaInput) return segments;
         // 辞書にない英単語 (stackoverflow など) を最初から打っているなら全体を英語にする。
@@ -279,6 +298,22 @@ public sealed class CompositionDetector
     /// <summary>同梱の英単語の辞書・固有名詞にある語か、ユーザーが英字に直して覚えた語か (ok、github)。スペルチェッカーは使わない。</summary>
     public bool IsListedEnglishWord(string lower) =>
         lower.Length >= 2 && (Memory?.Get(lower) ?? (_english.Words.ContainsWord(lower) || _proper.Contains(lower)));
+
+    /// <summary>V2: 英語辞書または固有名詞の前方一致。</summary>
+    public bool IsEnglishPrefix(string lower) =>
+        lower.Length >= 2 && (_english.IsPrefix(lower) || _proper.HasPrefix(lower));
+
+    /// <summary>V2: 固有名詞辞書の前方一致。</summary>
+    public bool IsProperNounPrefix(string lower) =>
+        lower.Length >= 2 && _proper.HasPrefix(lower);
+
+    /// <summary>V2: 日本語辞書のローマ字見出しと完全一致。</summary>
+    public bool IsKnownJapaneseRomaji(string lower) =>
+        lower.Length >= 2 && _japanese.Words.ContainsWord(lower);
+
+    /// <summary>V2: ローマ字として読めても英語を優先する curated word。</summary>
+    public bool IsReadableEnglishWord(string lower) =>
+        lower.Length >= 2 && ReadableEnglish.Value.ContainsWord(lower);
 
     /// <summary>
     /// 知っている英単語か (同梱の辞書・固有名詞・ユーザーが英字に直して覚えた語・4 文字以上ならスペルチェッカー)。

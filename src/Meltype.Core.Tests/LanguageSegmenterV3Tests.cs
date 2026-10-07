@@ -173,7 +173,8 @@ internal static class LanguageSegmenterV3Tests
                 }
 
                 var reconstructed = string.Concat(segments.Select(s => s.Raw));
-                Assert.Equal(raw, reconstructed, $"raw preservation: {raw}");
+                Assert.Equal(raw, reconstructed,
+                    $"raw preservation: typed={raw}; compositionRaw={text.Raw}; segments={string.Join("|", segments.Select(s => s.Raw))}");
             }
         }
         finally

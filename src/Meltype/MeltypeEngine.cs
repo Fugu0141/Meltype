@@ -30,6 +30,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
     private readonly TsfImeController _tsf = new();
     private readonly ImeController _ime;
     private readonly KeyInjector _injector = new();
+    private readonly NativeMessageInputProbe _nativeMessageProbe;
     private readonly KeyboardMonitor _monitor;
     private readonly BlockingCollection<FlushRequest> _flushQueue = new();
     private readonly Thread _worker;
@@ -60,6 +61,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
         _configPath = configPath;
         Log.SetFileOutput(_settings.FileLog ? AppPaths.LogFile : null);
         Log.RecordText = _settings.LogTypedText;
+        _nativeMessageProbe = new NativeMessageInputProbe();
 
         _userModel = new UserModel(modelPath);
         _scoreEngine = ScoreEngine.CreateDefault(_userModel, () => _settings, userDictionaryDirectory);
@@ -122,6 +124,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
         composition.Controller.ReconversionCommitted += () => InvalidateLine();
         composition.KeyReplayed += e => TrackLine(e);
         composition.MouseReplayed += () => InvalidateLine();
+        composition.Focus.NativeCanCapture = info => _nativeMessageProbe.CanCapture(_foreground.Current.ProcessName, info);
         composition.Focus.Invalidate();
         if (IsKeyboardActive) CloseSystemImeAsync();
     }
@@ -412,6 +415,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
             if (composition.Gate.OnMouseButton(e)) return true;
             if (IsButtonDown(e.Message))
             {
+                _nativeMessageProbe.Retarget(ImeTarget.FromForeground(), _foreground.Current.ProcessName);
                 composition.Focus.Invalidate();
                 composition.ResetContext();
                 InvalidateLine();
@@ -590,6 +594,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
 
     private void OnFocusChanged()
     {
+        _nativeMessageProbe.Retarget(ImeTarget.FromForeground(), _foreground.Current.ProcessName);
         InvalidateLine();
         _composition?.Focus.Invalidate();
         _directEnglishWord = false;
@@ -605,6 +610,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
         InvalidateLine();
         _lastLineKind = null;
         var app = _foreground.Current;
+        _nativeMessageProbe.Retarget(ImeTarget.FromForeground(), app.ProcessName);
         if (_settings.ProfileFor(app.ProcessName) == AppProfile.Code)
         {
             Log.Info($"{app.ProcessName} は「コード」: コメントと文字列の中だけ日本語を判定します (半角/全角 でこの行だけ日本語)。");
@@ -716,6 +722,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
         if (_disposed) return;
         _disposed = true;
         _monitor.Dispose();
+        _nativeMessageProbe.Dispose();
         _sessionTimer.Dispose();
         _pollTimer.Dispose();
         _lineTimer?.Dispose();

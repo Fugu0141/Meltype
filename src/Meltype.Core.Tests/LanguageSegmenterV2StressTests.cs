@@ -48,6 +48,10 @@ internal static class LanguageSegmenterV2StressTests
         }
     }
 
+    private static string SegmentSignature(string typed) =>
+        string.Join("|", Segments(typed).Select(s =>
+            $"{(s.IsEnglish ? "E" : "J")}:{s.Raw}:{s.Kana}"));
+
     private static IReadOnlyList<CompositionSegment> Segments(string typed, bool final = false,
         bool? beforeEnglish = null, bool? afterEnglish = null, bool englishSentence = false)
     {
@@ -116,7 +120,7 @@ internal static class LanguageSegmenterV2StressTests
                 var expected = word + kana;
                 var actual = Show(typed, v2: true);
                 if (actual != expected)
-                    failures.Add($"{typed} => {actual} (expected {expected})");
+                    failures.Add($"{typed} => {actual} (expected {expected}); segments={SegmentSignature(typed)}");
             }
         }
 

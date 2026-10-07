@@ -94,6 +94,16 @@ internal sealed class LanguageSegmenterV2
             return [Japanese(raw, 0, raw.Length, units, pending, final)];
         }
 
+        // High-confidence whole-token paths are still part of V2's model: in
+        // these cases one lattice edge is overwhelmingly better than every
+        // fragmented alternative. Keeping the decision explicit also prevents
+        // accidental proper-noun fragments such as Sam/Nim from stealing it.
+        if (ContextSaysWholeEnglish(raw, precedingEnglish, followingEnglish, englishSentence, level) ||
+            IsStrongWholeEnglish(raw, level))
+        {
+            return [new CompositionSegment(true, "", raw)];
+        }
+
         var contextEnglish = englishSentence || precedingEnglish == true || followingEnglish == true;
         var n = raw.Length;
         var best = new State?[n + 1, 2];
@@ -120,7 +130,10 @@ internal sealed class LanguageSegmenterV2
                         // sushi|ga -> すしが, matte, anime...
                         if (previous.Edge?.Ambiguous == true)
                         {
-                            transition -= 16.0;
+                            if (previous.Edge.StrongEnglish && IsParticle(edge.Raw))
+                                transition += 8.0;
+                            else
+                                transition -= 16.0;
                         }
                         else if (IsJapaneseContinuation(edge.Raw))
                         {
@@ -368,27 +381,28 @@ internal sealed class LanguageSegmenterV2
             var smallKanaSpelling = !strict.IsValid &&
                 fragment is { IsValid: true, Partial: "" };
 
-            // "ambiguous" is a semantic property, not merely "romaji parser says
-            // valid". api is a short technical token and should split in api|no;
-            // sushi/make/repo/matte and lower-case Sam/Nim inside Japanese should
-            // be conservative.
+            var consumedBeforeInvalid = strict.Tokens.Sum(t => t.Romaji.Length);
+
+            // A complete ordinary romaji reading is ambiguous by definition.
+            // Sokuon-heavy listed words (issue/commit) are excluded because that
+            // reading is an accidental by-product of English spelling. Short
+            // lower-case proper names such as Sam/Nim are also ambiguous inside
+            // Japanese even when they end in an unfinished consonant.
             var ambiguous =
                 !readableEnglish &&
+                strict.Sokuon == 0 &&
                 (
-                    completeRomaji && (
-                        span.Length >= 4 && !proper ||
-                        japaneseExact ||
-                        proper && span.Length <= 4
-                    ) ||
-                    proper && japaneseExact
+                    completeRomaji ||
+                    proper && span.Length <= 4 && strict.IsValid
                 );
 
             var strongEnglish =
                 readableEnglish ||
                 strict.IsValid && strict.Sokuon > 0 && (listed || proper) ||
-                !strict.IsValid && !smallKanaSpelling ||
-                proper && !japaneseExact && !completeRomaji ||
-                (listed || known) && span.Length <= 3 && !japanesePrefix;
+                !strict.IsValid && (!smallKanaSpelling || consumedBeforeInvalid >= 2) ||
+                strict.IsValid && strict.Partial is not ("" or "n") && !japanesePrefix ||
+                proper && !japaneseExact ||
+                (listed || known) && span.Length <= 3 && !japanesePrefix && !IsParticle(span);
 
             var japaneseRemainder = end < raw.Length && RemainderLooksJapanese(raw[end..]);
             var continuation = end < raw.Length && IsJapaneseContinuation(raw[end..]);
@@ -548,7 +562,7 @@ internal sealed class LanguageSegmenterV2
 
         // Whole-token exact English is stronger than a path made of several
         // smaller pieces, but not when the word is deliberately ambiguous.
-        if (whole && exactEnglish && strongEnglish && !ambiguous)
+        if (whole && exactEnglish && strongEnglish && (!ambiguous || proper))
             score += 20.0;
 
         // A prefix of a known Japanese-romaji word should not turn English just
@@ -558,7 +572,7 @@ internal sealed class LanguageSegmenterV2
         else if (japanesePrefix && whole && !final && !strongEnglish)
             score -= 16.0;
 
-        if (smallKanaSpelling && learned != true && !readableEnglish)
+        if (smallKanaSpelling && learned != true && !readableEnglish && !strongEnglish)
             score -= 40.0;
 
         if (level == DetectionLevel.Aggressive && exactEnglish)
@@ -581,6 +595,85 @@ internal sealed class LanguageSegmenterV2
             score -= strongEnglish ? 2.0 : 8.0;
 
         return score;
+    }
+
+    private bool ContextSaysWholeEnglish(
+        string raw,
+        bool? precedingEnglish,
+        bool? followingEnglish,
+        bool englishSentence,
+        DetectionLevel level)
+    {
+        // Explicit Japanese text after the caret breaks the English-context tie.
+        if (followingEnglish == false) return false;
+
+        var exact = _detector.IsListedEnglishWord(raw) ||
+                    _detector.IsKnownEnglishWord(raw) ||
+                    _detector.IsBroadEnglishWord(raw) ||
+                    _detector.ProperNouns.Contains(raw);
+
+        // Two or more preceding English words are strong sentence context. This
+        // also allows unknown names such as "taro" to stay Latin.
+        if (englishSentence) return raw.Length > 0;
+
+        if (followingEnglish == true && exact) return true;
+
+        if (precedingEnglish != true || level == DetectionLevel.Conservative)
+            return false;
+
+        if (raw.Length == 1)
+            return raw[0] is 'a' or 'i' or 'u' or 'r';
+
+        if (!exact) return false;
+
+        // After only one English token, short Japanese particles remain Japanese
+        // (GitHub + no/to/ga), while "is"/"at" and 3+ letter words may be English.
+        if (raw.Length >= 3) return true;
+
+        var analysis = _detector.Romaji.Analyze(raw);
+        return !(analysis.IsValid && analysis.Partial is "" or "n");
+    }
+
+    private bool IsStrongWholeEnglish(string raw, DetectionLevel level)
+    {
+        var listed = _detector.IsListedEnglishWord(raw);
+        var known = _detector.IsKnownEnglishWord(raw);
+        var broad = _detector.IsBroadEnglishWord(raw);
+        var proper = _detector.ProperNouns.Contains(raw);
+        var exact = listed || known || broad || proper;
+        if (!exact) return false;
+
+        var strict = _detector.Romaji.Analyze(raw);
+        var fragment = _detector.Romaji.AnalyzeFragment(raw);
+        var completeRomaji = strict.IsValid && strict.Partial is "" or "n";
+        var smallKanaSpelling = !strict.IsValid &&
+            fragment is { IsValid: true, Partial: "" };
+        var consumedBeforeInvalid = strict.Tokens.Sum(t => t.Romaji.Length);
+        var japaneseExact = _detector.IsKnownJapaneseRomaji(raw);
+
+        if (level == DetectionLevel.Conservative && proper && completeRomaji)
+            return false;
+
+        if (_detector.IsReadableEnglishWord(raw)) return true;
+        if (strict.Sokuon > 0 && (listed || proper)) return true;
+
+        if (!strict.IsValid)
+        {
+            // who/va-like composition-only spellings start failing immediately
+            // and are intentional Japanese input. hello fails only after "he",
+            // which is much stronger English evidence.
+            if (smallKanaSpelling && consumedBeforeInvalid == 0) return false;
+            return true;
+        }
+
+        if (strict.Partial is not ("" or "n") &&
+            !_detector.IsJapaneseRomajiPrefix(raw))
+            return true;
+
+        if (proper && !japaneseExact && level != DetectionLevel.Conservative)
+            return true;
+
+        return false;
     }
 
     /// <summary>

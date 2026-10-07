@@ -540,6 +540,7 @@ public sealed class CompositionText
         // from its raw keys. Legacy CompositionUnits may have preserved a
         // consonant as Latin because it was adjacent to the English word
         // (linux|tsukau: x | t | su ...). V2's boundary changes that context.
+        if (_detector.UseExperimentalLanguageSegmenterV2 && !KanaInput)
         for (var i = 1; i < segments.Count; i++)
         {
             if (segments[i].IsEnglish || !segments[i - 1].IsEnglish) continue;
@@ -645,7 +646,11 @@ public sealed class CompositionText
             var cutsLegacyUnit =
                 !unitBoundaries.Contains(segmentStart) ||
                 segmentEnd <= unitOffset && !unitBoundaries.Contains(segmentEnd);
-            var followsEnglish = i > 0 && segments[i - 1].IsEnglish;
+            var followsEnglish =
+                _detector.UseExperimentalLanguageSegmenterV2 &&
+                !KanaInput &&
+                i > 0 &&
+                segments[i - 1].IsEnglish;
             var reparseFromRaw = cutsLegacyUnit || followsEnglish;
 
             var kana = reparseFromRaw

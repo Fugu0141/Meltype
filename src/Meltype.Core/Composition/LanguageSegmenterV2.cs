@@ -430,6 +430,13 @@ internal sealed class LanguageSegmenterV2
                 japaneseRemainder,
                 continuation);
 
+            if (!strongEnglish && atEnd && start > 0 &&
+                StartsAfterParticle(raw, start) &&
+                IsStrongWholeEnglish(span, level))
+            {
+                strongEnglish = true;
+            }
+
             var whole = atInputStart && atEnd;
 
             var englishScore = EnglishScore(
@@ -463,13 +470,16 @@ internal sealed class LanguageSegmenterV2
             // inside it (de|bug|ha). Likewise, a strong English word immediately
             // after a Japanese particle is a natural switch (github|ni|push,
             // linux|de|kernel).
-            if (strongEnglish && japaneseRemainder)
+            if (strongEnglish && (japaneseRemainder || continuation || atEnd))
             {
-                if (start == 0)
+                if (start == 0 && (japaneseRemainder || continuation))
                     englishScore += 32.0 + Math.Min(span.Length, 12) * 1.5;
-                else if (StartsAfterParticle(raw, start))
+                else if (start > 0 && StartsAfterParticle(raw, start))
                     englishScore += 28.0 + Math.Min(span.Length, 12);
             }
+
+            if (start > 0 && HasDominatingEnglishSpan(raw, start, end, level))
+                englishScore -= 80.0;
 
             yield return new Edge(
                 start,
@@ -713,7 +723,7 @@ internal sealed class LanguageSegmenterV2
         bool japaneseRemainder,
         bool continuation)
     {
-        if (!japaneseRemainder) return false;
+        if (!japaneseRemainder && !continuation) return false;
 
         if (_detector.LearnedLanguage(span) == false) return false;
         if (_detector.LearnedLanguage(span) == true) return true;
@@ -746,7 +756,7 @@ internal sealed class LanguageSegmenterV2
 
         // Lower-case proper names that are also exact Japanese readings (samui)
         // are not strong without context.
-        if (proper && !japaneseExact && !completeRomaji)
+        if (proper && span.Length >= 4 && !japaneseExact && !completeRomaji)
             return true;
 
         if (continuation)
@@ -764,6 +774,31 @@ internal sealed class LanguageSegmenterV2
             // Longer complete-romaji words (sushi/repo/anime) stay ambiguous.
             if (!completeRomaji && span.Length >= 4 &&
                 (listed || known || broad || proper))
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool HasDominatingEnglishSpan(
+        string raw,
+        int start,
+        int end,
+        DetectionLevel level)
+    {
+        // Prefer the longest strong lexical span ending at the same point.
+        // This is a lattice dominance rule, not a word-specific exception:
+        // debug dominates de|bug, deploy dominates de|ploy.
+        for (var earlier = 0; earlier < start; earlier++)
+        {
+            if (earlier > 0 && !StartsAfterParticle(raw, earlier))
+                continue;
+
+            var longer = raw[earlier..end];
+            if (longer.Length <= raw[start..end].Length)
+                continue;
+
+            if (IsStrongWholeEnglish(longer, level))
                 return true;
         }
 

@@ -82,20 +82,20 @@ internal sealed class LanguageSegmenterV2
                     // Every extra lattice piece has a small cost. This prevents
                     // hello from winning as he|l|l|o merely by accumulating many
                     // short local scores.
-                    var transition = switched ? -4.0 : -1.0;
+                    var transition = switched ? -10.0 : -2.0;
 
                     if (previous.Language == Language.English &&
                         edge.Language == Language.Japanese &&
                         IsJapaneseContinuation(edge.Raw))
                     {
-                        transition += 5.0;
+                        transition += 8.0;
                     }
 
                     if (previous.Language == Language.Japanese &&
                         edge.Language == Language.English &&
                         edge.Raw.Length >= 4)
                     {
-                        transition += 1.0;
+                        transition += 3.0;
                     }
 
                     Put(best, edge.End, new State
@@ -182,8 +182,8 @@ internal sealed class LanguageSegmenterV2
         {
             // Once surrounding text says "this is an English sentence", that is
             // stronger evidence than the fact that sushi/make can also be romaji.
-            if (englishSentence) context += 22.0;
-            else if (precedingEnglish == true) context += 10.0;
+            if (englishSentence) context += 30.0;
+            else if (precedingEnglish == true) context += 15.0;
             else if (precedingEnglish == false) context -= 1.5;
         }
         else if (precedingEnglish == false)
@@ -236,8 +236,9 @@ internal sealed class LanguageSegmenterV2
             var prefix = atEnd && !final && lower.Length >= 2 && _detector.IsEnglishPrefix(lower);
             var properPrefix = atEnd && !final && lower.Length >= 2 && _detector.IsProperNounPrefix(lower);
             var obviousSingle = raw.Length == 1 && start == 0 && span.Length == 1 && lower[0] is 'q' or 'l' or 'v' or 'x';
+            var contextShortWord = raw.Length == 1 && start == 0 && span.Length == 1 && lower[0] is 'a' or 'i' or 'u' or 'r';
 
-            if (!listed && !known && !prefix && !properPrefix && !obviousSingle)
+            if (!listed && !known && !prefix && !properPrefix && !obviousSingle && !contextShortWord)
                 continue;
 
             var japaneseRemainder = end < raw.Length && RemainderLooksJapanese(raw[end..]);
@@ -245,7 +246,7 @@ internal sealed class LanguageSegmenterV2
 
             yield return new Edge(start, end, Language.English, span,
                 EnglishScore(lower, listed, known, proper, prefix, properPrefix,
-                    obviousSingle, level, japaneseRemainder, continuation));
+                    obviousSingle, contextShortWord, level, japaneseRemainder, continuation));
         }
 
         if (!yieldedJapanese)
@@ -257,20 +258,30 @@ internal sealed class LanguageSegmenterV2
 
     private double JapaneseScore(string lower, bool atStart, bool atEnd)
     {
-        var score = lower.Length * 1.8;
+        // Keep the Japanese prior mostly length-based. Large bonuses on every
+        // short dictionary hit made normal sentences fragment around accidental
+        // English words (kid, sam, red, ...).
+        var score = lower.Length * 3.0;
         var strict = _detector.Romaji.Analyze(lower);
 
-        score += strict.IsValid ? 4.0 : -4.0;
-        if (_detector.IsKnownJapaneseRomaji(lower)) score += 5.0;
-        if (_detector.IsCommonJapanese?.Invoke(lower) == true) score += 6.0;
+        if (strict.IsValid && strict.Partial is "" or "n") score += 8.0;
+        else if (!strict.IsValid) score -= 6.0;
 
-        if (_detector.LearnedLanguage(lower) == false) score += 25.0;
-        else if (_detector.LearnedLanguage(lower) == true) score -= 15.0;
+        if (_detector.IsCommonJapanese?.Invoke(lower) == true) score += 8.0;
 
-        if (atStart && atEnd) score += 2.0;
+        var learned = _detector.LearnedLanguage(lower);
+        if (learned == false) score += 30.0;
+        else if (learned == true) score -= 30.0;
+
+        if (atStart && atEnd) score += 6.0;
+
+        // Explicit small-kana spellings such as xa/la/ltu are Japanese input.
+        if (lower.Length >= 2 && lower[0] is 'x' or 'l' &&
+            _detector.Romaji.AnalyzeFragment(lower) is { IsValid: true })
+            score += 14.0;
 
         if (lower is "ha" or "wa" or "ga" or "wo" or "ni" or "de" or "to" or "mo" or "he" or "no")
-            score += 2.5;
+            score += 2.0;
 
         return score;
     }
@@ -283,68 +294,81 @@ internal sealed class LanguageSegmenterV2
         bool prefix,
         bool properPrefix,
         bool obviousSingle,
+        bool contextShortWord,
         DetectionLevel level,
         bool japaneseRemainder,
         bool continuation)
     {
         double score;
         if (listed || proper)
-            score = 12.0 + lower.Length * 2.2;
+            score = lower.Length * 3.0 + 10.0;
         else if (known)
-            score = 9.0 + lower.Length * 1.8;
+            score = lower.Length * 3.0 + 6.0;
         else if (properPrefix)
-            score = 16.0 + lower.Length * 1.5;
+            score = lower.Length * 3.0 + 12.0;
         else if (prefix)
-            score = 11.0 + lower.Length * 1.3;
+            score = lower.Length * 3.0 + 8.0;
         else if (obviousSingle)
             score = 8.0;
+        else if (contextShortWord)
+            score = 5.0;
         else
             score = 0.0;
 
         var strict = _detector.Romaji.Analyze(lower);
         var completeRomaji = strict.IsValid && strict.Partial is "" or "n";
 
-        // Ambiguous dictionary words are Japanese by default (repo/same/sushi).
+        // Words that are also ordinary romaji are ambiguous by default.
         if (completeRomaji) score -= 18.0;
-        else if (!strict.IsValid) score += 5.0;
-        else score += 2.0; // ends in an unfinished consonant: weak English evidence
+        else if (!strict.IsValid) score += 8.0;
+        else score += 2.0;
 
+        // issue/apple-like words only become Japanese through a sokuon. For a
+        // listed English word this is strong evidence for the English reading.
         if ((listed || proper) && strict.IsValid && strict.Sokuon > 0)
-            score += 14.0;
-        if (_detector.IsReadableEnglishWord(lower))
-            score += 15.0;
+            score += 30.0;
 
-        // Proper nouns are intentionally strong even when they are readable as
-        // romaji (amazon/korea/youtube).
-        if (proper) score += 15.0;
-        if (properPrefix) score += 6.0;
+        if (_detector.IsReadableEnglishWord(lower))
+            score += 25.0;
+
+        if (proper) score += 25.0;
+        if (properPrefix) score += 8.0;
 
         var learned = _detector.LearnedLanguage(lower);
         if (learned == true) score += 30.0;
         else if (learned == false) score -= 50.0;
 
-        // General mixed-language boundary evidence: a complete known English word
-        // followed by a valid Japanese remainder is better than reading the whole
-        // string as one unusual romaji sequence.
+        // Generic mixed-language evidence: a known English token followed by a
+        // valid Japanese continuation is a plausible language boundary.
         if ((listed || known || proper) && lower.Length >= 3 && japaneseRemainder)
-            score += 6.0;
+            score += 5.0;
         if ((listed || known || proper) && lower.Length >= 3 && continuation)
-            score += 8.0;
+            score += 15.0;
+        if ((listed || known || proper) && lower.Length == 3 && continuation)
+            score += 12.0;
 
-        if (level == DetectionLevel.Aggressive && (listed || known || proper)) score += 8.0;
-        if (level == DetectionLevel.Conservative && completeRomaji && !proper) score -= 2.0;
+        // Do not steal the beginning of a longer Japanese romaji word (fair|u).
+        if (_detector.IsJapaneseRomajiPrefix(lower) && japaneseRemainder && !proper)
+            score -= 12.0;
 
-        if (lower.Length <= 2 && learned != true && !obviousSingle) score -= 14.0;
-        else if (lower.Length == 3 && learned != true && !proper) score -= 4.0;
+        if (level == DetectionLevel.Aggressive && (listed || known || proper))
+            score += lower.Length <= 2 ? 35.0 : 8.0;
+        if (level == DetectionLevel.Conservative)
+        {
+            if (completeRomaji && !proper) score -= 4.0;
+            if (proper && completeRomaji) score -= 15.0;
+        }
+
+        if (lower.Length <= 2 && learned != true && !obviousSingle && !contextShortWord) score -= 20.0;
+        else if (lower.Length == 3 && learned != true && !proper) score -= 5.0;
+
+        if (lower.Length >= 2 && lower[0] is 'x' or 'l' &&
+            _detector.Romaji.AnalyzeFragment(lower) is { IsValid: true } && !proper && learned != true)
+            score -= 20.0;
 
         return score;
     }
 
-    /// <summary>
-    /// Prefer the already-normalized kana when a V2 boundary coincides with
-    /// CompositionUnit boundaries. Only re-run romaji conversion when the new
-    /// language boundary cuts through an old unit (the commi[t|ha] case).
-    /// </summary>
     private CompositionSegment Japanese(
         string raw,
         int start,
@@ -374,18 +398,23 @@ internal sealed class LanguageSegmenterV2
             return new CompositionSegment(false, kana, raw);
         }
 
-        // Aligned at a unit boundary and extending through all pending letters.
+        // Pending is rendered separately by CompositionText.RenderSegments.
         if (firstUnit >= 0 && end == unitsRawLength + pending.Length && start <= unitsRawLength)
         {
             var kana = string.Concat(units.Skip(firstUnit).Select(u => u.Kana));
-            if (pending.Length > 0)
-                kana += _detector.Romaji.ConvertLenient(pending.ToLowerInvariant(), final);
             return new CompositionSegment(false, kana, raw);
         }
 
-        // The interesting V2 case: boundary lies inside a legacy unit.
+        if (start >= unitsRawLength)
+            return new CompositionSegment(false, "", raw);
+
+        // Boundary lies inside a legacy unit. Convert only the normalized part;
+        // the pending tail is appended later by CompositionText.
+        var convertedEnd = Math.Min(end, unitsRawLength);
+        var convertedLength = Math.Max(0, convertedEnd - start);
+        var convertedRaw = convertedLength > 0 ? raw[..Math.Min(raw.Length, convertedLength)] : "";
         return new CompositionSegment(false,
-            _detector.Romaji.ConvertLenient(raw.ToLowerInvariant(), final), raw);
+            _detector.Romaji.ConvertLenient(convertedRaw.ToLowerInvariant(), final: true), raw);
     }
 
     private bool RemainderLooksJapanese(string raw)

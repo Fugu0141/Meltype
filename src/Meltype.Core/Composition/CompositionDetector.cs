@@ -29,7 +29,8 @@ public sealed class CompositionDetector
     /// the lattice-based V2 algorithm; kana input, manual mode and symbols keep
     /// the legacy path while the experiment is being validated.
     /// </summary>
-    public bool UseExperimentalLanguageSegmenterV2 { get; set; } = true;
+    public bool UseExperimentalLanguageSegmenterV2 { get; set; } =
+        string.Equals(Environment.GetEnvironmentVariable("MELTYPE_LANGUAGE_SEGMENTER_V2"), "1", StringComparison.Ordinal);
 
     private static readonly HashSet<string> DomainSuffixes = ["ai", "app", "au", "biz", "ca", "cn", "co", "com", "de", "dev", "edu", "eu", "fr", "gg", "gov", "info", "in", "io", "jp", "kr", "me", "net", "org", "uk", "us", "xyz"];
 
@@ -325,6 +326,10 @@ public sealed class CompositionDetector
 
     /// <summary>V2: ユーザー学習。true=英字、false=日本語、null=未学習。</summary>
     public bool? LearnedLanguage(string lower) => Memory?.Get(lower);
+
+    /// <summary>V2: OS 非依存の同梱 SCOWL 辞書、または利用可能なスペルチェッカーで英単語か。</summary>
+    public bool IsGeneralEnglishWord(string lower) =>
+        lower.Length >= 4 && (BuiltInWordChecker.Shared.IsWord(lower) || IsSpellWord(lower));
 
     /// <summary>
     /// 知っている英単語か (同梱の辞書・固有名詞・ユーザーが英字に直して覚えた語・4 文字以上ならスペルチェッカー)。

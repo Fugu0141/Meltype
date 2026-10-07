@@ -151,6 +151,13 @@ internal sealed class LanguageSegmenterV2
                             // pattern V2 is designed for: commit|ha, reflect|sareta.
                             transition += 10.0;
                         }
+                        else if (previous.Edge?.StrongEnglish == true)
+                        {
+                            // A strong English head can also be followed directly
+                            // by an ordinary Japanese verb/noun: invite|miru,
+                            // cache|naosu, server|okuru.
+                            transition += 8.0;
+                        }
                     }
                     else if (previous.Language == Language.Japanese && edge.Language == Language.English)
                     {
@@ -719,7 +726,8 @@ internal sealed class LanguageSegmenterV2
             return span.Length >= 4 || listed || known || proper;
         }
 
-        if (strict.Partial is not ("" or "n") && !japanesePrefix)
+        if (strict.Partial is not ("" or "n") && !japanesePrefix &&
+            (span.Length >= 4 || continuation && (listed || known)))
             return true;
 
         // Lower-case proper names that are also exact Japanese readings (samui)

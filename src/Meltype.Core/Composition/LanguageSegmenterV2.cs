@@ -399,7 +399,8 @@ internal sealed class LanguageSegmenterV2
             var strongEnglish =
                 readableEnglish ||
                 strict.IsValid && strict.Sokuon > 0 && (listed || proper) ||
-                !strict.IsValid && (!smallKanaSpelling || consumedBeforeInvalid >= 2) ||
+                !strict.IsValid && (!smallKanaSpelling ||
+                    consumedBeforeInvalid >= 2 && (listed || known || broad || proper)) ||
                 strict.IsValid && strict.Partial is not ("" or "n") && !japanesePrefix ||
                 proper && !japaneseExact ||
                 (listed || known) && span.Length <= 3 && !japanesePrefix && !IsParticle(span);
@@ -428,6 +429,7 @@ internal sealed class LanguageSegmenterV2
                     final,
                     japaneseRemainder,
                     continuation,
+                    atEnd,
                     whole,
                     completeRomaji,
                     japanesePrefix,
@@ -497,6 +499,7 @@ internal sealed class LanguageSegmenterV2
         bool final,
         bool japaneseRemainder,
         bool continuation,
+        bool atEnd,
         bool whole,
         bool completeRomaji,
         bool japanesePrefix,
@@ -556,9 +559,23 @@ internal sealed class LanguageSegmenterV2
         // deliberately do not get this bonus.
         var exactEnglish = listed || known || broad || proper;
         if (exactEnglish && strongEnglish && japaneseRemainder)
-            score += 7.0;
+            score += 10.0;
         if (exactEnglish && strongEnglish && continuation)
-            score += lower.Length <= 3 ? 25.0 : 20.0;
+            score += lower.Length <= 3 ? 40.0 : 35.0;
+
+        // Very short curated tokens can be useful before a Japanese particle
+        // even when they are romaji-readable (api|no, ok|no). Ordinary particles
+        // themselves are explicitly excluded.
+        if (listed && lower.Length <= 3 && continuation && !IsParticle(lower))
+            score += 25.0;
+
+        // A strong exact English word at the current input tail should beat a
+        // fragmented kana path (push, update, bug).
+        if (atEnd && exactEnglish && strongEnglish)
+            score += 15.0;
+
+        if (broad && strongEnglish)
+            score += 12.0;
 
         // Whole-token exact English is stronger than a path made of several
         // smaller pieces, but not when the word is deliberately ambiguous.
@@ -597,6 +614,26 @@ internal sealed class LanguageSegmenterV2
         return score;
     }
 
+    private bool HasKnownEnglishJapaneseSplit(string raw)
+    {
+        for (var k = 1; k < raw.Length; k++)
+        {
+            var head = raw[..k];
+            var rest = raw[k..];
+            if (!IsJapaneseContinuation(rest)) continue;
+
+            if (_detector.IsListedEnglishWord(head) ||
+                _detector.IsKnownEnglishWord(head) ||
+                _detector.IsBroadEnglishWord(head) ||
+                _detector.ProperNouns.Contains(head))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private bool ContextSaysWholeEnglish(
         string raw,
         bool? precedingEnglish,
@@ -614,7 +651,8 @@ internal sealed class LanguageSegmenterV2
 
         // Two or more preceding English words are strong sentence context. This
         // also allows unknown names such as "taro" to stay Latin.
-        if (englishSentence) return raw.Length > 0;
+        if (englishSentence)
+            return raw.Length > 0 && !HasKnownEnglishJapaneseSplit(raw);
 
         if (followingEnglish == true && exact) return true;
 

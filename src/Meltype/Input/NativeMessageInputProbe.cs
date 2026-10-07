@@ -57,6 +57,7 @@ internal sealed class NativeMessageInputProbe : IDisposable
     private IntPtr _getMessageHook;
     private IntPtr _callWndRetHook;
     private uint _threadId;
+    private uint _processId;
     private bool _loggedUnavailable;
 
     public NativeMessageInputProbe(string? dllPath = null)
@@ -88,11 +89,12 @@ internal sealed class NativeMessageInputProbe : IDisposable
         string.Equals(Path.GetFileNameWithoutExtension(processName), "Unity", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>Unity Editor の UIA では Pane にしか見えない Inspector でだけ native hint を採用する。</summary>
-    internal static bool ShouldUseUnityFallback(string processName, FocusInfo info, Snapshot snapshot, uint expectedThread, ulong now)
+    internal static bool ShouldUseUnityFallback(string processName, FocusInfo info, Snapshot snapshot, uint expectedProcess, uint expectedThread, ulong now)
     {
         if (!SupportsProcess(processName)) return false;
         if (!string.Equals(info.ClassName, "UnityGUIViewWndClass", StringComparison.Ordinal)) return false;
         if (info.IsPassword || info.IsTextInput) return false;
+        if (snapshot.ProcessId == 0 || snapshot.ProcessId != expectedProcess) return false;
         if (snapshot.ThreadId == 0 || snapshot.ThreadId != expectedThread) return false;
         if (snapshot.TextInputHint == 0) return false;
         if (now >= snapshot.Tick && now - snapshot.Tick > MaxSnapshotAgeMs) return false;
@@ -126,18 +128,19 @@ internal sealed class NativeMessageInputProbe : IDisposable
                 return;
             }
 
+            _processId = target.ProcessId;
             _threadId = target.ThreadId;
-            Log.Info($"Unity の入力メッセージを監視します (thread {target.ThreadId})。");
+            Log.Info($"Unity の入力メッセージを監視します (process {target.ProcessId}, thread {target.ThreadId})。");
         }
     }
 
     public bool CanCapture(string processName, FocusInfo info)
     {
-        if (!Available || _threadId == 0) return false;
-        var target = ImeTarget.FromForeground();
-        if (target is null || target.ThreadId != _threadId) return false;
+        var expectedThread = _threadId;
+        var expectedProcess = _processId;
+        if (!Available || expectedThread == 0 || expectedProcess == 0) return false;
         if (!TryRead(out var snapshot)) return false;
-        return ShouldUseUnityFallback(processName, info, snapshot, target.ThreadId, unchecked((ulong)Environment.TickCount64));
+        return ShouldUseUnityFallback(processName, info, snapshot, expectedProcess, expectedThread, unchecked((ulong)Environment.TickCount64));
     }
 
     /// <summary>
@@ -187,6 +190,7 @@ internal sealed class NativeMessageInputProbe : IDisposable
         if (_getMessageHook != IntPtr.Zero) { Native.UnhookWindowsHookEx(_getMessageHook); _getMessageHook = IntPtr.Zero; }
         if (_callWndRetHook != IntPtr.Zero) { Native.UnhookWindowsHookEx(_callWndRetHook); _callWndRetHook = IntPtr.Zero; }
         _threadId = 0;
+        _processId = 0;
     }
 
     public void Dispose()

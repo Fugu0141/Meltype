@@ -94,6 +94,12 @@ internal sealed class LanguageSegmenterV2
             return [Japanese(raw, 0, raw.Length, units, pending, final)];
         }
 
+        // A strong exact English head followed by a valid Japanese continuation
+        // is the central V2 use-case. Resolve that boundary before the general
+        // lattice so accidental shorter dictionary matches cannot steal it.
+        if (TryHighConfidenceMixedSplit(raw, units, pending, level, final) is { } mixed)
+            return mixed;
+
         // High-confidence whole-token paths are still part of V2's model: in
         // these cases one lattice edge is overwhelmingly better than every
         // fragmented alternative. Keeping the decision explicit also prevents
@@ -625,6 +631,35 @@ internal sealed class LanguageSegmenterV2
             score -= strongEnglish ? 2.0 : 8.0;
 
         return score;
+    }
+
+    private IReadOnlyList<CompositionSegment>? TryHighConfidenceMixedSplit(
+        string raw,
+        IReadOnlyList<CompositionUnit> units,
+        string pending,
+        DetectionLevel level,
+        bool final)
+    {
+        // Prefer the longest high-confidence English head. This makes
+        // "commitha" -> commit|ha and "reflectsareta" -> reflect|sareta,
+        // while romaji-readable words such as nikon are not considered strong.
+        for (var k = raw.Length - 1; k >= 2; k--)
+        {
+            var head = raw[..k];
+            var rest = raw[k..];
+
+            if (!IsJapaneseContinuation(rest)) continue;
+            if (!RemainderLooksJapanese(rest)) continue;
+            if (!IsStrongWholeEnglish(head, level)) continue;
+
+            return
+            [
+                new CompositionSegment(true, "", head),
+                Japanese(rest, k, raw.Length, units, pending, final),
+            ];
+        }
+
+        return null;
     }
 
     private bool HasKnownEnglishJapaneseSplit(string raw)

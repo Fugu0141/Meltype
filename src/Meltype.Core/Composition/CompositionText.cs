@@ -647,11 +647,12 @@ public sealed class CompositionText
                 !unitBoundaries.Contains(segmentStart) ||
                 segmentEnd <= unitOffset && !unitBoundaries.Contains(segmentEnd);
             var followsEnglish =
-                _detector.UseExperimentalLanguageSegmenterV2 &&
-                !KanaInput &&
                 i > 0 &&
                 segments[i - 1].IsEnglish;
-            var reparseFromRaw = cutsLegacyUnit || followsEnglish;
+            var reparseFromRaw =
+                _detector.UseExperimentalLanguageSegmenterV2 &&
+                !KanaInput &&
+                (cutsLegacyUnit || followsEnglish);
 
             var kana = reparseFromRaw
                 ? _detector.Romaji.ConvertLenient(segment.Raw.ToLowerInvariant(), final && isLast)

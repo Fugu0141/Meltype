@@ -32,6 +32,22 @@ internal static class LanguageSegmenterV2StressTests
         }
     }
 
+    private static string Commit(string typed, bool v2)
+    {
+        var previous = Detector.UseExperimentalLanguageSegmenterV2;
+        Detector.UseExperimentalLanguageSegmenterV2 = v2;
+        try
+        {
+            var k = new CompositionTests.Keyboard();
+            k.Type(typed + "\n");
+            return k.Host.Document;
+        }
+        finally
+        {
+            Detector.UseExperimentalLanguageSegmenterV2 = previous;
+        }
+    }
+
     private static IReadOnlyList<CompositionSegment> Segments(string typed, bool final = false,
         bool? beforeEnglish = null, bool? afterEnglish = null, bool englishSentence = false)
     {
@@ -204,7 +220,7 @@ internal static class LanguageSegmenterV2StressTests
         var failures = new List<string>();
         foreach (var (typed, expected) in cases)
         {
-            var actual = Show(typed, v2: true);
+            var actual = Commit(typed, v2: true);
             if (actual != expected)
                 failures.Add($"{typed} => {actual} (expected {expected})");
         }

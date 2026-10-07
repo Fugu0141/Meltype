@@ -598,22 +598,49 @@ public sealed class CompositionText
     {
         var builder = new StringBuilder();
         var segments = Segments(final);
+
+        // Raw-character segmentation (V2) can place a language boundary inside
+        // one legacy CompositionUnit. In that case the unit's cached kana cannot
+        // be sliced safely (linux|tsukau may cross an old "xtsu" unit). Reparse
+        // only that Japanese segment from its own raw keys.
+        var unitBoundaries = new HashSet<int> { 0 };
+        var unitOffset = 0;
+        foreach (var unit in _units)
+        {
+            unitOffset += unit.Raw.Length;
+            unitBoundaries.Add(unitOffset);
+        }
+
+        var rawOffset = 0;
         for (var i = 0; i < segments.Count; i++)
         {
             var segment = segments[i];
+            var segmentStart = rawOffset;
+            var segmentEnd = rawOffset + segment.Raw.Length;
+            rawOffset = segmentEnd;
+
             if (segment.IsEnglish)
             {
                 builder.Append(segment.Raw);
                 continue;
             }
+
             var isLast = i == segments.Count - 1;
-            var kana = segment.Kana;
-            var pending = isLast ? PendingText(final) : "";
+            var cutsLegacyUnit =
+                !unitBoundaries.Contains(segmentStart) ||
+                segmentEnd <= unitOffset && !unitBoundaries.Contains(segmentEnd);
+
+            var kana = cutsLegacyUnit
+                ? _detector.Romaji.ConvertLenient(segment.Raw.ToLowerInvariant(), final && isLast)
+                : segment.Kana;
+            var pending = isLast && !cutsLegacyUnit ? PendingText(final) : "";
+
             if (final && isLast && pending == "ん")
             {
                 kana += pending;
                 pending = "";
             }
+
             builder.Append(convert is not null && kana.Length > 0 ? convert(kana) : kana);
             builder.Append(pending);
         }

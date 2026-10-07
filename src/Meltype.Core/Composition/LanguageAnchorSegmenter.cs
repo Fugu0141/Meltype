@@ -46,6 +46,12 @@ internal sealed class LanguageAnchorSegmenter
         "kara", "made", "yori",
     };
 
+    private static readonly string[] GrammaticalContinuations =
+    [
+        "suru", "shita", "shite", "shitai", "shimasu", "shimashita",
+        "sare", "sareta", "saseru",
+    ];
+
     private sealed record Anchor(
         int Start,
         int End,
@@ -355,7 +361,22 @@ internal sealed class LanguageAnchorSegmenter
         if (!profile.StrictValid)
         {
             if (!profile.FragmentValid) return true;
-            return _english.Words.ContainsWord(word) && !profile.JapanesePrefix;
+            if (_english.Words.ContainsWord(word) && !profile.JapanesePrefix)
+                return true;
+
+            // Some normal English words are readable only through composition
+            // extensions (v/l/x and small-kana spellings). A broad dictionary
+            // word of 4+ letters with a strong boundary is still a valid anchor:
+            // invite|shimashita, linux|de, kernel|wo.
+            if (lexical >= 66 &&
+                word.Length >= 4 &&
+                !profile.JapaneseExact &&
+                (right >= 5 || end == rawLength))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         // A trailing unfinished consonant in an exact dictionary word is strong
@@ -379,9 +400,13 @@ internal sealed class LanguageAnchorSegmenter
         if (start == 0) return 6;
 
         var left = raw[..start];
-        if (!IsCompleteJapanese(left)) return 0;
 
+        // Local boundary evidence is sufficient. Earlier text may already contain
+        // an English anchor (github|de|issue), so requiring the entire prefix to
+        // be Japanese would make later anchors impossible.
         if (EndsWithParticle(left)) return 6;
+
+        if (!IsCompleteJapanese(left)) return 0;
         if (_japanese.Words.ContainsWord(left)) return 5;
         if (_japanese.IsPrefix(left)) return 3;
 
@@ -393,9 +418,13 @@ internal sealed class LanguageAnchorSegmenter
         if (end == raw.Length) return 6;
 
         var right = raw[end..];
-        if (!IsCompleteJapanese(right)) return 0;
 
+        // Local boundary markers win even if another English anchor appears later:
+        // issue|wo|github and github|de|issue.
+        if (StartsWithGrammaticalContinuation(right)) return 8;
         if (StartsWithParticle(right)) return 6;
+
+        if (!IsCompleteJapanese(right)) return 0;
         if (StartsWithJapaneseWord(right)) return 5;
 
         // A longer complete romaji suffix is weak but useful evidence. This
@@ -412,6 +441,9 @@ internal sealed class LanguageAnchorSegmenter
         var analysis = _romaji.AnalyzeFragment(text);
         return analysis.IsValid && analysis.Partial is "" or "n";
     }
+
+    private static bool StartsWithGrammaticalContinuation(string text) =>
+        GrammaticalContinuations.Any(p => text.StartsWith(p, StringComparison.Ordinal));
 
     private static bool StartsWithParticle(string text) =>
         Particles.Any(p => text.StartsWith(p, StringComparison.Ordinal));

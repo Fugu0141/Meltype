@@ -27,6 +27,17 @@ public sealed class FocusInspector : IDisposable
     private string? _loggedDescription;
     private (string Description, Rectangle? Bounds)? _lastTextInput;
 
+    /// <summary>UIA で入力欄と分からないときの追加判定。Issue #111 の native message probe などで使う。</summary>
+    public Func<FocusInfo, bool> NativeCanCapture { get; set; } = _ => false;
+
+    private bool IsEffectiveTextInput(FocusInfo info)
+    {
+        if (info.IsPassword) return false;
+        if (info.IsTextInput) return true;
+        try { return NativeCanCapture(info); }
+        catch { return false; }
+    }
+
     /// <summary>
     /// 別の入力欄 (パスワード以外) にフォーカスが移った (このクラスのスレッドから呼ばれる)。入力モード (あ / A) の表示に使う。
     /// </summary>
@@ -56,7 +67,7 @@ public sealed class FocusInspector : IDisposable
         {
             if (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence)) return false;
             var info = _info;
-            return info.IsTextInput && !info.IsPassword;
+            return IsEffectiveTextInput(info);
         }
     }
 
@@ -78,7 +89,7 @@ public sealed class FocusInspector : IDisposable
         // 調べ終わらなかったときに直前の結果を使うのは、前面のウィンドウが同じときだけ (別のアプリのパスワード欄などに移った直後は使わない)。
         if (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence) && Native.GetForegroundWindow() != _inspectedForeground) return false;
         var info = _info;
-        return info.IsTextInput && !info.IsPassword;
+        return IsEffectiveTextInput(info);
     }
 
     public FocusInfo Current => _info;
@@ -182,17 +193,19 @@ public sealed class FocusInspector : IDisposable
         if (sequence != Interlocked.Read(ref _focusSequence)) return;
         var info = Inspect();
         _info = info;
+        var effectiveTextInput = IsEffectiveTextInput(info);
+        var nativeTextInput = effectiveTextInput && !info.IsTextInput;
         // 調べている間にまたフォーカスが変わっていたら、この結果は採用しない (次の要求で調べ直す)。
         if (sequence == Interlocked.Read(ref _focusSequence)) Interlocked.Exchange(ref _resolvedSequence, sequence);
 
         // 変換中に入力先がパスワード欄・入力欄でない所に変わったら、変換中の内容を捨てさせる (移った先に入らないように)。
         // UI Automation で調べられなかっただけ (確認できない・フォーカスなし) のときは捨てない。
-        if (sequence == Interlocked.Read(ref _focusSequence) && (info.IsPassword || !info.IsTextInput && !info.Description.StartsWith("確認できない") && info.Description != "フォーカスなし"))
+        if (sequence == Interlocked.Read(ref _focusSequence) && (info.IsPassword || !effectiveTextInput && !info.Description.StartsWith("確認できない") && info.Description != "フォーカスなし"))
         {
             CaptureLost?.Invoke(info.IsPassword ? "パスワード欄にフォーカスが移った" : "入力欄でない所にフォーカスが移った");
         }
 
-        if (info.IsTextInput && !info.IsPassword)
+        if (effectiveTextInput && !info.IsPassword)
         {
             var key = (info.Description, info.Bounds);
             if (_lastTextInput != key)
@@ -204,11 +217,11 @@ public sealed class FocusInspector : IDisposable
         else _lastTextInput = null;
 
         // 変換ボックスが出ない理由を後から追えるように、判断が変わったらログに残す。
-        var summary = $"{(info.IsPassword ? "パスワード欄" : info.IsTextInput ? "入力欄" : "入力欄ではない")}: {info.Description}";
+        var summary = $"{(info.IsPassword ? "パスワード欄" : effectiveTextInput ? "入力欄" : "入力欄ではない")}: {info.Description}{(nativeTextInput ? " (native message hook)" : "")}";
         if (summary != _loggedDescription)
         {
             _loggedDescription = summary;
-            Diagnostics.Log.Info($"フォーカス → {summary}{(info.IsTextInput && !info.IsPassword ? "" : " (変換ボックスは出しません)")}");
+            Diagnostics.Log.Info($"フォーカス → {summary}{(effectiveTextInput && !info.IsPassword ? "" : " (変換ボックスは出しません)")}");
         }
     }
 

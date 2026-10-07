@@ -22,6 +22,16 @@ public sealed class CompositionDetector
     private readonly TypoDetector _typo;
     private readonly ProperNouns _proper;
     private readonly KanaDetector? _kana;
+    private LanguageAnchorSegmenter? _anchorSegmenter;
+
+    /// <summary>
+    /// Experimental fresh anchor-based detector. Disabled by default.
+    /// </summary>
+    public bool UseExperimentalLanguageAnchorV4 { get; set; } =
+        string.Equals(
+            Environment.GetEnvironmentVariable("MELTYPE_LANGUAGE_ANCHOR_V4"),
+            "1",
+            StringComparison.Ordinal);
 
     private static readonly HashSet<string> DomainSuffixes = ["ai", "app", "au", "biz", "ca", "cn", "co", "com", "de", "dev", "edu", "eu", "fr", "gg", "gov", "info", "in", "io", "jp", "kr", "me", "net", "org", "uk", "us", "xyz"];
 
@@ -78,6 +88,27 @@ public sealed class CompositionDetector
     public IReadOnlyList<CompositionSegment> Segment(IReadOnlyList<CompositionUnit> units, string pending, bool? precedingEnglish = null, bool? followingEnglish = null,
         DetectionLevel level = DetectionLevel.Balanced, bool englishSentence = false, bool kanaInput = false, bool final = false)
     {
+        var rawInput = Raw(units, 0, units.Count) + pending;
+        if (UseExperimentalLanguageAnchorV4 &&
+            !kanaInput &&
+            level != DetectionLevel.Manual &&
+            LanguageAnchorSegmenter.CanHandle(rawInput))
+        {
+            _anchorSegmenter ??= new LanguageAnchorSegmenter(
+                _romaji,
+                _japanese,
+                _english,
+                _proper,
+                () => SpellChecker,
+                word => Memory?.Get(word));
+
+            return _anchorSegmenter.Segment(
+                units,
+                pending,
+                level,
+                final);
+        }
+
         var segments = FindSpans(units, pending, precedingEnglish, followingEnglish, level, englishSentence && precedingEnglish == true, kanaInput, final);
         if (kanaInput) return segments;
         // 辞書にない英単語 (stackoverflow など) を最初から打っているなら全体を英語にする。

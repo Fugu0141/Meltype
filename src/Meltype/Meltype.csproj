@@ -20,4 +20,11 @@
     <InternalsVisibleTo Include="Meltype.Tests" />
     <ProjectReference Include="..\Meltype.Core\Meltype.Core.csproj" />
   </ItemGroup>
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+    <Content Include="..\..\native\inputhook\bin\x64\Release\meltype_input_hook.dll"
+             Link="meltype_input_hook.dll"
+             Condition="Exists('..\..\native\inputhook\bin\x64\Release\meltype_input_hook.dll')"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

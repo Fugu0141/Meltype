@@ -94,11 +94,16 @@ internal sealed class LanguageSegmenterV2
             return [Japanese(raw, 0, raw.Length, units, pending, final)];
         }
 
-        // A strong exact English head followed by a valid Japanese continuation
-        // is the central V2 use-case. Resolve that boundary before the general
-        // lattice so accidental shorter dictionary matches cannot steal it.
-        if (TryHighConfidenceMixedSplit(raw, units, pending, level, final) is { } mixed)
-            return mixed;
+        var contextEnglish = englishSentence || precedingEnglish == true || followingEnglish == true;
+
+        // If the complete raw input is ordinary Japanese romaji, keep it Japanese
+        // unless the string contains at least one genuinely strong English ->
+        // Japanese boundary. This prevents incidental words such as red/mod/you
+        // from being carved out of otherwise normal Japanese sentences.
+        var wholeJapanese = _detector.Romaji.AnalyzeFragment(raw) is
+            { IsValid: true, Partial: "" or "n" };
+        if (!contextEnglish && wholeJapanese && !HasStrongMixedBoundary(raw, level))
+            return [Japanese(raw, 0, raw.Length, units, pending, final)];
 
         // High-confidence whole-token paths are still part of V2's model: in
         // these cases one lattice edge is overwhelmingly better than every
@@ -110,7 +115,6 @@ internal sealed class LanguageSegmenterV2
             return [new CompositionSegment(true, "", raw)];
         }
 
-        var contextEnglish = englishSentence || precedingEnglish == true || followingEnglish == true;
         var n = raw.Length;
         var best = new State?[n + 1, 2];
 
@@ -402,29 +406,22 @@ internal sealed class LanguageSegmenterV2
                     proper && span.Length <= 4 && strict.IsValid
                 );
 
-            var strongEnglish =
-                readableEnglish ||
-                strict.IsValid && strict.Sokuon > 0 && (listed || proper) ||
-                !strict.IsValid && (!smallKanaSpelling ||
-                    consumedBeforeInvalid >= 2 && (listed || known || broad || proper)) ||
-                strict.IsValid && strict.Partial is not ("" or "n") && !japanesePrefix ||
-                proper && !japaneseExact ||
-                (listed || known) && span.Length <= 3 && !japanesePrefix && !IsParticle(span);
-
             var japaneseRemainder = end < raw.Length && RemainderLooksJapanese(raw[end..]);
             var continuation = end < raw.Length && IsJapaneseContinuation(raw[end..]);
 
-            // A short curated token immediately followed by a Japanese
-            // continuation is a strong mixed-language boundary even when the
-            // same prefix also occurs in Japanese (ok|no, api|no).
-            if (!strongEnglish &&
-                (listed || known) &&
-                span.Length <= 3 &&
-                continuation &&
-                !IsParticle(span))
-            {
-                strongEnglish = true;
-            }
+            var strongEnglish = IsStrongEnglishBoundaryHead(
+                span,
+                listed,
+                known,
+                broad,
+                proper,
+                strict,
+                fragment,
+                japanesePrefix,
+                japaneseExact,
+                readableEnglish,
+                japaneseRemainder,
+                continuation);
 
             var whole = atInputStart && atEnd;
 
@@ -633,33 +630,134 @@ internal sealed class LanguageSegmenterV2
         return score;
     }
 
-    private IReadOnlyList<CompositionSegment>? TryHighConfidenceMixedSplit(
-        string raw,
-        IReadOnlyList<CompositionUnit> units,
-        string pending,
-        DetectionLevel level,
-        bool final)
+    private bool HasStrongMixedBoundary(string raw, DetectionLevel level)
     {
-        // Prefer the longest high-confidence English head. This makes
-        // "commitha" -> commit|ha and "reflectsareta" -> reflect|sareta,
-        // while romaji-readable words such as nikon are not considered strong.
-        for (var k = raw.Length - 1; k >= 2; k--)
+        for (var start = 0; start < raw.Length - 1; start++)
         {
-            var head = raw[..k];
-            var rest = raw[k..];
+            // A new English span in the middle of Japanese normally needs a
+            // Japanese particle immediately before it. This keeps random
+            // dictionary hits inside Japanese from becoming language switches.
+            var startAllowed = start == 0 || StartsAfterParticle(raw, start);
+            if (!startAllowed) continue;
 
-            if (!IsJapaneseContinuation(rest)) continue;
-            if (!RemainderLooksJapanese(rest)) continue;
-            if (!IsStrongWholeEnglish(head, level)) continue;
-
-            return
-            [
-                new CompositionSegment(true, "", head),
-                Japanese(rest, k, raw.Length, units, pending, final),
-            ];
+            for (var end = raw.Length - 1; end > start; end--)
+            {
+                var span = raw[start..end];
+                var rest = raw[end..];
+                if (!RemainderLooksJapanese(rest)) continue;
+                if (IsStrongEnglishBoundaryHead(span, rest, level)) return true;
+            }
         }
 
-        return null;
+        return false;
+    }
+
+    private bool IsStrongEnglishBoundaryHead(string span, string rest, DetectionLevel level)
+    {
+        var listed = _detector.IsListedEnglishWord(span);
+        var known = _detector.IsKnownEnglishWord(span);
+        var broad = _detector.IsBroadEnglishWord(span);
+        var proper = _detector.ProperNouns.Contains(span);
+        if (!listed && !known && !broad && !proper) return false;
+
+        var strict = _detector.Romaji.Analyze(span);
+        var fragment = _detector.Romaji.AnalyzeFragment(span);
+        return IsStrongEnglishBoundaryHead(
+            span,
+            listed,
+            known,
+            broad,
+            proper,
+            strict,
+            fragment,
+            _detector.IsJapaneseRomajiPrefix(span),
+            _detector.IsKnownJapaneseRomaji(span),
+            _detector.IsReadableEnglishWord(span),
+            japaneseRemainder: RemainderLooksJapanese(rest),
+            continuation: IsJapaneseContinuation(rest));
+    }
+
+    private bool IsStrongEnglishBoundaryHead(
+        string span,
+        bool listed,
+        bool known,
+        bool broad,
+        bool proper,
+        Detection.RomajiAnalysis strict,
+        Detection.RomajiAnalysis fragment,
+        bool japanesePrefix,
+        bool japaneseExact,
+        bool readableEnglish,
+        bool japaneseRemainder,
+        bool continuation)
+    {
+        if (!japaneseRemainder) return false;
+
+        if (_detector.LearnedLanguage(span) == false) return false;
+        if (_detector.LearnedLanguage(span) == true) return true;
+
+        if (readableEnglish) return true;
+        if (strict.IsValid && strict.Sokuon > 0 && (listed || proper)) return true;
+
+        var completeRomaji = strict.IsValid && strict.Partial is "" or "n";
+        var consumedBeforeInvalid = strict.Tokens.Sum(t => t.Romaji.Length);
+        var smallKanaSpelling = !strict.IsValid &&
+            fragment is { IsValid: true, Partial: "" };
+
+        // Most normal English spellings are not valid Japanese romaji. They are
+        // safe boundaries even when the following Japanese starts with a verb
+        // rather than a particle: invite|miru, server|okuru.
+        if (!strict.IsValid)
+        {
+            // ca/cu/co and similar composition-only C-row spellings are a
+            // special case: an exact English word such as cache should win,
+            // while arbitrary Japanese C-row input should not.
+            if (smallKanaSpelling && consumedBeforeInvalid == 0)
+                return span.Length >= 4 && (listed || broad || proper) &&
+                    span.Contains('c');
+
+            return span.Length >= 4 || listed || known || proper;
+        }
+
+        if (strict.Partial is not ("" or "n") && !japanesePrefix)
+            return true;
+
+        // Lower-case proper names that are also exact Japanese readings (samui)
+        // are not strong without context.
+        if (proper && !japaneseExact && !completeRomaji)
+            return true;
+
+        if (continuation)
+        {
+            // Curated 3-letter technical tokens such as api are useful before a
+            // particle. Two-letter complete romaji words such as go/no remain
+            // Japanese; incomplete abbreviations such as ok may be English.
+            if (span.Length == 3 && listed && !IsParticle(span))
+                return true;
+
+            if (span.Length == 2 && (listed || known) && !completeRomaji &&
+                !IsParticle(span))
+                return true;
+
+            // Longer complete-romaji words (sushi/repo/anime) stay ambiguous.
+            if (!completeRomaji && span.Length >= 4 &&
+                (listed || known || broad || proper))
+                return true;
+        }
+
+        return false;
+    }
+
+    private static bool StartsAfterParticle(string raw, int start)
+    {
+        foreach (var particle in Particles)
+        {
+            if (start >= particle.Length &&
+                raw.AsSpan(start - particle.Length, particle.Length)
+                    .SequenceEqual(particle.AsSpan()))
+                return true;
+        }
+        return false;
     }
 
     private bool HasKnownEnglishJapaneseSplit(string raw)

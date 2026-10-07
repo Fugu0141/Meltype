@@ -437,6 +437,9 @@ internal sealed class LanguageSegmenterV2
                 strongEnglish = true;
             }
 
+            if (level == DetectionLevel.Conservative && proper && completeRomaji)
+                strongEnglish = false;
+
             var whole = atInputStart && atEnd;
 
             var englishScore = EnglishScore(
@@ -479,6 +482,9 @@ internal sealed class LanguageSegmenterV2
             }
 
             if (start > 0 && HasDominatingEnglishSpan(raw, start, end, level))
+                englishScore -= 80.0;
+
+            if (HasLongerDominatingEnglishSpan(raw, start, end, level))
                 englishScore -= 80.0;
 
             yield return new Edge(
@@ -756,7 +762,7 @@ internal sealed class LanguageSegmenterV2
 
         // Lower-case proper names that are also exact Japanese readings (samui)
         // are not strong without context.
-        if (proper && span.Length >= 4 && !japaneseExact && !completeRomaji)
+        if (proper && span.Length >= 4 && !japaneseExact)
             return true;
 
         if (continuation)
@@ -774,6 +780,29 @@ internal sealed class LanguageSegmenterV2
             // Longer complete-romaji words (sushi/repo/anime) stay ambiguous.
             if (!completeRomaji && span.Length >= 4 &&
                 (listed || known || broad || proper))
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool HasLongerDominatingEnglishSpan(
+        string raw,
+        int start,
+        int end,
+        DetectionLevel level)
+    {
+        // Same-start maximal-munch rule. If a longer strong English token starts
+        // here and leaves a plausible Japanese continuation, do not let a short
+        // prefix (term/pack/net) split it prematurely.
+        for (var longerEnd = end + 1; longerEnd < raw.Length; longerEnd++)
+        {
+            var longer = raw[start..longerEnd];
+            var rest = raw[longerEnd..];
+            if (!RemainderLooksJapanese(rest) && !IsJapaneseContinuation(rest))
+                continue;
+
+            if (IsStrongEnglishBoundaryHead(longer, rest, level))
                 return true;
         }
 

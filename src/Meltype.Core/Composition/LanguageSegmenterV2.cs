@@ -121,7 +121,7 @@ internal sealed class LanguageSegmenterV2
                 foreach (var edge in GenerateEdges(raw, position, level, final, contextEnglish))
                 {
                     var switched = previous.Language != edge.Language;
-                    var transition = switched ? -10.0 : -2.0;
+                    var transition = switched ? -14.0 : -2.0;
 
                     if (previous.Language == Language.English && edge.Language == Language.Japanese)
                     {
@@ -407,6 +407,19 @@ internal sealed class LanguageSegmenterV2
 
             var japaneseRemainder = end < raw.Length && RemainderLooksJapanese(raw[end..]);
             var continuation = end < raw.Length && IsJapaneseContinuation(raw[end..]);
+
+            // A short curated token immediately followed by a Japanese
+            // continuation is a strong mixed-language boundary even when the
+            // same prefix also occurs in Japanese (ok|no, api|no).
+            if (!strongEnglish &&
+                (listed || known) &&
+                span.Length <= 3 &&
+                continuation &&
+                !IsParticle(span))
+            {
+                strongEnglish = true;
+            }
+
             var whole = atInputStart && atEnd;
 
             yield return new Edge(

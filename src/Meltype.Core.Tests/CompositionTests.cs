@@ -1293,8 +1293,17 @@ internal static class CompositionTests
         Assert.Equal("きょう", k.Showing, "もう一度 Space で次の候補");
         k.Type(" ");
         Assert.Equal("キョウ", k.Showing);
+        k.Type(" ");
+        Assert.Equal("ｷｮｳ", k.Showing, "半角カタカナも候補に出す");
         k.Type("\n");
-        Assert.Equal("キョウ", k.Host.Output.Single());
+        Assert.Equal("ｷｮｳ", k.Host.Output.Single());
+    }
+
+    [Test]
+    public static void HalfWidthKatakana_HandlesDakutenAndSmallKana()
+    {
+        Assert.Equal("ｶﾞｯﾂﾎﾟｰｽﾞ", CompositionText.ToHalfWidthKatakana("ガッツポーズ"));
+        Assert.Equal("ｷｮｳ", CompositionText.ToHalfWidthKatakana("キョウ"));
     }
 
     [Test]

@@ -821,7 +821,8 @@ internal sealed class LanguageSegmenterV2
         // A known Japanese continuation boundary is stronger than maximal munch.
         // commit|suru must beat commits|uru, issue|de must beat issued|e.
         var currentRest = raw[end..];
-        if (IsJapaneseContinuation(currentRest))
+        if (IsJapaneseContinuation(currentRest) ||
+            _detector.IsKnownJapaneseRomaji(currentRest))
             return false;
 
         // Same-start maximal-munch rule. If a longer strong English token starts
@@ -847,15 +848,6 @@ internal sealed class LanguageSegmenterV2
         int end,
         DetectionLevel level)
     {
-        // Prefer a longer strong lexical span starting at the same point.
-        // terminal dominates term, package dominates pack, network dominates net.
-        for (var laterEnd = raw.Length; laterEnd > end; laterEnd--)
-        {
-            var longer = raw[start..laterEnd];
-            if (IsStrongWholeEnglish(longer, level))
-                return true;
-        }
-
         // Prefer the longest strong lexical span ending at the same point.
         // This is a lattice dominance rule, not a word-specific exception:
         // debug dominates de|bug, deploy dominates de|ploy.

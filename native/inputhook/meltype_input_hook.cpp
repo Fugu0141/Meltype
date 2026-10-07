@@ -80,6 +80,9 @@ bool IsProbeMessage(UINT message)
            message == WM_LBUTTONDOWN ||
            message == WM_RBUTTONDOWN ||
            message == WM_MBUTTONDOWN ||
+           message == WM_LBUTTONUP ||
+           message == WM_RBUTTONUP ||
+           message == WM_MBUTTONUP ||
            message == WM_KEYDOWN ||
            message == WM_CHAR ||
            message == WM_SYSCHAR;
@@ -108,9 +111,12 @@ void Publish(HWND hwnd, UINT message, UINT source, WPARAM originalWParam, uint32
     QueryIme(hwnd, hasContext, open);
 
     LONG hint = state->textInputHint;
-    if (message == WM_LBUTTONDOWN || message == WM_RBUTTONDOWN || message == WM_MBUTTONDOWN)
+    if (message == WM_LBUTTONDOWN || message == WM_RBUTTONDOWN || message == WM_MBUTTONDOWN ||
+        message == WM_LBUTTONUP || message == WM_RBUTTONUP || message == WM_MBUTTONUP)
         hint = (hasContext != 0 && open != 0) ? 1 : 0;
     else if (message == WM_IME_STARTCOMPOSITION || message == WM_IME_COMPOSITION || message == WM_IME_CHAR)
+        hint = 1;
+    else if (message == WM_IME_NOTIFY && originalWParam == IMN_SETOPENSTATUS && open != 0)
         hint = 1;
     else if (message == WM_KILLFOCUS || (message == WM_IME_SETCONTEXT && originalWParam == 0))
         hint = 0;

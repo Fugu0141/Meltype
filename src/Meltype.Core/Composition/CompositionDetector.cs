@@ -319,6 +319,10 @@ public sealed class CompositionDetector
     public bool IsReadableEnglishWord(string lower) =>
         lower.Length >= 2 && ReadableEnglish.Value.ContainsWord(lower);
 
+    /// <summary>V2: SCOWL 由来の広い同梱英語辞書。境界候補の生成にだけ使う。</summary>
+    public bool IsBroadEnglishWord(string lower) =>
+        lower.Length >= 4 && lower.All(char.IsAsciiLetterLower) && BuiltInWordChecker.Shared.IsWord(lower);
+
     /// <summary>V2: ユーザー学習。true=英字、false=日本語、null=未学習。</summary>
     public bool? LearnedLanguage(string lower) => Memory?.Get(lower);
 

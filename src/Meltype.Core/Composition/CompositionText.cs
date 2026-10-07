@@ -152,7 +152,18 @@ public sealed class CompositionText
         // 記号・数字の前で、途中の n は ん に、読めない子音は英字のまま確定させる。
         Normalize(final: true);
         // 数字の前では打ち間違いを直さない (rta2026・ps5・win11 の英字は略語)。数字の後ろの単位を英字のままにするのは FixTypos の中
-        if (char.IsAsciiDigit(c)) SplitUnitAfterNumber(final: true);
+        if (char.IsAsciiDigit(c))
+        {
+            SplitUnitAfterNumber(final: true);
+
+            // SplitUnitAfterNumber may move the remainder of an alphanumeric run
+            // back into Pending (for example 8Nskme -> unit "Ns" + pending "kme").
+            // A digit is typed *after* that remainder, so flush it again before
+            // appending the digit. Otherwise the digit is inserted in the middle:
+            // Nskme5 -> Ns5kme.
+            if (_pending.Length > 0)
+                Normalize(final: true);
+        }
         else FixTypos();
         // 数字の後の . と , は小数点・桁区切り (GPL3.0、1,000)。句点・読点にしない。
         if (c is ',' or '.' && _units.Count > 0 && _units[^1].Raw is [var previous] && char.IsAsciiDigit(previous))

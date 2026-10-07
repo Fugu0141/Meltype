@@ -422,7 +422,7 @@ internal sealed class LanguageAnchorSegmenter
         // Local boundary markers win even if another English anchor appears later:
         // issue|wo|github and github|de|issue.
         if (StartsWithGrammaticalContinuation(right)) return 8;
-        if (StartsWithParticle(right)) return 6;
+        if (StartsWithParticleBoundary(right)) return 6;
 
         if (!IsCompleteJapanese(right)) return 0;
         if (StartsWithJapaneseWord(right)) return 5;
@@ -445,8 +445,41 @@ internal sealed class LanguageAnchorSegmenter
     private static bool StartsWithGrammaticalContinuation(string text) =>
         GrammaticalContinuations.Any(p => text.StartsWith(p, StringComparison.Ordinal));
 
-    private static bool StartsWithParticle(string text) =>
-        Particles.Any(p => text.StartsWith(p, StringComparison.Ordinal));
+    private bool StartsWithParticleBoundary(string text)
+    {
+        foreach (var particle in Particles)
+        {
+            if (!text.StartsWith(particle, StringComparison.Ordinal))
+                continue;
+
+            var tail = text[particle.Length..];
+            if (tail.Length == 0) return true;
+            if (StartsWithGrammaticalContinuation(tail)) return true;
+            if (IsCompleteJapanese(tail)) return true;
+            if (StartsWithJapaneseWord(tail)) return true;
+            if (StartsWithLexicalEnglish(tail)) return true;
+        }
+
+        return false;
+    }
+
+    private bool StartsWithLexicalEnglish(string text)
+    {
+        var max = Math.Min(text.Length, 48);
+        for (var end = max; end >= 3; end--)
+        {
+            var word = text[..end];
+            if (LexicalEvidence(word) <= 0) continue;
+
+            var profile = RomajiProfile(word);
+            if (profile.CompleteRomaji && !profile.Proper && profile.Sokuon == 0)
+                continue;
+
+            return true;
+        }
+
+        return false;
+    }
 
     private static bool EndsWithParticle(string text) =>
         Particles.Any(p => text.EndsWith(p, StringComparison.Ordinal));

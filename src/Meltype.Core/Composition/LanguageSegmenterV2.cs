@@ -792,6 +792,12 @@ internal sealed class LanguageSegmenterV2
         int end,
         DetectionLevel level)
     {
+        // A known Japanese continuation boundary is stronger than maximal munch.
+        // commit|suru must beat commits|uru, issue|de must beat issued|e.
+        var currentRest = raw[end..];
+        if (IsJapaneseContinuation(currentRest))
+            return false;
+
         // Same-start maximal-munch rule. If a longer strong English token starts
         // here and leaves a plausible Japanese continuation, do not let a short
         // prefix (term/pack/net) split it prematurely.

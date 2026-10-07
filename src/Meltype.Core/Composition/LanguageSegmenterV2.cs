@@ -487,6 +487,9 @@ internal sealed class LanguageSegmenterV2
             if (HasLongerDominatingEnglishSpan(raw, start, end, level))
                 englishScore -= 80.0;
 
+            if (CrossesProtectedJapaneseBoundary(raw, start, end, level))
+                englishScore -= 120.0;
+
             yield return new Edge(
                 start,
                 end,
@@ -786,6 +789,29 @@ internal sealed class LanguageSegmenterV2
         return false;
     }
 
+    private bool CrossesProtectedJapaneseBoundary(
+        string raw,
+        int start,
+        int end,
+        DetectionLevel level)
+    {
+        // Do not let an inflected English word consume the beginning of a
+        // well-formed Japanese continuation:
+        // build|suru beats builds|uru, merge|shita beats merges|hita.
+        for (var boundary = start + 2; boundary < end; boundary++)
+        {
+            var rest = raw[boundary..];
+            if (!IsJapaneseContinuation(rest))
+                continue;
+
+            var head = raw[start..boundary];
+            if (IsStrongWholeEnglish(head, level))
+                return true;
+        }
+
+        return false;
+    }
+
     private bool HasLongerDominatingEnglishSpan(
         string raw,
         int start,
@@ -1025,8 +1051,54 @@ internal sealed class LanguageSegmenterV2
         return analysis.IsValid && analysis.Partial is "" or "n";
     }
 
-    private static bool IsJapaneseContinuation(string raw) =>
-        JapaneseContinuationPrefixes.Any(p => raw.StartsWith(p, StringComparison.Ordinal));
+    private bool IsJapaneseContinuation(string raw)
+    {
+        // Verb/auxiliary forms are strong boundaries on their own.
+        foreach (var prefix in JapaneseContinuationPrefixes)
+        {
+            if (Particles.Contains(prefix)) continue;
+            if (raw.StartsWith(prefix, StringComparison.Ordinal))
+                return true;
+        }
+
+        // A two-letter particle is a boundary only if what follows can itself
+        // continue as Japanese or as a strong English token. This prevents
+        // network from becoming net|work merely because work starts with "wo".
+        foreach (var particle in Particles)
+        {
+            if (!raw.StartsWith(particle, StringComparison.Ordinal))
+                continue;
+
+            var tail = raw[particle.Length..];
+            if (tail.Length == 0) return true;
+            if (RemainderLooksJapanese(tail)) return true;
+            if (StartsWithStrongEnglishWord(tail)) return true;
+        }
+
+        return false;
+    }
+
+    private bool StartsWithStrongEnglishWord(string raw)
+    {
+        for (var end = raw.Length; end >= 2; end--)
+        {
+            var head = raw[..end];
+            if (!IsStrongWholeEnglish(head, DetectionLevel.Balanced))
+                continue;
+
+            var tail = raw[end..];
+            if (tail.Length == 0 ||
+                RemainderLooksJapanese(tail) ||
+                JapaneseContinuationPrefixes
+                    .Where(p => !Particles.Contains(p))
+                    .Any(p => tail.StartsWith(p, StringComparison.Ordinal)))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private static bool IsParticle(string raw) => Particles.Contains(raw);
 

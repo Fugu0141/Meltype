@@ -311,6 +311,10 @@ public sealed class CompositionDetector
     public bool IsKnownJapaneseRomaji(string lower) =>
         lower.Length >= 2 && _japanese.Words.ContainsWord(lower);
 
+    /// <summary>V2: 日本語辞書のローマ字見出しの前方一致。</summary>
+    public bool IsJapaneseRomajiPrefix(string lower) =>
+        lower.Length >= 2 && _japanese.IsPrefix(lower);
+
     /// <summary>V2: ローマ字として読めても英語を優先する curated word。</summary>
     public bool IsReadableEnglishWord(string lower) =>
         lower.Length >= 2 && ReadableEnglish.Value.ContainsWord(lower);

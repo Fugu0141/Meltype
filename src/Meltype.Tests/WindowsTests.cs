@@ -45,6 +45,13 @@ internal static class WindowsTests
     }
 
     [Test]
+    public static void NativeMessageProbe_DllLoads()
+    {
+        using var probe = new NativeMessageInputProbe();
+        Assert.True(probe.Available, "x64 hook DLL を読み込み、必要な export を取得できる");
+    }
+
+    [Test]
     public static void NativeMessageProbe_MissingDllFailsOpen()
     {
         using var probe = new NativeMessageInputProbe(Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".dll"));

@@ -2,6 +2,7 @@
 // Copyright (C) 2026 Yukishiro
 
 using Meltype.Config;
+using Meltype.Composition;
 using Meltype.Input;
 
 namespace Meltype.Tests;
@@ -27,4 +28,27 @@ internal static class WindowsTests
         settings.AppRules.Add(new AppRule { Process = "minecraft.exe", Enabled = true, Profile = AppProfile.Game });
         Assert.True(settings.IsGame("minecraft.exe", looksLikeGame: false), "アプリ別設定で「ゲーム」にしたら止める");
     }
+    [Test]
+    public static void NativeMessageProbe_IsLimitedToUnityInspector()
+    {
+        var pane = new FocusInfo(false, false, null, "ControlType 50033 \"UnityEditor.InspectorWindow\" (UnityGUIViewWndClass)", ClassName: "UnityGUIViewWndClass");
+        var hint = new NativeMessageInputProbe.Snapshot(1, 123, 0x0201, 1, 1, 1, 1_000, 0x1234, 0, 0);
+
+        Assert.True(NativeMessageInputProbe.ShouldUseUnityFallback("Unity.exe", pane, hint, 123, 1_100), "Unity Inspector + native hint");
+        Assert.True(!NativeMessageInputProbe.ShouldUseUnityFallback("chrome.exe", pane, hint, 123, 1_100), "他アプリには広げない");
+        Assert.True(!NativeMessageInputProbe.ShouldUseUnityFallback("Unity.exe", pane, hint with { TextInputHint = 0 }, 123, 1_100), "hint が無ければ使わない");
+        Assert.True(!NativeMessageInputProbe.ShouldUseUnityFallback("Unity.exe", pane, hint, 999, 1_100), "別スレッドの状態を使わない");
+        Assert.True(!NativeMessageInputProbe.ShouldUseUnityFallback("Unity.exe", pane, hint, 123, 20_000), "古い状態を使わない");
+
+        var edit = new FocusInfo(true, false, null, "Edit", ClassName: "UnityGUIViewWndClass");
+        Assert.True(!NativeMessageInputProbe.ShouldUseUnityFallback("Unity.exe", edit, hint, 123, 1_100), "UIA が入力欄なら fallback は不要");
+    }
+
+    [Test]
+    public static void NativeMessageProbe_MissingDllFailsOpen()
+    {
+        using var probe = new NativeMessageInputProbe(Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".dll"));
+        Assert.True(!probe.Available, "DLL が無くても例外にせず従来判定へ戻る");
+    }
+
 }

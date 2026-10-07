@@ -432,36 +432,51 @@ internal sealed class LanguageSegmenterV2
 
             var whole = atInputStart && atEnd;
 
+            var englishScore = EnglishScore(
+                span,
+                listed,
+                known,
+                broad,
+                proper,
+                prefix,
+                properPrefix,
+                obviousSingle,
+                contextShortWord,
+                contextOnly,
+                level,
+                final,
+                japaneseRemainder,
+                continuation,
+                atEnd,
+                whole,
+                completeRomaji,
+                japanesePrefix,
+                japaneseExact,
+                readableEnglish,
+                smallKanaSpelling,
+                strict.Sokuon,
+                ambiguous,
+                strongEnglish);
+
+            // Boundary position is evidence. Prefer a long strong word at the
+            // beginning (debug|ha, deploy|miru) over a shorter word found later
+            // inside it (de|bug|ha). Likewise, a strong English word immediately
+            // after a Japanese particle is a natural switch (github|ni|push,
+            // linux|de|kernel).
+            if (strongEnglish && japaneseRemainder)
+            {
+                if (start == 0)
+                    englishScore += 32.0 + Math.Min(span.Length, 12) * 1.5;
+                else if (StartsAfterParticle(raw, start))
+                    englishScore += 28.0 + Math.Min(span.Length, 12);
+            }
+
             yield return new Edge(
                 start,
                 end,
                 Language.English,
                 span,
-                EnglishScore(
-                    span,
-                    listed,
-                    known,
-                    broad,
-                    proper,
-                    prefix,
-                    properPrefix,
-                    obviousSingle,
-                    contextShortWord,
-                    contextOnly,
-                    level,
-                    final,
-                    japaneseRemainder,
-                    continuation,
-                    atEnd,
-                    whole,
-                    completeRomaji,
-                    japanesePrefix,
-                    japaneseExact,
-                    readableEnglish,
-                    smallKanaSpelling,
-                    strict.Sokuon,
-                    ambiguous,
-                    strongEnglish),
+                englishScore,
                 Ambiguous: ambiguous,
                 StrongEnglish: strongEnglish);
         }
@@ -720,8 +735,7 @@ internal sealed class LanguageSegmenterV2
             // special case: an exact English word such as cache should win,
             // while arbitrary Japanese C-row input should not.
             if (smallKanaSpelling && consumedBeforeInvalid == 0)
-                return span.Length >= 4 && (listed || broad || proper) &&
-                    span.Contains('c');
+                return span.Length >= 4 && (listed || broad || proper);
 
             return span.Length >= 4 || listed || known || proper;
         }

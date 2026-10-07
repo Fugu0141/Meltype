@@ -23,6 +23,7 @@ public sealed class CompositionDetector
     private readonly ProperNouns _proper;
     private readonly KanaDetector? _kana;
     private LanguageSegmenterV2? _segmenterV2;
+    private LanguageSegmenterV3? _segmenterV3;
 
     /// <summary>
     /// Experimental branch switch. Romaji-only alphabetic input is segmented by
@@ -31,6 +32,13 @@ public sealed class CompositionDetector
     /// </summary>
     public bool UseExperimentalLanguageSegmenterV2 { get; set; } =
         string.Equals(Environment.GetEnvironmentVariable("MELTYPE_LANGUAGE_SEGMENTER_V2"), "1", StringComparison.Ordinal);
+
+    /// <summary>
+    /// V3 stream experiment. Unlike V2, capitals, digits and ASCII symbols do not
+    /// disable the new detector for the entire composition.
+    /// </summary>
+    public bool UseExperimentalLanguageSegmenterV3 { get; set; } =
+        string.Equals(Environment.GetEnvironmentVariable("MELTYPE_LANGUAGE_SEGMENTER_V3"), "1", StringComparison.Ordinal);
 
     private static readonly HashSet<string> DomainSuffixes = ["ai", "app", "au", "biz", "ca", "cn", "co", "com", "de", "dev", "edu", "eu", "fr", "gg", "gov", "info", "in", "io", "jp", "kr", "me", "net", "org", "uk", "us", "xyz"];
 
@@ -88,6 +96,15 @@ public sealed class CompositionDetector
         DetectionLevel level = DetectionLevel.Balanced, bool englishSentence = false, bool kanaInput = false, bool final = false)
     {
         var rawInput = Raw(units, 0, units.Count) + pending;
+        if (UseExperimentalLanguageSegmenterV3 &&
+            !kanaInput &&
+            level != DetectionLevel.Manual &&
+            LanguageSegmenterV3.CanHandle(rawInput))
+        {
+            _segmenterV3 ??= new LanguageSegmenterV3(this);
+            return _segmenterV3.Segment(units, pending, precedingEnglish, followingEnglish, level, englishSentence, final);
+        }
+
         if (UseExperimentalLanguageSegmenterV2 &&
             !kanaInput &&
             level != DetectionLevel.Manual &&

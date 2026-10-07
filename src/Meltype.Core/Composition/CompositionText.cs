@@ -534,7 +534,23 @@ public sealed class CompositionText
     public IReadOnlyList<CompositionSegment> ConversionSegments()
     {
         var segments = Segments(final: true).ToList();
-        if (segments.Count > 0 && !segments[^1].IsEnglish)
+        var lastReparsedFromRaw = false;
+
+        // A Japanese span after an English span must be parsed independently
+        // from its raw keys. Legacy CompositionUnits may have preserved a
+        // consonant as Latin because it was adjacent to the English word
+        // (linux|tsukau: x | t | su ...). V2's boundary changes that context.
+        for (var i = 1; i < segments.Count; i++)
+        {
+            if (segments[i].IsEnglish || !segments[i - 1].IsEnglish) continue;
+            segments[i] = segments[i] with
+            {
+                Kana = _detector.Romaji.ConvertLenient(segments[i].Raw.ToLowerInvariant(), final: true),
+            };
+            if (i == segments.Count - 1) lastReparsedFromRaw = true;
+        }
+
+        if (segments.Count > 0 && !segments[^1].IsEnglish && !lastReparsedFromRaw)
         {
             segments[^1] = segments[^1] with { Kana = segments[^1].Kana + PendingText(final: true) };
         }
@@ -629,11 +645,13 @@ public sealed class CompositionText
             var cutsLegacyUnit =
                 !unitBoundaries.Contains(segmentStart) ||
                 segmentEnd <= unitOffset && !unitBoundaries.Contains(segmentEnd);
+            var followsEnglish = i > 0 && segments[i - 1].IsEnglish;
+            var reparseFromRaw = cutsLegacyUnit || followsEnglish;
 
-            var kana = cutsLegacyUnit
+            var kana = reparseFromRaw
                 ? _detector.Romaji.ConvertLenient(segment.Raw.ToLowerInvariant(), final && isLast)
                 : segment.Kana;
-            var pending = isLast && !cutsLegacyUnit ? PendingText(final) : "";
+            var pending = isLast && !reparseFromRaw ? PendingText(final) : "";
 
             if (final && isLast && pending == "ん")
             {

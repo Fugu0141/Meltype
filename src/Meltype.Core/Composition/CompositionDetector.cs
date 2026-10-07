@@ -91,10 +91,10 @@ public sealed class CompositionDetector
             !kanaInput &&
             level != DetectionLevel.Manual &&
             rawInput.Length > 0 &&
-            rawInput.All(char.IsAsciiLetter))
+            rawInput.All(char.IsAsciiLetterLower))
         {
             _segmenterV2 ??= new LanguageSegmenterV2(this);
-            return _segmenterV2.Segment(rawInput, precedingEnglish, followingEnglish, level, englishSentence, final);
+            return _segmenterV2.Segment(units, pending, precedingEnglish, followingEnglish, level, englishSentence, final);
         }
 
         var segments = FindSpans(units, pending, precedingEnglish, followingEnglish, level, englishSentence && precedingEnglish == true, kanaInput, final);
@@ -314,6 +314,9 @@ public sealed class CompositionDetector
     /// <summary>V2: ローマ字として読めても英語を優先する curated word。</summary>
     public bool IsReadableEnglishWord(string lower) =>
         lower.Length >= 2 && ReadableEnglish.Value.ContainsWord(lower);
+
+    /// <summary>V2: ユーザー学習。true=英字、false=日本語、null=未学習。</summary>
+    public bool? LearnedLanguage(string lower) => Memory?.Get(lower);
 
     /// <summary>
     /// 知っている英単語か (同梱の辞書・固有名詞・ユーザーが英字に直して覚えた語・4 文字以上ならスペルチェッカー)。

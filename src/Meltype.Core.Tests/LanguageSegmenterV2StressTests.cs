@@ -284,6 +284,73 @@ internal static class LanguageSegmenterV2StressTests
     }
 
     [Test]
+    public static void V2_AllOneToThreeLetterAsciiStrings_AreStructurallySafe()
+    {
+        // Exhaustively cover every lower-case ASCII string of length 1..3:
+        // 26 + 26^2 + 26^3 = 18,278 inputs. These include a large number of
+        // nonsensical sequences that a human would never intentionally type.
+        // They are useful for finding parser corner cases that random sampling
+        // can easily miss.
+        var failures = new List<string>();
+        var checkedCount = 0;
+
+        void Check(string raw)
+        {
+            checkedCount++;
+            IReadOnlyList<CompositionSegment> first;
+            IReadOnlyList<CompositionSegment> second;
+            try
+            {
+                first = Segments(raw);
+                second = Segments(raw);
+            }
+            catch (Exception ex)
+            {
+                failures.Add($"{raw}: threw {ex.GetType().Name}: {ex.Message}");
+                return;
+            }
+
+            var joined = string.Concat(first.Select(s => s.Raw));
+            if (joined != raw)
+                failures.Add($"{raw}: raw became {joined}");
+
+            if (first.Count == 0 || first.Any(s => s.Raw.Length == 0))
+                failures.Add($"{raw}: empty segment");
+
+            if (first.Zip(first.Skip(1), (x, y) => x.IsEnglish == y.IsEnglish).Any(same => same))
+                failures.Add($"{raw}: adjacent same-language segments");
+
+            var a = string.Join("|", first.Select(s =>
+                $"{(s.IsEnglish ? "E" : "J")}:{s.Raw}:{s.Kana}"));
+            var b = string.Join("|", second.Select(s =>
+                $"{(s.IsEnglish ? "E" : "J")}:{s.Raw}:{s.Kana}"));
+            if (a != b)
+                failures.Add($"{raw}: non-deterministic {a} != {b}");
+        }
+
+        for (var a = 'a'; a <= 'z'; a++)
+        {
+            Check(a.ToString());
+            for (var b = 'a'; b <= 'z'; b++)
+            {
+                Check(new string([a, b]));
+                for (var d = 'a'; d <= 'z'; d++)
+                {
+                    Check(new string([a, b, d]));
+                    if (failures.Count >= 30) break;
+                }
+                if (failures.Count >= 30) break;
+            }
+            if (failures.Count >= 30) break;
+        }
+
+        Assert.Equal(18_278, checkedCount, "1〜3文字の全組合せを確認");
+        Assert.True(failures.Count == 0,
+            $"exhaustive short-input failures: {failures.Count}\n" +
+            string.Join("\n", failures));
+    }
+
+    [Test]
     public static void V2_RandomizedStrings_AreLosslessDeterministicAndWellFormed()
     {
         // Deterministic xorshift: 10,000 arbitrary strings, including inputs no

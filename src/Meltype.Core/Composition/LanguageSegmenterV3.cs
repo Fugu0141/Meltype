@@ -68,6 +68,12 @@ internal sealed class LanguageSegmenterV3
             if (!letters)
             {
                 chunks.Add(new Chunk(position, end, IsNeutral: true));
+
+                // Digits/symbols are hard lexical boundaries. Do not leak an
+                // English decision through "Commit12" into the next Japanese run.
+                previousLanguage = null;
+                firstLetterRun = false;
+
                 position = end;
                 continue;
             }

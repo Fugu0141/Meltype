@@ -73,57 +73,52 @@ bool ResponsibilityTsfRouter::GetInputCharacter(
   return false;
 }
 
-bool ResponsibilityTsfRouter::HasPending(TipPrivateContext* private_context) {
-  if (private_context == nullptr) return false;
-  const ResponsibilityRuntime* runtime =
-      private_context->GetResponsibilityRuntime();
+bool ResponsibilityTsfRouter::HasPending(
+    const ResponsibilityRuntime* runtime) {
   return runtime != nullptr && !runtime->pending().empty();
 }
 
 bool ResponsibilityTsfRouter::Feed(
-    TipPrivateContext* private_context, char raw,
-    const commands::Context& context, commands::Output* display_output) {
-  if (private_context == nullptr || display_output == nullptr) return false;
-  ResponsibilityRuntime* runtime = private_context->GetResponsibilityRuntime();
-  if (runtime == nullptr) return false;
-
-  return ResponsibilityImeAdapter::Feed(
-      runtime, raw, private_context->GetClient(), context,
-      private_context->mutable_responsibility_base_output(), display_output);
+    ResponsibilityRuntime* runtime, char raw, client::ClientInterface* client,
+    const commands::Context& context, commands::Output* base_output,
+    commands::Output* display_output) {
+  if (runtime == nullptr || client == nullptr || base_output == nullptr ||
+      display_output == nullptr) {
+    return false;
+  }
+  return ResponsibilityImeAdapter::Feed(runtime, raw, client, context,
+                                        base_output, display_output);
 }
 
 bool ResponsibilityTsfRouter::Backspace(
-    TipPrivateContext* private_context, commands::Output* display_output) {
-  if (private_context == nullptr || display_output == nullptr) return false;
-  ResponsibilityRuntime* runtime = private_context->GetResponsibilityRuntime();
-  if (runtime == nullptr || !runtime->BackspacePending()) return false;
-
-  ResponsibilityImeAdapter::Render(
-      *runtime, private_context->responsibility_base_output(), display_output);
+    ResponsibilityRuntime* runtime, const commands::Output& base_output,
+    commands::Output* display_output) {
+  if (runtime == nullptr || display_output == nullptr ||
+      !runtime->BackspacePending()) {
+    return false;
+  }
+  ResponsibilityImeAdapter::Render(*runtime, base_output, display_output);
   return true;
 }
 
 void ResponsibilityTsfRouter::Cancel(
-    TipPrivateContext* private_context, commands::Output* display_output) {
-  if (private_context == nullptr || display_output == nullptr) return;
-  ResponsibilityRuntime* runtime = private_context->GetResponsibilityRuntime();
-  if (runtime == nullptr) return;
-
+    ResponsibilityRuntime* runtime, const commands::Output& base_output,
+    commands::Output* display_output) {
+  if (runtime == nullptr || display_output == nullptr) return;
   runtime->Reset();
-  ResponsibilityImeAdapter::Render(
-      *runtime, private_context->responsibility_base_output(), display_output);
+  ResponsibilityImeAdapter::Render(*runtime, base_output, display_output);
 }
 
 bool ResponsibilityTsfRouter::Flush(
-    TipPrivateContext* private_context, const commands::Context& context,
+    ResponsibilityRuntime* runtime, client::ClientInterface* client,
+    const commands::Context& context, commands::Output* base_output,
     commands::Output* display_output) {
-  if (private_context == nullptr || display_output == nullptr) return false;
-  ResponsibilityRuntime* runtime = private_context->GetResponsibilityRuntime();
-  if (runtime == nullptr) return false;
-
-  return ResponsibilityImeAdapter::Flush(
-      runtime, private_context->GetClient(), context,
-      private_context->mutable_responsibility_base_output(), display_output);
+  if (runtime == nullptr || client == nullptr || base_output == nullptr ||
+      display_output == nullptr) {
+    return false;
+  }
+  return ResponsibilityImeAdapter::Flush(runtime, client, context, base_output,
+                                         display_output);
 }
 
 }  // namespace mozc::win32::tsf::meltype

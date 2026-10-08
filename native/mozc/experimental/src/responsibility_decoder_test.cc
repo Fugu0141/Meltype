@@ -59,6 +59,21 @@ TEST(ResponsibilityDecoderTest, HyphenWithoutEnglishAnchorStaysJapanese) {
   EXPECT_EQ(Signature(plan, "de-ta"), "J:de-ta");
 }
 
+TEST(ResponsibilityDecoderTest, MixedTechnicalSentencesKeepAlternatingOwnership) {
+  ResponsibilityDecoder decoder;
+  EXPECT_EQ(Signature(decoder.Decode("linuxdekernelwobuildsuru", true),
+                      "linuxdekernelwobuildsuru"),
+            "L:linux|J:de|L:kernel|J:wo|L:build|J:suru");
+  EXPECT_EQ(Signature(decoder.Decode("githubdeissue", true),
+                      "githubdeissue"),
+            "L:github|J:de|L:issue");
+  EXPECT_EQ(Signature(decoder.Decode("issuetateta", true), "issuetateta"),
+            "L:issue|J:tateta");
+  EXPECT_EQ(Signature(decoder.Decode("inviteshimashita", true),
+                      "inviteshimashita"),
+            "L:invite|J:shimashita");
+}
+
 TEST(ResponsibilityDecoderTest, AmbiguousEnglishDefaultsToJapanese) {
   ResponsibilityDecoder decoder;
   for (std::string_view raw :

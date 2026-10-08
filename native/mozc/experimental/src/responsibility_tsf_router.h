@@ -20,7 +20,7 @@ class ResponsibilityTsfRouter {
                                 const KeyboardStatus& keyboard_status,
                                 char* raw);
 
-  static bool HasPending(const TipPrivateContext& private_context);
+  static bool HasPending(TipPrivateContext* private_context);
 
   static bool Feed(TipPrivateContext* private_context, char raw,
                    const commands::Context& context,

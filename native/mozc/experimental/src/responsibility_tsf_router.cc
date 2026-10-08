@@ -49,10 +49,10 @@ bool ResponsibilityTsfRouter::GetInputCharacter(
   return false;
 }
 
-bool ResponsibilityTsfRouter::HasPending(
-    const TipPrivateContext& private_context) {
+bool ResponsibilityTsfRouter::HasPending(TipPrivateContext* private_context) {
+  if (private_context == nullptr) return false;
   const ResponsibilityRuntime* runtime =
-      private_context.GetResponsibilityRuntime();
+      private_context->GetResponsibilityRuntime();
   return runtime != nullptr && !runtime->pending().empty();
 }
 

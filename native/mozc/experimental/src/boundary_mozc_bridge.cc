@@ -20,7 +20,6 @@
 #endif
 
 namespace mozc::win32::tsf::meltype {
-namespace {
 
 std::string PreeditText(const commands::Output& output) {
   std::string text;
@@ -111,7 +110,6 @@ class Bridge {
   bool mozc_active_ = false;
 };
 
-}  // namespace
 }  // namespace mozc::win32::tsf::meltype
 
 int main(int argc, char** argv) {

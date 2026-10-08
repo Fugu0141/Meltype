@@ -176,6 +176,19 @@ ResponsibilityPlan ResponsibilityDecoder::Decode(std::string_view input,
         continue;
       }
 
+      // We have already proved the English head, but the suffix is still only
+      // a *prefix* of a Japanese boundary (commith -> commit|ha,
+      // networkm -> network|miru) or a technical literal (node. -> node.js).
+      // Holding here is essential; falling back to Japanese would make the
+      // first character irrevocably owned by Mozc.
+      if (english.strong && !tail.empty() && !final &&
+          (CouldStartJapaneseBoundary(tail) ||
+           IsTechnicalConnector(tail.front()))) {
+        plan.stable_end = pos;
+        plan.has_open_suffix = true;
+        return plan;
+      }
+
       // A complete English word at the end is not enough while typing.  The
       // next letters may prove a Japanese continuation or a longer English
       // token, so retain ownership as Open until a boundary or command arrives.
@@ -312,6 +325,21 @@ bool ResponsibilityDecoder::StartsJapaneseBoundary(std::string_view text) {
   if (text.empty()) return true;
   return StartsWithAny(text, kParticles) || StartsWithAny(text, kGrammar) ||
          GetLexicon().japanese.contains(std::string(text));
+}
+
+bool ResponsibilityDecoder::CouldStartJapaneseBoundary(
+    std::string_view text) {
+  if (text.empty()) return true;
+  const auto is_prefix_of = [text](const auto& values) {
+    return std::any_of(values.begin(), values.end(),
+                       [text](std::string_view value) {
+                         return value.starts_with(text);
+                       });
+  };
+  if (is_prefix_of(kParticles) || is_prefix_of(kGrammar)) return true;
+  const auto& lexicon = GetLexicon();
+  return lexicon.japanese_prefixes.contains(std::string(text)) ||
+         lexicon.japanese.contains(std::string(text));
 }
 
 std::size_t ResponsibilityDecoder::LeadingJapaneseBoundaryLength(

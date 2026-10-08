@@ -46,6 +46,30 @@ bool ResponsibilityTsfRouter::GetInputCharacter(
     return true;
   }
 
+  // Common technical-token connectors. These mappings intentionally cover the
+  // unambiguous/common cases first; keyboard-layout-specific punctuation will
+  // be added through ToUnicode in the next experiment step.
+  if (!shift && key == VK_OEM_PERIOD) {
+    *raw = '.';
+    return true;
+  }
+  if (!shift && key == VK_OEM_2) {
+    *raw = '/';
+    return true;
+  }
+  if (key == VK_OEM_MINUS) {
+    *raw = shift ? '_' : '-';
+    return true;
+  }
+  if (shift && key == VK_OEM_PLUS) {
+    *raw = '+';
+    return true;
+  }
+  if (shift && key == VK_OEM_102) {
+    *raw = '_';
+    return true;
+  }
+
   return false;
 }
 

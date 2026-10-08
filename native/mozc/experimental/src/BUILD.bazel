@@ -21,6 +21,7 @@ mozc_cc_library(
     name = "responsibility_runtime",
     srcs = ["responsibility_runtime.cc"],
     hdrs = ["responsibility_runtime.h"],
+    visibility = ["//win32/tip:__pkg__"],
     deps = [":responsibility_decoder"],
 )
 
@@ -39,6 +40,7 @@ mozc_cc_library(
     name = "responsibility_tsf_router",
     srcs = ["responsibility_tsf_router.cc"],
     hdrs = ["responsibility_tsf_router.h"],
+    visibility = ["//win32/tip:__pkg__"],
     deps = [
         ":responsibility_ime_adapter",
         ":responsibility_runtime",

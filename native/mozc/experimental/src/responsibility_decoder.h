@@ -78,6 +78,7 @@ class ResponsibilityDecoder {
   static bool IsAsciiDigit(char c);
   static bool IsTechnicalConnector(char c);
   static bool StartsJapaneseBoundary(std::string_view text);
+  static bool CouldStartJapaneseBoundary(std::string_view text);
   static std::size_t LeadingJapaneseBoundaryLength(std::string_view text);
   static void AppendSpan(ResponsibilityPlan* plan, ResponsibilityKind kind,
                          std::size_t begin, std::size_t end);

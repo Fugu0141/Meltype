@@ -142,6 +142,8 @@ foreach ($name in @(
     'responsibility_tsf_router.cc',
     'responsibility_decoder_test.cc',
     'responsibility_runtime_test.cc',
+    'responsibility_ime_adapter_test.cc',
+    'responsibility_tsf_router_test.cc',
     'boundary_mozc_bridge.cc',
     'BUILD.bazel'
 )) {
@@ -241,6 +243,8 @@ try {
             'test',
             '//win32/tip/meltype:responsibility_decoder_test',
             '//win32/tip/meltype:responsibility_runtime_test',
+            '//win32/tip/meltype:responsibility_ime_adapter_test',
+            '//win32/tip/meltype:responsibility_tsf_router_test',
             '--config', 'release_build'
         ) + $cache) 'responsibility unit tests failed'
     }

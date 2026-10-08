@@ -204,7 +204,8 @@ $replacement = @'
   if (responsibility_enabled &&
       (responsibility_character ||
        (is_key_down &&
-        meltype::ResponsibilityTsfRouter::HasPending(private_context)))) {
+        meltype::ResponsibilityTsfRouter::HasPending(
+            private_context->GetResponsibilityRuntime())))) {
     *eaten = TRUE;
     return S_OK;
   }
@@ -236,6 +237,8 @@ $replacement = @'
       text_service->GetThreadContext()
               ->GetInputModeManager()
               ->GetEffectiveConversionMode() == commands::HIRAGANA;
+  meltype::ResponsibilityRuntime* responsibility_runtime =
+      private_context->GetResponsibilityRuntime();
   char responsibility_raw = '\0';
   const bool responsibility_character =
       responsibility_enabled &&
@@ -252,7 +255,9 @@ $replacement = @'
     FillMozcContextForOnKey(text_service, context, &mozc_context);
     commands::Output responsibility_output;
     if (!meltype::ResponsibilityTsfRouter::Feed(
-            private_context, responsibility_raw, mozc_context,
+            responsibility_runtime, responsibility_raw,
+            private_context->GetClient(), mozc_context,
+            private_context->mutable_responsibility_base_output(),
             &responsibility_output)) {
       return E_FAIL;
     }
@@ -264,13 +269,16 @@ $replacement = @'
   }
 
   if (responsibility_enabled && is_key_down &&
-      meltype::ResponsibilityTsfRouter::HasPending(private_context)) {
+      meltype::ResponsibilityTsfRouter::HasPending(
+            private_context->GetResponsibilityRuntime())) {
     commands::Output responsibility_output;
 
     if (vk.virtual_key() == VK_BACK) {
       *eaten = TRUE;
       if (!meltype::ResponsibilityTsfRouter::Backspace(
-              private_context, &responsibility_output)) {
+              responsibility_runtime,
+              private_context->responsibility_base_output(),
+              &responsibility_output)) {
         return E_FAIL;
       }
       if (!TipEditSession::OnOutputReceivedSync(
@@ -283,7 +291,9 @@ $replacement = @'
     if (vk.virtual_key() == VK_ESCAPE) {
       *eaten = TRUE;
       meltype::ResponsibilityTsfRouter::Cancel(
-          private_context, &responsibility_output);
+          responsibility_runtime,
+          private_context->responsibility_base_output(),
+          &responsibility_output);
       if (!TipEditSession::OnOutputReceivedSync(
               text_service, context, responsibility_output)) {
         return E_FAIL;
@@ -296,7 +306,10 @@ $replacement = @'
     Context mozc_context;
     FillMozcContextForOnKey(text_service, context, &mozc_context);
     if (!meltype::ResponsibilityTsfRouter::Flush(
-            private_context, mozc_context, &responsibility_output)) {
+            responsibility_runtime, private_context->GetClient(),
+            mozc_context,
+            private_context->mutable_responsibility_base_output(),
+            &responsibility_output)) {
       return E_FAIL;
     }
     if (!TipEditSession::OnOutputReceivedSync(

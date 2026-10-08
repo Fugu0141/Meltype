@@ -70,6 +70,28 @@ mozc_cc_test(
     ],
 )
 
+mozc_cc_test(
+    name = "responsibility_ime_adapter_test",
+    size = "small",
+    srcs = ["responsibility_ime_adapter_test.cc"],
+    deps = [
+        ":responsibility_ime_adapter",
+        ":responsibility_runtime",
+        "//protocol:commands_cc_proto",
+        "//testing:gunit_main",
+    ],
+)
+
+mozc_cc_test(
+    name = "responsibility_tsf_router_test",
+    size = "small",
+    srcs = ["responsibility_tsf_router_test.cc"],
+    deps = [
+        ":responsibility_tsf_router",
+        "//testing:gunit_main",
+    ],
+)
+
 # Integration harness: the responsibility runtime decides which bytes are owned
 # by Mozc and which are literal, then the Japanese spans are replayed through a
 # real Mozc client/session.  This is intentionally separate from the TSF DLL so

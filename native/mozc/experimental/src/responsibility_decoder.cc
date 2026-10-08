@@ -292,7 +292,7 @@ bool ResponsibilityDecoder::IsStrongEnglish(std::string_view word) const {
       lexicon.readable_english.find(lower) != lexicon.readable_english.end()) {
     return true;
   }
-  if (!lexicon.english.find(lower) != lexicon.english.end()) return false;
+  if (lexicon.english.find(lower) == lexicon.english.end()) return false;
   if (IsAmbiguousEnglish(lower)) return false;
 
   // If Japanese owns the exact spelling or uses it as a productive prefix,

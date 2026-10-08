@@ -1,0 +1,61 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 Yukishiro
+
+load(
+    "//:build_defs.bzl",
+    "mozc_cc_binary",
+    "mozc_cc_library",
+    "mozc_cc_test",
+)
+
+mozc_cc_library(
+    name = "responsibility_decoder",
+    srcs = ["responsibility_decoder.cc"],
+    hdrs = [
+        "generated_lexicon.h",
+        "responsibility_decoder.h",
+    ],
+)
+
+mozc_cc_library(
+    name = "responsibility_runtime",
+    srcs = ["responsibility_runtime.cc"],
+    hdrs = ["responsibility_runtime.h"],
+    deps = [":responsibility_decoder"],
+)
+
+mozc_cc_test(
+    name = "responsibility_decoder_test",
+    size = "small",
+    srcs = ["responsibility_decoder_test.cc"],
+    deps = [
+        ":responsibility_decoder",
+        "//testing:gunit_main",
+    ],
+)
+
+mozc_cc_test(
+    name = "responsibility_runtime_test",
+    size = "small",
+    srcs = ["responsibility_runtime_test.cc"],
+    deps = [
+        ":responsibility_runtime",
+        "//testing:gunit_main",
+    ],
+)
+
+# Integration harness: the responsibility runtime decides which bytes are owned
+# by Mozc and which are literal, then the Japanese spans are replayed through a
+# real Mozc client/session.  This is intentionally separate from the TSF DLL so
+# boundary bugs can be reproduced from a console first.
+mozc_cc_binary(
+    name = "boundary_mozc_bridge",
+    srcs = ["boundary_mozc_bridge.cc"],
+    deps = [
+        ":responsibility_runtime",
+        "//base:init_mozc",
+        "//base:system_util",
+        "//client",
+        "//protocol:commands_cc_proto",
+    ],
+)

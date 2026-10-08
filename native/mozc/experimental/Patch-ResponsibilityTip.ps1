@@ -182,17 +182,15 @@ if (-not $content.Contains('#include "win32/tip/meltype/responsibility_tsf_route
 }
 
 $needle = @'
-  const KeyboardStatus keyboard_status(key_state);
-  const LParamKeyInfo key_info(lparam);
-  VirtualKey vk = GetVK(wparam, keyboard_status);
+  }
 
-  if (open) {
+  // Make an immutable snapshot of |private_context->ime_behavior_|, which
 '@
 $replacement = @'
-  const KeyboardStatus keyboard_status(key_state);
-  const LParamKeyInfo key_info(lparam);
-  VirtualKey vk = GetVK(wparam, keyboard_status);
+  }
 
+  // Meltype responsibility split (OnTestKey). Existing deletion/surrogate
+  // guards above always get the first chance to consume the event.
   const bool responsibility_enabled =
       open &&
       text_service->GetThreadContext()
@@ -211,24 +209,30 @@ $replacement = @'
     return S_OK;
   }
 
-  if (open) {
+  // Make an immutable snapshot of |private_context->ime_behavior_|, which
 '@
-Replace-Once -Path $keyHandler -Needle $needle -Replacement $replacement -AlreadyPresent 'const bool responsibility_character ='
+Replace-Once -Path $keyHandler -Needle $needle -Replacement $replacement -AlreadyPresent 'Meltype responsibility split (OnTestKey).'
 
 $needle = @'
-  const LParamKeyInfo key_info(lparam);
-  const KeyboardStatus keyboard_status(key_state);
-  VirtualKey vk = GetVK(wparam, keyboard_status);
+    if (ignore_this_keyevent) {
+      *eaten = TRUE;
+      return S_OK;
+    }
+  }
 
-  const ClientAction vk_back_action = private_context->GetDeleter()->OnKeyEvent(
+  commands::Output temporal_output;
 '@
 $replacement = @'
-  const LParamKeyInfo key_info(lparam);
-  const KeyboardStatus keyboard_status(key_state);
-  VirtualKey vk = GetVK(wparam, keyboard_status);
+    if (ignore_this_keyevent) {
+      *eaten = TRUE;
+      return S_OK;
+    }
+  }
 
+  // Meltype responsibility split (OnKey). Existing deletion/surrogate guards
+  // above always run first.
   const bool responsibility_enabled =
-      open &&
+      open && !use_pending_output &&
       text_service->GetThreadContext()
               ->GetInputModeManager()
               ->GetEffectiveConversionMode() == commands::HIRAGANA;
@@ -301,8 +305,8 @@ $replacement = @'
     }
   }
 
-  const ClientAction vk_back_action = private_context->GetDeleter()->OnKeyEvent(
+  commands::Output temporal_output;
 '@
-Replace-Once -Path $keyHandler -Needle $needle -Replacement $replacement -AlreadyPresent 'Resolve the local Open suffix first'
+Replace-Once -Path $keyHandler -Needle $needle -Replacement $replacement -AlreadyPresent 'Meltype responsibility split (OnKey).'
 
 Write-Host 'Applied Meltype responsibility TSF patch.'

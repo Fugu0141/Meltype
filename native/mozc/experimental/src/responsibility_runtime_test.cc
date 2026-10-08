@@ -48,6 +48,18 @@ TEST(ResponsibilityRuntimeTest, DoesNotFlushCommiPrematurely) {
   EXPECT_EQ(Stream("commi", false), "O:commi");
 }
 
+TEST(ResponsibilityRuntimeTest, BackspaceEditsOnlyOpenSuffix) {
+  ResponsibilityRuntime runtime;
+  for (char c : std::string_view("commi")) {
+    (void)runtime.Feed(c);
+  }
+  ASSERT_EQ(runtime.pending(), "commi");
+  EXPECT_TRUE(runtime.BackspacePending());
+  EXPECT_EQ(runtime.pending(), "comm");
+  EXPECT_TRUE(runtime.BackspacePending());
+  EXPECT_EQ(runtime.pending(), "com");
+}
+
 TEST(ResponsibilityRuntimeTest, CommitParticleSplit) {
   EXPECT_EQ(Stream("commitha"), "L:commit|J:ha");
 }

@@ -86,11 +86,16 @@ constexpr std::array<std::string_view, 16> kAmbiguousEnglish = {
     "repo", "sushi", "anime", "same", "tomato", "go", "make", "red",
     "sake", "radio", "kana", "sumo", "ramen", "manga", "ninja", "koi"};
 
-bool StartsWithAny(std::string_view text,
-                   const auto& candidates) {
+bool StartsWith(std::string_view text, std::string_view prefix) {
+  return text.size() >= prefix.size() &&
+         text.substr(0, prefix.size()) == prefix;
+}
+
+template <typename Container>
+bool StartsWithAny(std::string_view text, const Container& candidates) {
   return std::any_of(candidates.begin(), candidates.end(),
                      [text](std::string_view value) {
-                       return text.starts_with(value);
+                       return StartsWith(text, value);
                      });
 }
 
@@ -269,25 +274,25 @@ std::size_t ResponsibilityDecoder::TechnicalLiteralLength(
 bool ResponsibilityDecoder::CouldStartEnglish(std::string_view prefix) const {
   const auto& lexicon = GetLexicon();
   const std::string lower = Lower(prefix);
-  return lexicon.english_prefixes.contains(lower) ||
-         lexicon.english.contains(lower) || lexicon.proper.contains(lower);
+  return lexicon.english_prefixes.find(lower) != lexicon.english_prefixes.end() ||
+         lexicon.english.find(lower) != lexicon.english.end() || lexicon.proper.find(lower) != lexicon.proper.end();
 }
 
 bool ResponsibilityDecoder::IsEnglishExact(std::string_view word) const {
   const auto& lexicon = GetLexicon();
   const std::string lower = Lower(word);
-  return lexicon.english.contains(lower) || lexicon.proper.contains(lower);
+  return lexicon.english.find(lower) != lexicon.english.end() || lexicon.proper.find(lower) != lexicon.proper.end();
 }
 
 bool ResponsibilityDecoder::IsStrongEnglish(std::string_view word) const {
   const auto& lexicon = GetLexicon();
   const std::string lower = Lower(word);
 
-  if (lexicon.proper.contains(lower) ||
-      lexicon.readable_english.contains(lower)) {
+  if (lexicon.proper.find(lower) != lexicon.proper.end() ||
+      lexicon.readable_english.find(lower) != lexicon.readable_english.end()) {
     return true;
   }
-  if (!lexicon.english.contains(lower)) return false;
+  if (!lexicon.english.find(lower) != lexicon.english.end()) return false;
   if (IsAmbiguousEnglish(lower)) return false;
 
   // If Japanese owns the exact spelling or uses it as a productive prefix,
@@ -297,11 +302,11 @@ bool ResponsibilityDecoder::IsStrongEnglish(std::string_view word) const {
 }
 
 bool ResponsibilityDecoder::IsJapaneseExact(std::string_view word) const {
-  return GetLexicon().japanese.contains(Lower(word));
+  return GetLexicon().japanese.find(Lower(word)) != GetLexicon().japanese.end();
 }
 
 bool ResponsibilityDecoder::IsJapanesePrefix(std::string_view word) const {
-  return GetLexicon().japanese_prefixes.contains(Lower(word));
+  return GetLexicon().japanese_prefixes.find(Lower(word)) != GetLexicon().japanese_prefixes.end();
 }
 
 bool ResponsibilityDecoder::IsAmbiguousEnglish(std::string_view word) const {
@@ -324,7 +329,7 @@ bool ResponsibilityDecoder::IsTechnicalConnector(char c) {
 bool ResponsibilityDecoder::StartsJapaneseBoundary(std::string_view text) {
   if (text.empty()) return true;
   return StartsWithAny(text, kParticles) || StartsWithAny(text, kGrammar) ||
-         GetLexicon().japanese.contains(std::string(text));
+         GetLexicon().japanese.find(std::string(text)) != GetLexicon().japanese.end();
 }
 
 bool ResponsibilityDecoder::CouldStartJapaneseBoundary(
@@ -333,29 +338,29 @@ bool ResponsibilityDecoder::CouldStartJapaneseBoundary(
   const auto is_prefix_of = [text](const auto& values) {
     return std::any_of(values.begin(), values.end(),
                        [text](std::string_view value) {
-                         return value.starts_with(text);
+                         return StartsWith(value, text);
                        });
   };
   if (is_prefix_of(kParticles) || is_prefix_of(kGrammar)) return true;
   const auto& lexicon = GetLexicon();
-  return lexicon.japanese_prefixes.contains(std::string(text)) ||
-         lexicon.japanese.contains(std::string(text));
+  return lexicon.japanese_prefixes.find(std::string(text)) != lexicon.japanese_prefixes.end() ||
+         lexicon.japanese.find(std::string(text)) != lexicon.japanese.end();
 }
 
 std::size_t ResponsibilityDecoder::LeadingJapaneseBoundaryLength(
     std::string_view text) {
   std::size_t best = 0;
   for (std::string_view particle : kParticles) {
-    if (text.starts_with(particle)) best = std::max(best, particle.size());
+    if (StartsWith(text, particle)) best = std::max(best, particle.size());
   }
   for (std::string_view grammar : kGrammar) {
-    if (text.starts_with(grammar)) best = std::max(best, grammar.size());
+    if (StartsWith(text, grammar)) best = std::max(best, grammar.size());
   }
 
   // Exact dictionary words are also useful after a protected literal.
   const auto& lexicon = GetLexicon();
   for (std::size_t len = 2; len <= text.size(); ++len) {
-    if (lexicon.japanese.contains(std::string(text.substr(0, len)))) {
+    if (lexicon.japanese.find(std::string(text.substr(0, len))) != lexicon.japanese.end()) {
       best = std::max(best, len);
     }
   }

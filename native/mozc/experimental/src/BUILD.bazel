@@ -42,9 +42,9 @@ mozc_cc_library(
     deps = [
         ":responsibility_ime_adapter",
         ":responsibility_runtime",
+        "//client:client_interface",
         "//protocol:commands_cc_proto",
         "//win32/base:keyboard",
-        "//win32/tip:tip_private_context",
     ],
 )
 

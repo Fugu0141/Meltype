@@ -123,6 +123,10 @@ foreach ($name in @(
     'responsibility_decoder.cc',
     'responsibility_runtime.h',
     'responsibility_runtime.cc',
+    'responsibility_ime_adapter.h',
+    'responsibility_ime_adapter.cc',
+    'responsibility_tsf_router.h',
+    'responsibility_tsf_router.cc',
     'responsibility_decoder_test.cc',
     'responsibility_runtime_test.cc',
     'boundary_mozc_bridge.cc',
@@ -200,6 +204,8 @@ $replacement = @'
   TipEditSession::OnOutputReceivedSync(text_service, context, temporal_output);
 '@
 Replace-Once -Path $keyHandler -Needle $needle -Replacement $replacement -AlreadyPresent 'mutable_responsibility_base_output() = temporal_output'
+
+& (Join-Path $experimental 'Patch-ResponsibilityTip.ps1') -MozcSrc $src
 
 if (-not $VcPath) {
     $programFilesX86 = [Environment]::GetEnvironmentVariable('ProgramFiles(x86)')

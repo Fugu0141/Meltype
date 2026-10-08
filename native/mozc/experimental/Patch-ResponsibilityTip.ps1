@@ -253,7 +253,7 @@ $replacement = @'
       return E_FAIL;
     }
     if (!TipEditSession::OnOutputReceivedSync(
-            text_service, context, std::move(responsibility_output))) {
+            text_service, context, responsibility_output)) {
       return E_FAIL;
     }
     return S_OK;
@@ -270,7 +270,7 @@ $replacement = @'
         return E_FAIL;
       }
       if (!TipEditSession::OnOutputReceivedSync(
-              text_service, context, std::move(responsibility_output))) {
+              text_service, context, responsibility_output)) {
         return E_FAIL;
       }
       return S_OK;
@@ -281,7 +281,7 @@ $replacement = @'
       meltype::ResponsibilityTsfRouter::Cancel(
           private_context, &responsibility_output);
       if (!TipEditSession::OnOutputReceivedSync(
-              text_service, context, std::move(responsibility_output))) {
+              text_service, context, responsibility_output)) {
         return E_FAIL;
       }
       return S_OK;
@@ -296,7 +296,7 @@ $replacement = @'
       return E_FAIL;
     }
     if (!TipEditSession::OnOutputReceivedSync(
-            text_service, context, std::move(responsibility_output))) {
+            text_service, context, responsibility_output)) {
       return E_FAIL;
     }
   }

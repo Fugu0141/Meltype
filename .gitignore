@@ -28,3 +28,4 @@ mac/build/
 native/mozc/bin/
 linux/build/
 tools/data/
+native/mozc/experimental/bin/

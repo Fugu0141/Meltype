@@ -1,0 +1,63 @@
+name: mozc-responsibility-experiment
+
+on:
+  push:
+    branches:
+      - experiment/mozc-responsibility-ime-v1
+    paths:
+      - 'native/mozc/experimental/**'
+      - 'native/mozc/MOZC_COMMIT'
+      - 'dictionaries/**'
+      - '.github/workflows/mozc-responsibility-experiment.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Bazelisk
+        shell: pwsh
+        run: |
+          $version = 'v1.29.0'
+          $expected = '092a8738d5b41aae7a85c42cc961b1034e3389aba43ffc20c0fabda7b43e095b'
+          New-Item -ItemType Directory -Force -Path C:\tools | Out-Null
+          Invoke-WebRequest -Uri "https://github.com/bazelbuild/bazelisk/releases/download/$version/bazelisk-windows-amd64.exe" -OutFile C:\tools\bazelisk.exe
+          $actual = (Get-FileHash C:\tools\bazelisk.exe -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $expected) { throw "Bazelisk hash mismatch: $actual" }
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            C:\bazel-cache
+            C:\mozc\src\third_party_cache
+          key: responsibility-mozc-${{ hashFiles('native/mozc/MOZC_COMMIT') }}-${{ hashFiles('native/mozc/experimental/**', 'dictionaries/**') }}
+          restore-keys: |
+            responsibility-mozc-${{ hashFiles('native/mozc/MOZC_COMMIT') }}-
+
+      - name: Build responsibility decoder, bridge and Mozc TIP
+        shell: pwsh
+        run: |
+          ./native/mozc/experimental/Build-ResponsibilityIme.ps1 `
+            -MozcSource C:\mozc `
+            -Python python `
+            -Bazelisk C:\tools\bazelisk.exe `
+            -DiskCache C:\bazel-cache
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mozc-responsibility-experiment
+          path: native/mozc/experimental/bin/
+          if-no-files-found: warn

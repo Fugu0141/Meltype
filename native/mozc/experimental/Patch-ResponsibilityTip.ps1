@@ -269,8 +269,7 @@ $replacement = @'
   }
 
   if (responsibility_enabled && is_key_down &&
-      meltype::ResponsibilityTsfRouter::HasPending(
-            private_context->GetResponsibilityRuntime())) {
+      meltype::ResponsibilityTsfRouter::HasPending(responsibility_runtime)) {
     commands::Output responsibility_output;
 
     if (vk.virtual_key() == VK_BACK) {

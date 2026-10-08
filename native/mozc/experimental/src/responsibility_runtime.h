@@ -34,6 +34,7 @@ class ResponsibilityRuntime {
   // focus change, etc.).
   std::vector<ResponsibilityAction> Flush();
 
+  bool BackspacePending();
   void Reset();
 
   std::string_view pending() const { return pending_; }

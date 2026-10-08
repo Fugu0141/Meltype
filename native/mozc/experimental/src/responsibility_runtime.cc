@@ -18,6 +18,12 @@ std::vector<ResponsibilityAction> ResponsibilityRuntime::Flush() {
   return Drain(true);
 }
 
+bool ResponsibilityRuntime::BackspacePending() {
+  if (pending_.empty()) return false;
+  pending_.pop_back();
+  return true;
+}
+
 void ResponsibilityRuntime::Reset() {
   pending_.clear();
   bias_ = BoundaryBias::kNeutral;

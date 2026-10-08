@@ -24,6 +24,17 @@ mozc_cc_library(
     deps = [":responsibility_decoder"],
 )
 
+mozc_cc_library(
+    name = "responsibility_ime_adapter",
+    srcs = ["responsibility_ime_adapter.cc"],
+    hdrs = ["responsibility_ime_adapter.h"],
+    deps = [
+        ":responsibility_runtime",
+        "//client:client_interface",
+        "//protocol:commands_cc_proto",
+    ],
+)
+
 mozc_cc_test(
     name = "responsibility_decoder_test",
     size = "small",

@@ -23,6 +23,11 @@ function Invoke-Native([string]$FilePath, [string[]]$Arguments, [string]$Failure
     if ($LASTEXITCODE -ne 0) { throw "$Failure (exit=$LASTEXITCODE)" }
 }
 
+function Write-Utf8NoBom([string]$Path, [string]$Text) {
+    $encoding = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($Path, $Text, $encoding)
+}
+
 function Replace-Once([string]$Path, [string]$Needle, [string]$Replacement, [string]$AlreadyPresent) {
     $content = Get-Content -Raw -LiteralPath $Path
     if ($AlreadyPresent -and $content.Contains($AlreadyPresent)) { return }
@@ -30,7 +35,7 @@ function Replace-Once([string]$Path, [string]$Needle, [string]$Replacement, [str
         throw ('Patch anchor not found: ' + $Path + [Environment]::NewLine + $Needle)
     }
     $content = $content.Replace($Needle, $Replacement)
-    Set-Content -LiteralPath $Path -Value $content -Encoding utf8NoBOM
+    Write-Utf8NoBom -Path $Path -Text $content
 }
 
 function Read-DictionaryWords([string]$Path) {
@@ -42,7 +47,7 @@ function Read-DictionaryWords([string]$Path) {
             if ($word) { [void]$words.Add($word.ToLowerInvariant()) }
         }
     }
-    return $words
+    return ,$words
 }
 
 function Write-CppArray([System.Text.StringBuilder]$Builder, [string]$Name, $Words) {
@@ -87,7 +92,7 @@ function Write-GeneratedLexicon([string]$RepoRoot, [string]$Destination) {
     [void]$sb.AppendLine('}  // namespace mozc::win32::tsf::meltype')
     [void]$sb.AppendLine()
     [void]$sb.AppendLine('#endif  // MOZC_WIN32_TIP_MELTYPE_GENERATED_LEXICON_H_')
-    Set-Content -LiteralPath $Destination -Value $sb.ToString() -Encoding utf8NoBOM
+    Write-Utf8NoBom -Path $Destination -Text $sb.ToString()
 }
 
 $experimental = $PSScriptRoot

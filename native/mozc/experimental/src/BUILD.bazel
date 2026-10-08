@@ -44,7 +44,7 @@ mozc_cc_library(
         ":responsibility_runtime",
         "//protocol:commands_cc_proto",
         "//win32/base:keyboard",
-        "//win32/tip:tip_private_context_h",
+        "//win32/tip:tip_private_context",
     ],
 )
 

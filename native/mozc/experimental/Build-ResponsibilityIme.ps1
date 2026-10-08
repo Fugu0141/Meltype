@@ -116,6 +116,19 @@ if (-not (Test-Path (Join-Path $MozcSource '.git'))) {
 }
 
 $src = Join-Path $MozcSource 'src'
+
+# Always start the tracked TSF files from the pinned Mozc commit. This checkout
+# is documented as disposable, and resetting only these four files prevents a
+# previous failed experiment from changing the next result while preserving
+# downloaded dependency caches and other untracked build data.
+Invoke-Native git @(
+    '-C', $MozcSource, 'checkout', '--',
+    'src/win32/tip/tip_private_context.h',
+    'src/win32/tip/tip_private_context.cc',
+    'src/win32/tip/tip_keyevent_handler.cc',
+    'src/win32/tip/BUILD.bazel'
+) 'failed to reset Mozc TSF patch targets'
+
 $target = Join-Path $src 'win32\tip\meltype'
 New-Item -ItemType Directory -Force -Path $target | Out-Null
 foreach ($name in @(

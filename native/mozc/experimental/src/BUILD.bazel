@@ -35,6 +35,19 @@ mozc_cc_library(
     ],
 )
 
+mozc_cc_library(
+    name = "responsibility_tsf_router",
+    srcs = ["responsibility_tsf_router.cc"],
+    hdrs = ["responsibility_tsf_router.h"],
+    deps = [
+        ":responsibility_ime_adapter",
+        ":responsibility_runtime",
+        "//protocol:commands_cc_proto",
+        "//win32/base:keyboard",
+        "//win32/tip:tip_private_context_h",
+    ],
+)
+
 mozc_cc_test(
     name = "responsibility_decoder_test",
     size = "small",

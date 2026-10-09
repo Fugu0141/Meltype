@@ -89,6 +89,18 @@ public sealed partial class CompositionDetector
         DetectionLevel level = DetectionLevel.Balanced, bool englishSentence = false, bool kanaInput = false, bool final = false)
     {
         var token = Raw(units, 0, units.Count) + pending;
+        // In research mode a contiguous all-uppercase acronym is explicit
+        // user orthography, not a Japanese romaji word to be segmented.
+        // Keep this decision before phonetic or scored candidate ranking:
+        // otherwise "IME" can incorrectly become "い|ME".
+        // Only applies to the entire current composition. Mixed-case
+        // Japanese suffixes (IMEwotukau) still use normal segmentation.
+        if (!kanaInput && ScoredSegmentation &&
+            (StreamBoundaryByEnvironment ||
+             UseStreamBoundaryHints?.Invoke() == true) &&
+            token.Length is >= 2 and <= 12 &&
+            token.All(char.IsAsciiLetterUpper))
+            return [new CompositionSegment(true, "", token)];
         // Structured Latin tokens are opaque; their components are not Japanese readings.
         if (!kanaInput && token.All(c => c is >= '!' and <= '~') &&
             (token.Contains('@') && token.Any(char.IsAsciiLetter) || token.Contains('_') || token.Contains("://", StringComparison.Ordinal) ||

@@ -128,7 +128,8 @@ internal static class IssueResilienceTests
             last = session.HandleKey(
                 char.ToUpperInvariant(c), c,
                 true, false, false, false);
-            using var _ = System.Text.Json.JsonDocument.Parse(last.ToJson());
+            using var responseJson = System.Text.Json.JsonDocument.Parse(
+                last.ToJson());
         }
         Assert.True(last is not null && last.View is not null,
             "managed TSF-facing session must provide a composition view");

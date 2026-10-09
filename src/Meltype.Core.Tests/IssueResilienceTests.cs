@@ -114,6 +114,23 @@ internal static class IssueResilienceTests
         // and exchanges its SessionResult.ToJson() with the native TSF DLL.
         // This is a managed protocol smoke test, NOT a native TSF E2E test.
         var detector = Detector(true);
+        // Inspect the underlying raw stream directly so a test failure
+        // distinguishes changed key input from failed segmentation.
+        var composition = new CompositionText(detector);
+        foreach (var character in "IME")
+        {
+            composition.Append(character);
+            Console.WriteLine(
+                $"IME_RAW_TRACE key={character} raw={composition.Raw} " +
+                $"units={string.Join("|", composition.Units.Select(u => u.Raw + "=" + u.Kana))} " +
+                $"pending={composition.Pending} preview={composition.Display(final: false)}");
+        }
+        Assert.Equal("IME", composition.Raw, "raw uppercase key sequence must remain untouched");
+        Assert.Equal("IME", composition.Display(final: false),
+            "raw composition should remain a single acronym in preview");
+        Assert.Equal("IME", composition.Display(final: true),
+            "raw composition should remain a single acronym on Enter");
+
         var explicitEnglish = new Case(
             "research", "ime-acronym", "IME", "IME");
         var uppercase = Evaluate(explicitEnglish, detector);
@@ -135,6 +152,10 @@ internal static class IssueResilienceTests
             last = session.HandleKey(
                 char.ToUpperInvariant(c), c,
                 true, false, false, false);
+            Console.WriteLine(
+                $"IME_TSF_TRACE key={c} consumed={last.Consumed} " +
+                $"view={last.View?.Text ?? "<null>"} " +
+                $"commits={string.Join("|", last.Commits.Select(e => e.Text))}");
             using var responseJson = System.Text.Json.JsonDocument.Parse(
                 last.ToJson());
         }

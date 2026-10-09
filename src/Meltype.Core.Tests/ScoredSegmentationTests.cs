@@ -50,6 +50,7 @@ internal static class ScoredSegmentationTests
             ("konoyouninode.jsnado", "このようにnode.jsなど"),
             ("kyouhanode.jsnado", "きょうはnode.jsなど"),
             ("node.jswotukau", "node.jsをつかう"),
+            ("Node.jswotukau", "Node.jsをつかう"),
             ("kyouhanode.jsnobennkyouwosiyoutoomoimasu",
              "きょうはnode.jsのべんきょうをしようとおもいます")
         })

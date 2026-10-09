@@ -67,6 +67,48 @@ internal static class ScoredSegmentationTests
     }
 
     [Test]
+    public static void LexicalEnglish_ProtectsRomajiReadableTechTerms()
+    {
+        var detector = CreateDetector();
+        detector.UseStreamBoundaryHints = () => true;
+
+        // These are not dictionary gaps: japanese and tokyo are already
+        // in dictionaries/english.txt, but the baseline phonetic path
+        // could win because the romaji parser accepts their spelling.
+        foreach (var (typed, expected) in new[]
+        {
+            ("japanese", "japanese"),
+            ("japaneseno", "japaneseの"),
+            ("korehajapaneseno", "これはjapaneseの"),
+            ("tokyo", "tokyo"),
+            ("tokyode", "tokyoで"),
+            ("IME", "IME"),
+            ("IMEwotukau", "IMEをつかう")
+        })
+        {
+            var baseline = Type(typed);
+            var experimental = Type(typed, detector);
+            Console.WriteLine(
+                $"ROMAJI_ENGLISH_COMPARE input={typed} baseline={baseline} " +
+                $"experimental={experimental}");
+            Assert.Equal(expected, experimental, typed);
+        }
+
+        // Guard against wholesale promotion of Japanese loanwords or
+        // any ASCII string that also exists in an English lexicon.
+        foreach (var (typed, expected) in new[]
+        {
+            ("densha", "でんしゃ"),
+            ("suzuki", "すずき"),
+            ("tomato", "とまと"),
+            ("anime", "あにめ"),
+            ("sake", "さけ"),
+            ("nihongo", "にほんご")
+        })
+            Assert.Equal(expected, Type(typed, detector), typed);
+    }
+
+    [Test]
     public static void ParticleHa_AfterEnglishWord()
     {
         // 英単語の最後の子音と は が 1 つの単位 (sha・tha・dha) になっても、英単語 + は に分ける。今までの区切りでは しゃ・てゃ・でゃ になっていた

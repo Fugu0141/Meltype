@@ -37,6 +37,13 @@ public sealed partial class CompositionDetector
     /// <summary>日本語の区間に、読めない英字が 1 文字残るたびの減点。</summary>
     internal static double UnreadablePenalty = Weight("UNREADABLE", 1.0);
 
+    // IncrementalBoundaryLab v1.2 由来のコード識別子境界を、既存の
+    // 区切り探索に *候補としてだけ* 追加する。既定 OFF。
+    // 日本語の読み・漢字変換・確定ロジックは既存の Meltype が管理。
+    public Func<bool>? UseStreamBoundaryHints { get; set; }
+    private static readonly bool StreamBoundaryByEnvironment =
+        Environment.GetEnvironmentVariable("MELTYPE_STREAM_BOUNDARY") == "1";
+
     /// <summary>点の重み。環境変数 MELTYPE_SCORED_&lt;name&gt; があればその値 (重みを変えて比べるとき)。</summary>
     private static double Weight(string name, double fallback) =>
         double.TryParse(Environment.GetEnvironmentVariable("MELTYPE_SCORED_" + name), System.Globalization.CultureInfo.InvariantCulture, out var value) ? value : fallback;
@@ -66,6 +73,16 @@ public sealed partial class CompositionDetector
         DetectionLevel level, bool englishSentence, bool final)
     {
         var n = units.Count;
+        var codeHints = (StreamBoundaryByEnvironment ||
+                         UseStreamBoundaryHints?.Invoke() == true)
+            ? StreamBoundaryHints.FindCodeSpans(
+                units,
+                IsKnownEnglishWord,
+                stem => {
+                    var analysis = _romaji.AnalyzeFragment(stem.ToLowerInvariant());
+                    return analysis.IsValid && analysis.Partial.Length == 0;
+                })
+            : null;
         // best[i, e]: 位置 i まで区切ったときの一番良い区切り方。e は「直前の区間が i で終わる英語の区間か」。
         var best = new ScoredPath?[n + 1, 2];
         best[0, 0] = new ScoredPath(0, [], 0);
@@ -88,6 +105,16 @@ public sealed partial class CompositionDetector
                 List<CompositionSegment> Segments() => segments ??= ToSegments(units, path);
                 bool? PrecededByEnglish(int start) => start == 0 ? precedingEnglish : e == 1;
                 var before = i == 0 && englishSentence ? 2 : Score(PrecededByEnglish(i));
+
+                // 日本語からコード候補への切れ目を相互に共有する。
+                // ここでは確定せず DP に別経路を置くだけ。
+                // 既存のかな経路・文節変換はそのまま維持する。
+                if (codeHints is not null &&
+                    codeHints.TryGetValue(i, out var codeEnds))
+                {
+                    foreach (var end in codeEnds)
+                        Offer(end, true, Extend(path, i, end, units, pending));
+                }
 
                 // はっきりした決まり (今までの FindSpans と同じ順) に当たれば、その区間だけを取る
                 var forced = -1;

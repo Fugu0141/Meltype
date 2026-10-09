@@ -21,9 +21,9 @@ internal static class ScoredSegmentationTests
     }
 
     /// <summary>打って Enter で確定した文字列 (変換エンジンは使わないので、日本語はかなのまま)。</summary>
-    private static string Type(string typed)
+    private static string Type(string typed, CompositionDetector? detector = null)
     {
-        var session = new MeltypeSession(Detector, new CompositionTests.FakeConverter(), new CompositionOptions(), () => new Settings());
+        var session = new MeltypeSession(detector ?? Detector, new CompositionTests.FakeConverter(), new CompositionOptions(), () => new Settings());
         var output = "";
         foreach (var character in typed + "\n")
         {
@@ -37,6 +37,27 @@ internal static class ScoredSegmentationTests
             if (!result.Consumed) output += character;
         }
         return output;
+    }
+
+    [Test]
+    public static void StructuredCode_BoundariesAreSharedWithJapanese()
+    {
+        // このテストでだけ研究方式を有効化。既定のMeltype動作は維持。
+        var detector = CreateDetector();
+        detector.UseStreamBoundaryHints = () => true;
+        foreach (var (typed, expected) in new[]
+        {
+            ("konoyouninode.jsnado", "このようにnode.jsなど"),
+            ("kyouhanode.jsnado", "きょうはnode.jsなど"),
+            ("node.jswotukau", "node.jsをつかう"),
+            ("kyouhanode.jsnobennkyouwosiyoutoomoimasu",
+             "きょうはnode.jsのべんきょうをしようとおもいます")
+        })
+            Assert.Equal(expected, Type(typed, detector), typed);
+
+        // 誤った強制確定で、普通の日本語を破壊しない。
+        Assert.Equal("でんしゃ", Type("densha", detector));
+        Assert.Equal("にほんご", Type("nihongo", detector));
     }
 
     [Test]

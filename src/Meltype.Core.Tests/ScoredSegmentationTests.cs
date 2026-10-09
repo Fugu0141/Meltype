@@ -53,7 +53,12 @@ internal static class ScoredSegmentationTests
             ("kyouhanode.jsnobennkyouwosiyoutoomoimasu",
              "きょうはnode.jsのべんきょうをしようとおもいます")
         })
-            Assert.Equal(expected, Type(typed, detector), typed);
+        {
+            var baseline = Type(typed);
+            var hybrid = Type(typed, detector);
+            Console.WriteLine($"STREAM_BOUNDARY_COMPARE {typed} baseline={baseline} hybrid={hybrid}");
+            Assert.Equal(expected, hybrid, typed);
+        }
 
         // 誤った強制確定で、普通の日本語を破壊しない。
         Assert.Equal("でんしゃ", Type("densha", detector));

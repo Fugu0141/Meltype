@@ -66,6 +66,23 @@ internal static class ScoredSegmentationTests
         Assert.Equal("にほんご", Type("nihongo", detector));
     }
 
+    private static string Preview(string typed, CompositionDetector detector)
+    {
+        var session = new MeltypeSession(
+            detector, new CompositionTests.FakeConverter(),
+            new CompositionOptions(), () => new Settings());
+        string? shown = null;
+        foreach (var c in typed)
+        {
+            var result = session.HandleKey(
+                char.ToUpperInvariant(c), c,
+                char.IsAsciiLetterUpper(c), false, false, false);
+            if (result.View is not null)
+                shown = result.View.Text;
+        }
+        return shown ?? "";
+    }
+
     [Test]
     public static void LexicalEnglish_ProtectsRomajiReadableTechTerms()
     {
@@ -92,6 +109,11 @@ internal static class ScoredSegmentationTests
                 $"ROMAJI_ENGLISH_COMPARE input={typed} baseline={baseline} " +
                 $"experimental={experimental}");
             Assert.Equal(expected, experimental, typed);
+            // A TSF IME must show the correct composition BEFORE Enter.
+            // The native DLL consumes SessionResult.View.Text, so also
+            // assert the live presentation (not just committed text).
+            Assert.Equal(expected, Preview(typed, detector),
+                "preview: " + typed);
         }
 
         // Guard against wholesale promotion of Japanese loanwords or

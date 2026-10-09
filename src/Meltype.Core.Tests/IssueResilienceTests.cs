@@ -101,6 +101,49 @@ internal static class IssueResilienceTests
     }
 
     [Test]
+    public static void ImeAbbreviation_TsfSessionContractAndCaseProbe()
+    {
+        // Windows TSF TipServer.CreateSession uses this very MeltypeSession
+        // and exchanges its SessionResult.ToJson() with the native TSF DLL.
+        // This is a managed protocol smoke test, NOT a native TSF E2E test.
+        var detector = Detector(true);
+        var explicitEnglish = new Case(
+            "research", "ime-acronym", "IME", "IME");
+        var uppercase = Evaluate(explicitEnglish, detector);
+        var lowercase = Evaluate(new Case(
+            "research", "ime-ambiguous", "ime", "ime"), detector);
+        Console.WriteLine(
+            $"IME_CASE_PROBE upper={uppercase} lower={lowercase} " +
+            $"dictionaryHint=IME_not_in_bundled_english_lexicon");
+        Assert.Equal("IME", uppercase,
+            "explicit uppercase acronym should be retained by the session");
+
+        var settings = new Settings();
+        var session = new MeltypeSession(
+            detector, new CompositionTests.FakeConverter(),
+            new CompositionOptions(), () => settings);
+        SessionResult? last = null;
+        foreach (var c in "IME")
+        {
+            last = session.HandleKey(
+                char.ToUpperInvariant(c), c,
+                true, false, false, false);
+            using var _ = System.Text.Json.JsonDocument.Parse(last.ToJson());
+        }
+        Assert.True(last is not null && last.View is not null,
+            "managed TSF-facing session must provide a composition view");
+        var committed = session.CommitPending();
+        using var resultJson = System.Text.Json.JsonDocument.Parse(
+            committed.ToJson());
+        Assert.True(resultJson.RootElement.TryGetProperty(
+            "commits", out _),
+            "TSF-facing response must serialize the commits array");
+        Assert.Equal("IME",
+            string.Concat(committed.Commits.Select(c => c.Text)),
+            "TSF-facing session must preserve explicitly uppercase IME");
+    }
+
+    [Test]
     public static void HistoricalIssues_BaselineVersusStreamBoundaryReport()
     {
         // Environment override is process-wide and overrides the delegate.

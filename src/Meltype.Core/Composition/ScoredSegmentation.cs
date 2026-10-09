@@ -73,8 +73,9 @@ public sealed partial class CompositionDetector
         DetectionLevel level, bool englishSentence, bool final)
     {
         var n = units.Count;
-        var codeHints = (StreamBoundaryByEnvironment ||
-                         UseStreamBoundaryHints?.Invoke() == true)
+        var researchBoundaries = StreamBoundaryByEnvironment ||
+                                 UseStreamBoundaryHints?.Invoke() == true;
+        var codeHints = researchBoundaries
             ? StreamBoundaryHints.FindCodeSpans(
                 units,
                 IsKnownEnglishWord,
@@ -151,8 +152,20 @@ public sealed partial class CompositionDetector
                     var symbolsAfter = i == 0 && j < n && pending.Length == 0 && Enumerable.Range(j, n - j).All(k => IsAsciiSymbol(units[k]));
                     var after = j == n || symbolsAfter ? followingEnglish : false;
                     if (PrecededByEnglish(i) == true && IsSuruForm(Kana(units, i, j))) continue;
-                    if (!IsEnglishSpan(Raw(units, i, j) + (j == n ? pending : ""), atEnd: j == n, before, after, startOfInput: i == 0, level, final, endsWord: symbolsAfter,
-                            unreadable: HasUnreadable(units, i, j) || EndsWithLoneSokuon(units, j), next: j < n ? units[j].Raw + (j + 1 == n ? pending : "") : null)) continue;
+                    var englishRaw = Raw(units, i, j) + (j == n ? pending : "");
+                    var recognized = IsEnglishSpan(englishRaw, atEnd: j == n, before, after, startOfInput: i == 0, level, final, endsWord: symbolsAfter,
+                        unreadable: HasUnreadable(units, i, j) || EndsWithLoneSokuon(units, j), next: j < n ? units[j].Raw + (j + 1 == n ? pending : "") : null);
+                    // The scored baseline's ambiguity rule rejects many
+                    // *valid English words* that happen to be pronounceable
+                    // as romaji. Only in the research mode, allow an
+                    // alternative when the kana reading is NOT a known
+                    // Japanese reading, and the remaining suffix is a
+                    // Japanese particle (or the word reaches the end).
+                    // This is an extra candidate, not a forced conversion.
+                    if (!recognized && researchBoundaries)
+                        recognized = IsUnambiguousEnglishReading(
+                            units, i, j, pending, level);
+                    if (!recognized) continue;
                     Offer(j, true, Extend(path, i, j, units, pending));
                 }
 
@@ -203,6 +216,46 @@ public sealed partial class CompositionDetector
         return result;
     }
 
+    /// <summary>
+    /// Bounded cross-language evidence from the research decoder.
+    /// An English lexicon match whose romanized kana is not attested as a
+    /// Japanese word can compete with the Japanese path. We do NOT grant
+    /// this exception to an arbitrary spellchecker match, to ordinary
+    /// Japanese words, or to a Latin prefix without a particle boundary.
+    /// E.g. japanese|no, tokyo; not sakura, sushi or normal kanji reads.
+    /// </summary>
+    private bool IsUnambiguousEnglishReading(
+        IReadOnlyList<CompositionUnit> units, int start, int end,
+        string pending, DetectionLevel level)
+    {
+        if (level == DetectionLevel.Manual) return false;
+        var raw = Raw(units, start, end) +
+            (end == units.Count ? pending : "");
+        if (raw.Length is < 4 or > 18 ||
+            !raw.All(char.IsAsciiLetter)) return false;
+
+        var lower = raw.ToLowerInvariant();
+        if (!_english.Words.ContainsWord(lower) ||
+            _japanese.IsPrefix(lower) ||
+            IsCommonJapanese?.Invoke(lower) == true) return false;
+
+        var kana = Kana(units, start, end);
+        if (kana.Length < 3 || Readings.Value.Contains(kana))
+            return false;
+
+        // Japanese words are not arbitrary byte tails: only a known
+        // particle onset can follow a contiguous embedded English word.
+        // Standalone English words need no right-side boundary.
+        if (end < units.Count)
+        {
+            var rest = Raw(units, end, units.Count) + pending;
+            if (Detection.DictionaryDetector.StartsWithParticle(
+                    rest.ToLowerInvariant()) is null)
+                return false;
+        }
+        return true;
+    }
+
     /// <summary>単位 unit を含む、3 文字以上のよく使う日本語の読み (readings.txt) があるか。</summary>
     private static bool CoveredByJapaneseWord(IReadOnlyList<CompositionUnit> units, int unit)
     {
@@ -226,7 +279,14 @@ public sealed partial class CompositionDetector
         // 辞書に無い英字の並び (buglowers、macOSnoupdate) は長さに比例するだけ (長いほど得にならないので、前後の日本語や知っている語を巻き込まない)。
         var letters = raw.All(char.IsAsciiLetter);
         var lower = raw.ToLowerInvariant();
-        var known = !letters || IsKnownEnglishWord(lower) || IsListedEnglishWord(lower) || EnglishPhraseSpacing.IsPhrase(lower);
+        // All-uppercase acronyms are strong user-supplied orthographic
+        // evidence, even without a dictionary entry. Otherwise the
+        // common two-letter suffix "ME" can score above an unknown "IME"
+        // and yield the broken path "い|ME".
+        var explicitAcronym = raw.Length is >= 2 and <= 12 &&
+                              raw.All(char.IsAsciiLetterUpper);
+        var known = explicitAcronym || !letters || IsKnownEnglishWord(lower) ||
+                    IsListedEnglishWord(lower) || EnglishPhraseSpacing.IsPhrase(lower);
         var score = known ? EnglishCharScore * Math.Pow(raw.Length, LengthExponent) : UnknownCharScore * raw.Length;
         return new ScoredPath(path.Score + score - (adjacent ? AdjacentPenalty : SwitchPenalty), [.. path.English, (start, end, split)], split ? end + 1 : end);
     }

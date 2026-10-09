@@ -144,3 +144,82 @@ No automated native-TSF integration claim until these are run.
 - Leave original keyboard/TSF logic, crash handling and Mozc intact.
 - Benchmark both correctness AND per-key latency; do not describe
   a score-model boost as a production performance improvement.
+
+
+## 2026-10-09: Algorithm regression — `IME`, `japaneseno`, `tokyo`
+
+An actual local `IssueResilienceTests.ImeAbbreviation_TsfSessionContractAndCaseProbe`
+test failed: **expected `IME`, actual `いME`** (2/3 tests passed).
+The user also reported:
+- `japaneseno` → `じゃぱねせの` instead of `japaneseの`
+- `tokyo` → `ときょ` instead of `tokyo`.
+
+### Diagnosis (source-backed, not a benchmark)
+
+Both `japanese` and `tokyo` ALREADY exist in
+`dictionaries/english.txt`. Merely adding words is not an adequate
+fix. `Readings` (from `dictionaries/readings.txt`) contains
+`じゃぱにーず` and `とうきょう` but not the romaji-parse readings
+`じゃぱねせ` or `ときょ`.
+
+Under the PR #235 scored path:
+
+1. `IME`: the initial `I` has a Japanese kana unit; the short suffix
+   `ME` can outrank an **unknown** whole uppercase acronym because
+   `Extend` gives high length-squared weight only to known words.
+2. `japanese` + `no`: `japanese` is in the English lexicon, but is
+   also parseable as romaji. The existing ambiguous-word gate rejects
+   a Japanese-adjacent English span before the DP can compare it.
+3. `tokyo`: similarly the whole English word is in the lexicon but
+   its romaji reading is not a plausible standalone Japanese word.
+   The existing gate prefers Japanese without using the lexical
+   reading evidence.
+
+### Experimental algorithm adjustment
+
+**Only when `MELTYPE_STREAM_BOUNDARY=1` and scored segmentation is
+enabled:**
+
+- Add an alternative English edge for a dictionary-backed
+  **4–18-letter** word when its exact kana reading does **not**
+  occur in the standard Japanese reading list, the word is not
+  a Japanese dictionary prefix, and the remaining continuous raw
+  input starts at a recognized Japanese particle (or the word ends
+  the composition). No special `tokyo`/`japanese` spelling
+  exceptions were added.
+- In the score evaluator, all-uppercase words of 2–12 letters
+  are strong *whole-span* orthographic evidence even if absent from
+  the English lexicon. This prevents `い|ME` beating `IME`.
+  This remains an alternative edge subject to ranking; no native
+  input layer or automatic commit code was changed.
+- Japanese guard cases `suzuki`, `anime`, `sake`, `tomato`,
+  `densha`, `nihongo` are included in the new regression test to
+  detect overzealous English promotion.
+
+The user explicitly allowed lowercase `ime` to remain unresolved
+if it is only a vocabulary / ambiguity limitation: **lowercase
+`ime` has not been forced to English**. It remains distinct from
+explicit `IME`.
+
+### What remains unverified
+
+These are source-code changes plus newly authored tests on the
+`Fugu0141/Meltype` fork, NOT proven passing execution.
+GitHub Actions has no runs on the fork branch as inspected. The
+previous passing upstream PR checks apply to **earlier commits**.
+The user must run the new core regression tests:
+
+```powershell
+git pull --ff-only
+$env:MELTYPE_SCORED = "1"
+$env:MELTYPE_STREAM_BOUNDARY = "0"
+dotnet run --project src/Meltype.Core.Tests -c Release -- ScoredSegmentationTests
+dotnet run --project src/Meltype.Core.Tests -c Release -- IssueResilienceTests
+```
+
+The tests explicitly enable the new candidate feature in the
+detector and compare it with the scored-only baseline. To test
+native Windows TSF, launch the corresponding local Meltype.exe with
+`MELTYPE_STREAM_BOUNDARY=1` and complete the native-IME,
+backspace/reconversion/focus, and long-input tests in the table above.
+No PR was created or reopened.

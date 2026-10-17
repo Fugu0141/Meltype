@@ -259,6 +259,7 @@ final class MeltypeInputController: IMKInputController, ModeServiceTarget {
     }
 
     /// 設定ファイル (Windows 版と共通の config.json) を、無ければ空の設定で作ってから、既定のエディターで開く (issue #508)。
+    /// 空の設定は SettingsVersion の無い古い形式として読まれるので、次に入力欄を開いたときに移行で既定値一式が書き込まれる。
     @objc private func openConfigFile(_ sender: Any?) {
         guard let directory = NativeCore.shared.dataDirectory else { return }
         let url = URL(fileURLWithPath: directory, isDirectory: true).appendingPathComponent("config.json")

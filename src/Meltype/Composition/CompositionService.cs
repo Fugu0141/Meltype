@@ -121,9 +121,9 @@ internal sealed class CompositionService : ICompositionHost, IDisposable
         _indicatorColors = options.ModeIndicatorColors;
         _directMode = options.DirectMode;
         var onFocus = options.ModeIndicatorOnFocus;
-        Focus.TextInputEntered += () =>
+        Focus.TextInputEntered += token =>
         {
-            if (!onFocus()) return;
+            if (!Focus.IsCurrent(token) || !onFocus()) return;
             if (ShowModeOnFocus is { } show) show();
             else ShowMode(!_directMode());
         };
@@ -274,6 +274,22 @@ internal sealed class CompositionService : ICompositionHost, IDisposable
         if (!_invoker.IsHandleCreated || _invoker.IsDisposed) return;
         _invoker.BeginInvoke(() => Safely(() =>
         {
+            if (!Controller.Abandon(reason)) return;
+            ReplayAll(Gate.Abort());
+            Hide();
+        }));
+    }
+
+    /// <summary>
+    /// フォーカス調査の通知はUIスレッドへのキュー内で古くなることがある。
+    /// 現在の欄が既に別の入力欄に移っていれば、前の結果では変換を破棄しない。
+    /// </summary>
+    private void Abandon(string reason, FocusInspector.NotificationToken token)
+    {
+        if (!_invoker.IsHandleCreated || _invoker.IsDisposed) return;
+        _invoker.BeginInvoke(() => Safely(() =>
+        {
+            if (!Focus.IsCurrent(token)) return;
             if (!Controller.Abandon(reason)) return;
             ReplayAll(Gate.Abort());
             Hide();

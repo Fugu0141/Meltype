@@ -12,11 +12,21 @@ $report = Join-Path ([System.IO.Path]::GetTempPath()) ("meltype-675707-tests-" +
 New-Item -ItemType Directory -Path $report -Force | Out-Null
 Write-Host "Results: $report"
 
+# Windows PowerShell 5.1 はネイティブ標準エラーを 2>&1 で取り込むと、
+# ErrorActionPreference=Stop により終了コード0でも停止することがある。
+# stdout/stderrをプロセス側でファイルに分け、終了コードだけで成功判定する。
 function Run-Step([string]$name, [string[]]$arguments) {
     Write-Host "=== $name ==="
-    $log = Join-Path $report ($name + '.txt')
-    & dotnet @arguments 2>&1 | Tee-Object -FilePath $log
-    if ($LASTEXITCODE -ne 0) { throw "$name failed: exit code $LASTEXITCODE; log=$log" }
+    $log = Join-Path $report ($name + '.stdout.txt')
+    $errLog = Join-Path $report ($name + '.stderr.txt')
+    $dotnet = (Get-Command dotnet -ErrorAction Stop).Source
+    $process = Start-Process -FilePath $dotnet -ArgumentList $arguments -NoNewWindow -Wait -PassThru `
+        -RedirectStandardOutput $log -RedirectStandardError $errLog
+    if (Test-Path -LiteralPath $log) { Get-Content -LiteralPath $log | ForEach-Object { Write-Host $_ } }
+    if (Test-Path -LiteralPath $errLog) { Get-Content -LiteralPath $errLog | ForEach-Object { Write-Host $_ } }
+    if ($process.ExitCode -ne 0) {
+        throw "$name failed: exit code $($process.ExitCode); stdout=$log; stderr=$errLog"
+    }
 }
 
 Push-Location $root
@@ -29,9 +39,15 @@ try {
     Run-Step 'ime-guards' @('run', '--project', 'src/Meltype.Tests', '-c', 'Release', '--no-build', '--', 'AsyncIme_')
     if ($BuildTip) {
         Write-Host '=== Build Native TIP ==='
-        & (Join-Path $root 'native/tip/build.ps1') -Configuration Release 2>&1 |
-            Tee-Object -FilePath (Join-Path $report 'native-tip.txt')
-        if ($LASTEXITCODE -ne 0) { throw 'Native TIP build failed' }
+        $tipBuild = Join-Path $root 'native/tip/build.ps1'
+        $tipLog = Join-Path $report 'native-tip.txt'
+        # PS5.1 の NativeCommandError を回避。スクリプト内の失敗は例外と終了コードに変換する。
+        $tipScript = "& '$($tipBuild.Replace("'", "''"))' -Configuration Release"
+        $tipResult = Start-Process -FilePath (Get-Command powershell.exe -ErrorAction Stop).Source `
+            -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', "`"$tipScript`"") `
+            -NoNewWindow -Wait -PassThru -RedirectStandardOutput $tipLog `
+            -RedirectStandardError (Join-Path $report 'native-tip.stderr.txt')
+        if ($tipResult.ExitCode -ne 0) { throw "Native TIP build failed: exit code $($tipResult.ExitCode)" }
     }
     if ($RunFocusE2E) {
         Write-Warning 'Focus E2E moves the mouse and foreground window. Do not type or use the mouse during this test.'

@@ -19,11 +19,13 @@ public sealed record FocusInfo(bool IsTextInput, bool IsPassword, Rectangle? Bou
 /// </summary>
 public sealed class FocusInspector : IDisposable
 {
+    // フックの失効通知と UIA の結果公開を短いクリティカルセクションで直列化する。
+    private readonly object _focusStateGate = new();
     private readonly BlockingCollection<Action> _work = new();
     private readonly Thread _thread;
     private long _focusSequence;
     private long _resolvedSequence = -1;
-    private sealed record FocusState(FocusInfo Info, IntPtr AffinityWindow = default);
+    private sealed record FocusState(FocusInfo Info, IntPtr AffinityWindow = default, long Sequence = -1);
     private volatile FocusState _state = new(new FocusInfo(false, false, null, "未確認"));
     private FocusInfo _info => _state.Info;
     private string? _loggedDescription;
@@ -47,7 +49,8 @@ public sealed class FocusInspector : IDisposable
     /// <summary>フォーカスが変わったとき (フックのスレッドから呼ばれる。ブロックしない)。</summary>
     public void Invalidate()
     {
-        var sequence = Interlocked.Increment(ref _focusSequence);
+        long sequence;
+        lock (_focusStateGate) sequence = Interlocked.Increment(ref _focusSequence);
         Enqueue(() => InspectIfLatest(sequence));
     }
 
@@ -67,8 +70,10 @@ public sealed class FocusInspector : IDisposable
     {
         get
         {
-            if (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence)) return false;
-            return AllowsCapture(_state);
+            var sequence = Interlocked.Read(ref _focusSequence);
+            var state = _state;
+            if (state.Sequence != sequence || Interlocked.Read(ref _resolvedSequence) != sequence) return false;
+            return AllowsCapture(state) && Interlocked.Read(ref _focusSequence) == sequence;
         }
     }
 
@@ -349,9 +354,15 @@ public sealed class FocusInspector : IDisposable
 
     private void ApplyFocus(long sequence, FocusInfo info, IntPtr affinityWindow)
     {
-        _state = new FocusState(info, affinityWindow);
-        // 調べている間にまたフォーカスが変わっていたら、この結果は採用しない (次の要求で調べ直す)。
-        if (sequence == Interlocked.Read(ref _focusSequence)) Interlocked.Exchange(ref _resolvedSequence, sequence);
+        // UIA の問い合わせ中に世代が変わった結果を公開しない。Invalidate と同じ短いロックで判定する。
+        // 結果に世代も刻み、フックが古い状態を確定済みと誤認しないようにする。
+        lock (_focusStateGate)
+        {
+            if (sequence != Interlocked.Read(ref _focusSequence)) return;
+            _state = new FocusState(info, affinityWindow, sequence);
+            Interlocked.Exchange(ref _resolvedSequence, sequence);
+        }
+        if (sequence != Interlocked.Read(ref _focusSequence)) return;
 
         // 変換中に入力先がパスワード欄・入力欄でない所に変わったら、変換中の内容を捨てさせる (移った先に入らないように)。
         // UI Automation で調べられなかっただけ (確認できない・フォーカスなし) のときは捨てない。

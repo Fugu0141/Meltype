@@ -124,7 +124,11 @@ public sealed class FocusInspector : IDisposable
                 snapshot.FocusWindow == IntPtr.Zero || currentFocus == IntPtr.Zero || snapshot.FocusWindow == currentFocus))
             return false;
         var pendingSequence = Interlocked.Read(ref _focusSequence);
+        // 待機中に別の UIA 結果が公開された場合、古い許可判定を返さない。
         return AllowsCapture(snapshot) && pendingSequence == Interlocked.Read(ref _focusSequence) &&
+               Interlocked.Read(ref _resolvedSequence) != pendingSequence &&
+               ReferenceEquals(snapshot, _state) &&
+               snapshot.ClickVersion == Interlocked.Read(ref _clickVersion) &&
                currentForeground == Native.GetForegroundWindow();
     }
 

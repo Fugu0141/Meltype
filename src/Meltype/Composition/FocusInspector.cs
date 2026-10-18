@@ -103,7 +103,10 @@ public sealed class FocusInspector : IDisposable
         // キーを押すたびにフックで最大 waitMs 止まり、ゲームの操作が遅れていた (PSO2 NGS)。
         var lastState = _state;
         if (lastState.AffinityWindow != IntPtr.Zero)
-            return lastState.Sequence == Interlocked.Read(ref _focusSequence) && AllowsCapture(lastState);
+            return lastState.Sequence == Interlocked.Read(ref _focusSequence) &&
+                   lastState.ClickVersion == Interlocked.Read(ref _clickVersion) &&
+                   lastState.Foreground == Native.GetForegroundWindow() &&
+                   AllowsCapture(lastState);
         var last = lastState.Info;
         // 別のウィンドウに移った直後 (500ms 以内) で、移った先をまだ調べているときも待つ。前のウィンドウ (デスクトップなど) の
         // 「入力欄ではない」で決めると、移った先の入力欄で打った先頭のキーがローマ字のまま入っていた。

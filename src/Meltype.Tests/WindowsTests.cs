@@ -190,6 +190,30 @@ internal static class WindowsTests
     }
 
     [Test]
+    public static void FocusInspector_RejectsInspectionFinishedAfterClick()
+    {
+        // UIAを開始→調査中にクリック→古い入力欄の結果が返る順序を反射で再現する。
+        // 通常はクリック時に Invalidate も発生するが、その前後の狭い競合区間も検査する。
+        using var focus = new FocusInspector();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var apply = typeof(FocusInspector).GetMethod("ApplyFocus", flags)!;
+        var clickedAtInspection = typeof(FocusInspector).GetField("_inspectedClickVersion", flags)!;
+        var staleInput = new FocusInfo(true, false, null, "old editor");
+        var nothing = focus.Current;
+        focus.NoteClick();
+        apply.Invoke(focus, [0L, staleInput, IntPtr.Zero]);
+        Assert.Equal(nothing, focus.Current, "調査開始後にクリックがあった結果は採用しない");
+
+        // クリックを取り込んだ調査なら公開可能だが、次のクリックで直ちに失効する。
+        clickedAtInspection.SetValue(focus, 1L);
+        apply.Invoke(focus, [0L, staleInput, IntPtr.Zero]);
+        Assert.Equal(staleInput, focus.Current, "クリック世代と一致した結果は公開できる");
+        focus.NoteClick();
+        Assert.Equal(staleInput, focus.Current, "失効しても直前の結果そのものは診断用に保持する");
+        Assert.True(!focus.CanCapture, "新しいクリック以降は旧結果で入力を横取りしない");
+    }
+
+    [Test]
     public static void FocusInspector_UnresolvedReuseRejectsCounterexamples()
     {
         // #675: Discord の補完候補など、クリックせず同じ入力欄にとどまる場合だけ直前の判定を再利用する。

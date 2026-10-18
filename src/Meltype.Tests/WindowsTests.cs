@@ -221,6 +221,49 @@ internal static class WindowsTests
     }
 
     [Test]
+    public static void FocusInspector_PendingReuseBooleanMatrix()
+    {
+        // 5 条件 2^5 = 32 通り。クリック・別ウィンドウ・非入力・パスワード・別 HWND の反例が
+        // ほかの条件と重なっていても、古い入力欄の判定を再利用しない。
+        for (var mask = 0; mask < 32; mask++)
+        {
+            bool sameWindow = (mask & 1) != 0;
+            bool input = (mask & 2) != 0;
+            bool password = (mask & 4) != 0;
+            bool clicked = (mask & 8) != 0;
+            bool sameFocus = (mask & 16) != 0;
+            var expected = sameWindow && input && !password && !clicked && sameFocus;
+            Assert.Equal(expected,
+                FocusInspector.CanReuseUnresolvedFocus(sameWindow, input, password, clicked, sameFocus),
+                $"Focus fallback mask={mask}");
+        }
+    }
+
+    [Test]
+    public static void AsyncIme_TargetMatchingBooleanMatrix()
+    {
+        // HWND・PID・focus・thread・前面・自アプリ・元対象未取得の 2^7=128 通り。
+        var saved = new Meltype.Input.AppInfo(new IntPtr(0x100), 10, "notepad.exe", false, false, false);
+        var initial = new ImeTarget(saved.Window, new IntPtr(0x101), 1, saved.ProcessId);
+        for (var mask = 0; mask < 128; mask++)
+        {
+            var current = initial with
+            {
+                TopLevel = (mask & 1) == 0 ? initial.TopLevel : new IntPtr(0x200),
+                ProcessId = (mask & 2) == 0 ? initial.ProcessId : 20u,
+                Focus = (mask & 4) == 0 ? initial.Focus : new IntPtr(0x102),
+                ThreadId = (mask & 8) == 0 ? initial.ThreadId : 2u
+            };
+            var foreground = (mask & 16) == 0 ? saved.Window : new IntPtr(0x300);
+            var app = (mask & 32) == 0 ? saved : saved with { IsOwnProcess = true };
+            var origin = (mask & 64) == 0 ? initial : null;
+            var expected = mask == 0;
+            Assert.Equal(expected, MeltypeEngine.ImeTargetMatchesOrigin(app, origin, current, foreground),
+                $"IME targeting mask={mask}");
+        }
+    }
+
+    [Test]
     public static void FirstLetter_AfterClickAndAutofill()
     {
         // クリックの直後 (1 秒以内) の打ち始めだけ、フォーカスを調べ直す

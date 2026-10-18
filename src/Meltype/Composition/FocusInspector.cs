@@ -25,6 +25,8 @@ public sealed class FocusInspector : IDisposable
     private readonly Thread _thread;
     private long _focusSequence;
     private long _clickVersion;
+    // UIA の調査を始めた時点のクリック世代。公開直前の値を代入すると、調査中のクリックを見逃す。
+    private long _inspectedClickVersion;
     private long _resolvedSequence = -1;
     private sealed record FocusState(
         FocusInfo Info, IntPtr AffinityWindow = default, long Sequence = -1,
@@ -76,6 +78,7 @@ public sealed class FocusInspector : IDisposable
             var sequence = Interlocked.Read(ref _focusSequence);
             var state = _state;
             if (state.Sequence != sequence || Interlocked.Read(ref _resolvedSequence) != sequence ||
+                state.ClickVersion != Interlocked.Read(ref _clickVersion) ||
                 state.Foreground != Native.GetForegroundWindow()) return false;
             return AllowsCapture(state) && Interlocked.Read(ref _focusSequence) == sequence;
         }
@@ -122,14 +125,19 @@ public sealed class FocusInspector : IDisposable
                 snapshot.Info.IsTextInput, snapshot.Info.IsPassword,
                 snapshot.ClickVersion != Interlocked.Read(ref _clickVersion),
                 snapshot.FocusWindow == IntPtr.Zero || currentFocus == IntPtr.Zero || snapshot.FocusWindow == currentFocus))
-            return false;
+            return CanCapture; // 判定中に現世代の調査が完了した可能性がある。
         var pendingSequence = Interlocked.Read(ref _focusSequence);
-        // 待機中に別の UIA 結果が公開された場合、古い許可判定を返さない。
-        return AllowsCapture(snapshot) && pendingSequence == Interlocked.Read(ref _focusSequence) &&
-               Interlocked.Read(ref _resolvedSequence) != pendingSequence &&
-               ReferenceEquals(snapshot, _state) &&
-               snapshot.ClickVersion == Interlocked.Read(ref _clickVersion) &&
-               currentForeground == Native.GetForegroundWindow();
+        // 調査が終わっていたら最新結果を使用する。古いスナップショットを「未解決」として捨てない。
+        if (Interlocked.Read(ref _resolvedSequence) == pendingSequence) return CanCapture;
+        // 調査完了・新世代への失効・クリックがこの間に発生しても、古い判定を使わない。
+        var reusable = AllowsCapture(snapshot) && pendingSequence == Interlocked.Read(ref _focusSequence) &&
+                       Interlocked.Read(ref _resolvedSequence) != pendingSequence &&
+                       ReferenceEquals(snapshot, _state) &&
+                       snapshot.ClickVersion == Interlocked.Read(ref _clickVersion) &&
+                       currentForeground == Native.GetForegroundWindow();
+        if (!reusable && Interlocked.Read(ref _resolvedSequence) == Interlocked.Read(ref _focusSequence))
+            return CanCapture; // 解決した直後は最新状態で判定し直す（#675の初文字保護）。
+        return reusable;
     }
 
     /// <summary>前回の調査結果を再利用してよいか。クリックがあった場合は未解決状態を信頼しない。</summary>
@@ -388,9 +396,10 @@ public sealed class FocusInspector : IDisposable
         // 結果に世代も刻み、フックが古い状態を確定済みと誤認しないようにする。
         lock (_focusStateGate)
         {
-            if (sequence != Interlocked.Read(ref _focusSequence)) return;
+            if (sequence != Interlocked.Read(ref _focusSequence) ||
+                _inspectedClickVersion != Interlocked.Read(ref _clickVersion)) return;
             _state = new FocusState(info, affinityWindow, sequence, _inspectedForeground, _inspectedFocus,
-                Interlocked.Read(ref _clickVersion));
+                _inspectedClickVersion);
             Interlocked.Exchange(ref _resolvedSequence, sequence);
         }
         if (sequence != Interlocked.Read(ref _focusSequence)) return;
@@ -477,6 +486,8 @@ public sealed class FocusInspector : IDisposable
         affinityWindow = IntPtr.Zero;
         try
         {
+            // UIA 呼び出しより前のクリック世代を固定し、途中のクリックでは結果を破棄する。
+            _inspectedClickVersion = Interlocked.Read(ref _clickVersion);
             _inspectedForegroundBefore = _inspectedForeground;
             _inspectedForeground = Native.GetForegroundWindow();
             _inspectedFocus = FocusedWindow(_inspectedForeground);

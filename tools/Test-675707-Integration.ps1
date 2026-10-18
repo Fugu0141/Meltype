@@ -41,13 +41,18 @@ try {
         Write-Host '=== Build Native TIP ==='
         $tipBuild = Join-Path $root 'native/tip/build.ps1'
         $tipLog = Join-Path $report 'native-tip.txt'
-        # PS5.1 の NativeCommandError を回避。スクリプト内の失敗は例外と終了コードに変換する。
-        $tipScript = "& '$($tipBuild.Replace("'", "''"))' -Configuration Release"
+        # PS5.1 の NativeCommandError を回避し、TIP ビルドも終了コードで判定する。
+        # -File のパスだけを明示的に引用符で囲む (スペース入りのチェックアウト先にも対応)。
+        $tipErrorLog = Join-Path $report 'native-tip.stderr.txt'
+        $tipArgs = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ('"' + $tipBuild + '"'), '-Configuration', 'Release')
         $tipResult = Start-Process -FilePath (Get-Command powershell.exe -ErrorAction Stop).Source `
-            -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-Command', "`"$tipScript`"") `
-            -NoNewWindow -Wait -PassThru -RedirectStandardOutput $tipLog `
-            -RedirectStandardError (Join-Path $report 'native-tip.stderr.txt')
-        if ($tipResult.ExitCode -ne 0) { throw "Native TIP build failed: exit code $($tipResult.ExitCode)" }
+            -ArgumentList $tipArgs -NoNewWindow -Wait -PassThru -RedirectStandardOutput $tipLog `
+            -RedirectStandardError $tipErrorLog
+        if (Test-Path -LiteralPath $tipLog) { Get-Content -LiteralPath $tipLog | ForEach-Object { Write-Host $_ } }
+        if (Test-Path -LiteralPath $tipErrorLog) { Get-Content -LiteralPath $tipErrorLog | ForEach-Object { Write-Host $_ } }
+        if ($tipResult.ExitCode -ne 0) {
+            throw "Native TIP build failed: exit code $($tipResult.ExitCode); stdout=$tipLog; stderr=$tipErrorLog"
+        }
     }
     if ($RunFocusE2E) {
         Write-Warning 'Focus E2E moves the mouse and foreground window. Do not type or use the mouse during this test.'

@@ -289,7 +289,7 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
                 settings.IsAppEnabled(app.ProcessName) && !settings.IsGame(app.ProcessName, looksLikeGame: false))
             {
                 var masked = MaskAltTap(altTap, e);
-                if (altTap == AltTap.Tapped) SetImeOpenAsync(japanese: e.Vk == VirtualKeys.RMenu);
+                if (altTap == AltTap.Tapped) SetImeOpenAsync(japanese: e.Vk == VirtualKeys.RMenu, app);
                 return masked;
             }
             return false;
@@ -476,15 +476,29 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
     /// Meltype IME は開閉の変化を受けて表示を切り替え、英数にするときは変換中の文字を確定する。
     /// 「コード」のアプリのコードの行だけを日本語にする働き (半角/全角 と同じ) はない。フックのスレッドでは待たない。
     /// </summary>
-    private void SetImeOpenAsync(bool japanese)
+    /// <summary>キュー投入後のフォーカス移動によって、別アプリの IME を操作しないための照合。</summary>
+    internal static bool ImeTargetMatchesOrigin(Input.AppInfo origin, ImeTarget? target, IntPtr foreground) =>
+        origin.Window != IntPtr.Zero && origin.ProcessId != 0 && !origin.IsOwnProcess &&
+        origin.Window == foreground && target is not null &&
+        target.TopLevel == origin.Window && target.ProcessId == origin.ProcessId;
+
+    private void SetImeOpenAsync(bool japanese, Input.AppInfo origin)
     {
+        var settings = _settings;
         ThreadPool.QueueUserWorkItem(_ =>
         {
             try
             {
+                if (!ReferenceEquals(settings, _settings) || !settings.Enabled || settings.Mode != InputMode.Tsf ||
+                    !settings.AltKeysSwitchKeyboard || !settings.IsAppEnabled(origin.ProcessName) ||
+                    settings.IsGame(origin.ProcessName, looksLikeGame: false)) return;
+                var target = ImeTarget.FromForeground();
+                if (!ImeTargetMatchesOrigin(origin, target, Native.GetForegroundWindow())) return;
                 // 日本語のキーボードでなければ IME は無い
-                if (ImeTarget.FromForeground() is not { } target || (Native.GetKeyboardLayout(target.ThreadId).ToInt64() & 0xFFFF) != 0x0411) return;
-                if (_imm32.TrySetOpen(target, japanese, null, _settings.ImeTimeoutMs))
+                if ((Native.GetKeyboardLayout(target!.ThreadId).ToInt64() & 0xFFFF) != 0x0411) return;
+                // IPC の待機などで対象が変わったら操作せず、元の Alt キーを別アプリに適用しない。
+                if (!ReferenceEquals(settings, _settings) || !ImeTargetMatchesOrigin(origin, ImeTarget.FromForeground(), Native.GetForegroundWindow())) return;
+                if (_imm32.TrySetOpen(target, japanese, null, settings.ImeTimeoutMs))
                     Log.Info(japanese ? "左右の Alt: 日本語入力にしました (右 Alt)" : "左右の Alt: 英数にしました (左 Alt)");
                 else
                     Log.Warn($"左右の Alt: {(japanese ? "日本語入力" : "英数")}にできませんでした。");
@@ -829,17 +843,26 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
     /// <summary>Meltype キーボード使用中は Microsoft IME を閉じておく (二重に変換されないように)。</summary>
     private void CloseSystemImeAsync()
     {
+        // 実行時に FromForeground を初めて取得すると、キュー投入後に移った別アプリの IME を閉じてしまう。
+        var origin = _foreground.Current;
+        var settings = _settings;
         ThreadPool.QueueUserWorkItem(_ =>
         {
             try
             {
-                if (!IsKeyboardActive || ForegroundTracker.IsOwnWindow(Native.GetForegroundWindow()) || ImeTarget.FromForeground() is not { } target ||
-                    !KeyboardLayoutPolicy.AllowsInput(_settings, target)) return;
-                // アプリ別設定で OFF にしたアプリ (・ゲーム) では、Microsoft IME をそのまま使ってもらう (OFF に戻さない: issue #233)
-                if (!_foreground.Check(_settings).Allowed) return;
-                var state = _imm32.GetState(target);
-                if (!KeyboardLayoutPolicy.AllowsInput(_settings, state.KeyboardLayout)) return;
-                if (state.Mode == IME.ImeMode.Open && _imm32.TrySetOpen(target, false, null, _settings.ImeTimeoutMs))
+                if (!ReferenceEquals(settings, _settings) || !IsKeyboardActive || TakeoverPending) return;
+                var target = ImeTarget.FromForeground();
+                if (!ImeTargetMatchesOrigin(origin, target, Native.GetForegroundWindow()) ||
+                    !KeyboardLayoutPolicy.AllowsInput(settings, target!)) return;
+                // アプリ別設定で OFF にしたアプリ (・ゲーム) では、Microsoft IME をそのまま使ってもらう (issue #233)
+                if (!_foreground.Check(settings).Allowed) return;
+                var state = _imm32.GetState(target!);
+                if (!KeyboardLayoutPolicy.AllowsInput(settings, state.KeyboardLayout)) return;
+                // GetState 中にも前面ウィンドウや設定が変わり得る。元の対象以外には送らない。
+                if (!ReferenceEquals(settings, _settings) || !IsKeyboardActive || TakeoverPending ||
+                    !ImeTargetMatchesOrigin(origin, ImeTarget.FromForeground(), Native.GetForegroundWindow()) ||
+                    !_foreground.Check(settings).Allowed) return;
+                if (state.Mode == IME.ImeMode.Open && _imm32.TrySetOpen(target!, false, null, settings.ImeTimeoutMs))
                 {
                     Log.Info("Meltype キーボードを使うため Microsoft IME を OFF にしました。");
                 }

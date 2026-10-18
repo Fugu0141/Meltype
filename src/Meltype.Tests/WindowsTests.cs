@@ -166,6 +166,36 @@ internal static class WindowsTests
     }
 
     [Test]
+    public static void FocusInspector_StaleGenerationDoesNotPublish()
+    {
+        // UIA が古い要求の結果を返しても、次世代のフォーカスを汚染しない。
+        using var focus = new FocusInspector();
+        var apply = typeof(FocusInspector).GetMethod("ApplyFocus",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        var original = new FocusInfo(false, false, null, "current button");
+        var stale = new FocusInfo(true, false, null, "stale editor");
+        apply.Invoke(focus, [0L, original, IntPtr.Zero]);
+        var entered = 0;
+        focus.TextInputEntered += () => entered++;
+        apply.Invoke(focus, [1L, stale, IntPtr.Zero]);
+        Assert.Equal(original, focus.Current, "古い世代の状態を公開しない");
+        Assert.True(!focus.CanCapture, "古い入力欄でキーを奪わない");
+        Assert.Equal(0, entered, "古い世代の通知も発火しない");
+    }
+
+    [Test]
+    public static void AsyncIme_RejectsDifferentWindowAndProcess()
+    {
+        var origin = new Meltype.Input.AppInfo(new IntPtr(0x100), 10, "notepad.exe", false, false, false);
+        var same = new ImeTarget(origin.Window, new IntPtr(0x101), 1, origin.ProcessId);
+        Assert.True(MeltypeEngine.ImeTargetMatchesOrigin(origin, same, origin.Window), "元のウィンドウ");
+        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin, same, new IntPtr(0x200)), "処理前に別のウィンドウへ移動");
+        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin, same with { ProcessId = 20 }, origin.Window), "プロセスが変わった");
+        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin, same with { TopLevel = new IntPtr(0x200) }, origin.Window), "対象ウィンドウが変わった");
+        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin with { IsOwnProcess = true }, same, origin.Window), "自アプリは触らない");
+    }
+
+    [Test]
     public static void FirstLetter_AfterClickAndAutofill()
     {
         // クリックの直後 (1 秒以内) の打ち始めだけ、フォーカスを調べ直す

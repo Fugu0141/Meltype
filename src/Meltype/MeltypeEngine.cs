@@ -485,36 +485,69 @@ internal sealed class MeltypeEngine : ISessionEnvironment, IDisposable
     /// 「コード」のアプリのコードの行だけを日本語にする働き (半角/全角 と同じ) はない。
     /// 入力時点では対象を Win32 から取得するが、IME の変更はワーカーに委譲する。
     /// </summary>
+    // ThreadPool のワーカーは投入順に完了しない。左右Altの切替要求を一本のキューで順序付ける。
+    // フック側ではロック内に要求を積むだけで、IMM32 / UIA / IPC の待機を行わない。
+    private readonly object _altImeGate = new();
+    private readonly Queue<AltImeRequest> _altImeQueue = new();
+    private bool _altImeWorkerRunning;
+    private sealed record AltImeRequest(bool Japanese, Input.AppInfo Origin, ImeTarget Initial, Settings Settings);
+
     private void SetImeOpenAsync(bool japanese, Input.AppInfo origin)
     {
-        // Alt の入力時点の HWND に加え、ウィンドウ内の入力先 (フォーカス HWND / thread) を固定する。
-        // GetGUIThreadInfo は同期的な短い Win32 照会のみで、ここでは他プロセスの UIA/IPC を待たない。
         var initial = ImeTarget.FromForeground();
         if (!ImeTargetMatchesOrigin(origin, initial, initial, Native.GetForegroundWindow())) return;
         var settings = _settings;
-        ThreadPool.QueueUserWorkItem(_ =>
+        lock (_altImeGate)
         {
+            _altImeQueue.Enqueue(new AltImeRequest(japanese, origin, initial!, settings));
+            if (_altImeWorkerRunning) return;
+            _altImeWorkerRunning = true;
+        }
+        ThreadPool.QueueUserWorkItem(_ => DrainAltImeQueue());
+    }
+
+    private void DrainAltImeQueue()
+    {
+        while (true)
+        {
+            AltImeRequest request;
+            lock (_altImeGate)
+            {
+                if (_altImeQueue.Count == 0)
+                {
+                    _altImeWorkerRunning = false;
+                    return;
+                }
+                request = _altImeQueue.Dequeue();
+            }
             try
             {
-                if (!ReferenceEquals(settings, _settings) || !settings.Enabled || settings.Mode != InputMode.Tsf ||
-                    !settings.AltKeysSwitchKeyboard || !settings.IsAppEnabled(origin.ProcessName) ||
-                    settings.IsGame(origin.ProcessName, looksLikeGame: false)) return;
-                var target = ImeTarget.FromForeground();
-                if (target is null || !ImeTargetMatchesOrigin(origin, initial, target, Native.GetForegroundWindow())) return;
-                // 日本語のキーボードでなければ IME は無い
-                if ((Native.GetKeyboardLayout(target.ThreadId).ToInt64() & 0xFFFF) != 0x0411) return;
-                // IPC の待機などで対象が変わったら操作せず、元の Alt キーを別アプリに適用しない。
-                if (!ReferenceEquals(settings, _settings) || !ImeTargetMatchesOrigin(origin, initial, ImeTarget.FromForeground(), Native.GetForegroundWindow())) return;
-                if (_imm32.TrySetOpen(target, japanese, null, settings.ImeTimeoutMs))
-                    Log.Info(japanese ? "左右の Alt: 日本語入力にしました (右 Alt)" : "左右の Alt: 英数にしました (左 Alt)");
-                else
-                    Log.Warn($"左右の Alt: {(japanese ? "日本語入力" : "英数")}にできませんでした。");
+                ApplyAltImeRequest(request);
             }
             catch (Exception ex)
             {
                 Log.Warn($"左右の Alt: IME を切り替えられませんでした: {ex.Message}");
             }
-        });
+        }
+    }
+
+    private void ApplyAltImeRequest(AltImeRequest request)
+    {
+        var settings = request.Settings;
+        var origin = request.Origin;
+        if (!ReferenceEquals(settings, _settings) || !settings.Enabled || settings.Mode != InputMode.Tsf ||
+            !settings.AltKeysSwitchKeyboard || !settings.IsAppEnabled(origin.ProcessName) ||
+            settings.IsGame(origin.ProcessName, looksLikeGame: false)) return;
+        var target = ImeTarget.FromForeground();
+        if (target is null || !ImeTargetMatchesOrigin(origin, request.Initial, target, Native.GetForegroundWindow())) return;
+        if ((Native.GetKeyboardLayout(target.ThreadId).ToInt64() & 0xFFFF) != 0x0411) return;
+        // 待機中に他の入力先・設定へ変わった場合は操作しない。同じ入力先への要求はこのワーカーで直列実行する。
+        if (!ReferenceEquals(settings, _settings) ||
+            !ImeTargetMatchesOrigin(origin, request.Initial, ImeTarget.FromForeground(), Native.GetForegroundWindow())) return;
+        if (_imm32.TrySetOpen(target, request.Japanese, null, settings.ImeTimeoutMs))
+            Log.Info(request.Japanese ? "左右の Alt: 日本語入力にしました (右 Alt)" : "左右の Alt: 英数にしました (左 Alt)");
+        else
+            Log.Warn($"左右の Alt: {(request.Japanese ? "日本語入力" : "英数")}にできませんでした。");
     }
 
     // ---- アプリの種類「コード」: コメント・文字列の中だけ日本語 ----

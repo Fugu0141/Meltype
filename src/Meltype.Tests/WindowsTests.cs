@@ -168,31 +168,56 @@ internal static class WindowsTests
     [Test]
     public static void FocusInspector_StaleGenerationDoesNotPublish()
     {
-        // UIA が古い要求の結果を返しても、次世代のフォーカスを汚染しない。
+        // 古い UIA の戻りを後から適用する。インスペクタのワーカースレッドを起こさずに順序を再現する。
         using var focus = new FocusInspector();
-        var apply = typeof(FocusInspector).GetMethod("ApplyFocus",
-            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var apply = typeof(FocusInspector).GetMethod("ApplyFocus", flags)!;
+        var sequence = typeof(FocusInspector).GetField("_focusSequence", flags)!;
         var original = new FocusInfo(false, false, null, "current button");
         var stale = new FocusInfo(true, false, null, "stale editor");
-        apply.Invoke(focus, [0L, original, IntPtr.Zero]);
         var entered = 0;
         focus.TextInputEntered += () => entered++;
-        apply.Invoke(focus, [1L, stale, IntPtr.Zero]);
-        Assert.Equal(original, focus.Current, "古い世代の状態を公開しない");
-        Assert.True(!focus.CanCapture, "古い入力欄でキーを奪わない");
-        Assert.Equal(0, entered, "古い世代の通知も発火しない");
+        apply.Invoke(focus, [0L, original, IntPtr.Zero]);
+        Assert.Equal(original, focus.Current, "最新の元状態");
+        sequence.SetValue(focus, 1L); // Invalidate が処理され、旧 UIA の結果だけが残った順序
+        apply.Invoke(focus, [0L, stale, IntPtr.Zero]);
+        Assert.Equal(original, focus.Current, "旧世代の状態を公開しない");
+        Assert.True(!focus.CanCapture, "旧世代の入力欄判定を横取りに使わない");
+        Assert.Equal(0, entered, "旧世代の通知も発火しない");
+        apply.Invoke(focus, [2L, stale, IntPtr.Zero]);
+        Assert.Equal(original, focus.Current, "未来の世代も受け入れない");
+        Assert.Equal(0, entered, "未来の世代でもイベントはない");
     }
 
     [Test]
-    public static void AsyncIme_RejectsDifferentWindowAndProcess()
+    public static void FocusInspector_UnresolvedReuseRejectsCounterexamples()
+    {
+        // #675: Discord の補完候補など、クリックせず同じ入力欄にとどまる場合だけ直前の判定を再利用する。
+        Assert.True(FocusInspector.CanReuseUnresolvedFocus(true, true, false, false, true), "同じ欄・クリックなし");
+        Assert.True(!FocusInspector.CanReuseUnresolvedFocus(true, true, false, true, true), "入力欄→ボタンへのクリック直後");
+        Assert.True(!FocusInspector.CanReuseUnresolvedFocus(false, true, false, false, true), "別の前面ウィンドウ");
+        Assert.True(!FocusInspector.CanReuseUnresolvedFocus(true, true, false, false, false), "同ウィンドウだが別 HWND の欄");
+        Assert.True(!FocusInspector.CanReuseUnresolvedFocus(true, true, true, false, true), "パスワード欄");
+        Assert.True(!FocusInspector.CanReuseUnresolvedFocus(true, false, false, false, true), "直前が非入力欄");
+    }
+
+    [Test]
+    public static void AsyncIme_RejectsDifferentWindowProcessAndFocus()
     {
         var origin = new Meltype.Input.AppInfo(new IntPtr(0x100), 10, "notepad.exe", false, false, false);
-        var same = new ImeTarget(origin.Window, new IntPtr(0x101), 1, origin.ProcessId);
-        Assert.True(MeltypeEngine.ImeTargetMatchesOrigin(origin, same, origin.Window), "元のウィンドウ");
-        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin, same, new IntPtr(0x200)), "処理前に別のウィンドウへ移動");
-        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin, same with { ProcessId = 20 }, origin.Window), "プロセスが変わった");
-        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin, same with { TopLevel = new IntPtr(0x200) }, origin.Window), "対象ウィンドウが変わった");
-        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin with { IsOwnProcess = true }, same, origin.Window), "自アプリは触らない");
+        var initial = new ImeTarget(origin.Window, new IntPtr(0x101), 1, origin.ProcessId);
+        bool Accepted(ImeTarget current, IntPtr? foreground = null) =>
+            MeltypeEngine.ImeTargetMatchesOrigin(origin, initial, current, foreground ?? origin.Window);
+        Assert.True(Accepted(initial), "元のウィンドウ・フォーカス");
+        Assert.True(!Accepted(initial, new IntPtr(0x200)), "別の前面ウィンドウへ移動");
+        Assert.True(!Accepted(initial with { ProcessId = 20 }), "プロセスが変わった");
+        Assert.True(!Accepted(initial with { TopLevel = new IntPtr(0x200) }), "対象ウィンドウが変わった");
+        Assert.True(!Accepted(initial with { Focus = new IntPtr(0x102) }), "同じウィンドウ内で別の入力欄へ移った");
+        Assert.True(!Accepted(initial with { ThreadId = 2 }), "別スレッドのIME");
+        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin with { IsOwnProcess = true }, initial, initial, origin.Window),
+            "自アプリは触らない");
+        Assert.True(!MeltypeEngine.ImeTargetMatchesOrigin(origin, null, initial, origin.Window),
+            "元の入力先を確かめられないときは動作しない");
     }
 
     [Test]

@@ -421,15 +421,16 @@ public sealed class FocusInspector : IDisposable
     {
         // UIA の問い合わせ中に世代が変わった結果を公開しない。Invalidate と同じ短いロックで判定する。
         // 結果に世代も刻み、フックが古い状態を確定済みと誤認しないようにする。
+        NotificationToken token;
         lock (_focusStateGate)
         {
             if (sequence != Interlocked.Read(ref _focusSequence) ||
                 _inspectedClickVersion != Interlocked.Read(ref _clickVersion)) return;
             _state = new FocusState(info, affinityWindow, sequence, _inspectedForeground, _inspectedFocus,
                 _inspectedClickVersion, ++_publicationRevision);
+            token = _state.Token;
             Interlocked.Exchange(ref _resolvedSequence, sequence);
         }
-        var token = _state.Token;
         if (!IsCurrent(token)) return;
 
         // 実際の副作用は、通知先(UIスレッド)でもトークンを検証してから行う。

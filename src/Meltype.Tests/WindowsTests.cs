@@ -176,16 +176,16 @@ internal static class WindowsTests
         var original = new FocusInfo(false, false, null, "current button");
         var stale = new FocusInfo(true, false, null, "stale editor");
         var entered = 0;
-        focus.TextInputEntered += () => entered++;
+        focus.TextInputEntered += _ => entered++;
         apply.Invoke(focus, [0L, original, IntPtr.Zero]);
-        Assert.Equal(original, focus.Current, "最新の元状態");
+        Assert.Equal(original, focus.LastInspected, "最新の元状態");
         sequence.SetValue(focus, 1L); // Invalidate が処理され、旧 UIA の結果だけが残った順序
         apply.Invoke(focus, [0L, stale, IntPtr.Zero]);
-        Assert.Equal(original, focus.Current, "旧世代の状態を公開しない");
+        Assert.Equal(original, focus.LastInspected, "旧世代の状態を公開しない");
         Assert.True(!focus.CanCapture, "旧世代の入力欄判定を横取りに使わない");
         Assert.Equal(0, entered, "旧世代の通知も発火しない");
         apply.Invoke(focus, [2L, stale, IntPtr.Zero]);
-        Assert.Equal(original, focus.Current, "未来の世代も受け入れない");
+        Assert.Equal(original, focus.LastInspected, "未来の世代も受け入れない");
         Assert.Equal(0, entered, "未来の世代でもイベントはない");
     }
 
@@ -199,18 +199,65 @@ internal static class WindowsTests
         var apply = typeof(FocusInspector).GetMethod("ApplyFocus", flags)!;
         var clickedAtInspection = typeof(FocusInspector).GetField("_inspectedClickVersion", flags)!;
         var staleInput = new FocusInfo(true, false, null, "old editor");
-        var nothing = focus.Current;
+        var nothing = focus.LastInspected;
         focus.NoteClick();
         apply.Invoke(focus, [0L, staleInput, IntPtr.Zero]);
-        Assert.Equal(nothing, focus.Current, "調査開始後にクリックがあった結果は採用しない");
+        Assert.Equal(nothing, focus.LastInspected, "調査開始後にクリックがあった結果は採用しない");
 
         // クリックを取り込んだ調査なら公開可能だが、次のクリックで直ちに失効する。
         clickedAtInspection.SetValue(focus, 1L);
         apply.Invoke(focus, [0L, staleInput, IntPtr.Zero]);
-        Assert.Equal(staleInput, focus.Current, "クリック世代と一致した結果は公開できる");
+        Assert.Equal(staleInput, focus.LastInspected, "クリック世代と一致した結果は公開できる");
         focus.NoteClick();
-        Assert.Equal(staleInput, focus.Current, "失効しても直前の結果そのものは診断用に保持する");
+        Assert.Equal(staleInput, focus.LastInspected, "失効しても直前の結果そのものは診断用に保持する");
         Assert.True(!focus.CanCapture, "新しいクリック以降は旧結果で入力を横取りしない");
+    }
+
+    [Test]
+    public static void FocusInspector_TokenExpiresAfterClickOrNewFocus()
+    {
+        // UIスレッドに届いた通知が、別のクリックや調査によって失効したことを検出する。
+        using var focus = new FocusInspector();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var apply = typeof(FocusInspector).GetMethod("ApplyFocus", flags)!;
+        var inspectedForeground = typeof(FocusInspector).GetField("_inspectedForeground", flags)!;
+        var focusSequence = typeof(FocusInspector).GetField("_focusSequence", flags)!;
+        inspectedForeground.SetValue(focus, Native.GetForegroundWindow());
+        var field = new FocusInfo(true, false, null, "original editor");
+        FocusInspector.NotificationToken token = default;
+        focus.TextInputEntered += t => token = t;
+        apply.Invoke(focus, [0L, field, IntPtr.Zero]);
+        Assert.Equal(field, focus.LastInspected, "診断用は最後に調査した結果を保持");
+        Assert.True(focus.IsCurrent(token), "調査直後の通知は有効");
+        Assert.Equal(field, focus.Current, "有効な結果は操作に使える");
+
+        focus.NoteClick();
+        Assert.True(!focus.IsCurrent(token), "クリック後は過去の通知が無効");
+        Assert.True(!focus.Current.IsTextInput, "クリック直後に古い入力欄を公開しない");
+        Assert.Equal(field, focus.LastInspected, "診断用の結果まで消さない");
+
+        // UIA再調査が完了しても、同じトークンを再利用してはならない。
+        focusSequence.SetValue(focus, 1L);
+        var clickSnapshot = typeof(FocusInspector).GetField("_inspectedClickVersion", flags)!;
+        clickSnapshot.SetValue(focus, 1L);
+        apply.Invoke(focus, [1L, field with { Description = "new editor" }, IntPtr.Zero]);
+        Assert.True(!focus.IsCurrent(token), "別の公開状態では旧通知を再利用しない");
+    }
+
+    [Test]
+    public static void FocusInspector_LostEventCarriesVersion()
+    {
+        using var focus = new FocusInspector();
+        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+        var apply = typeof(FocusInspector).GetMethod("ApplyFocus", flags)!;
+        typeof(FocusInspector).GetField("_inspectedForeground", flags)!
+            .SetValue(focus, Native.GetForegroundWindow());
+        FocusInspector.NotificationToken token = default;
+        focus.CaptureLost += (_, t) => token = t;
+        apply.Invoke(focus, [0L, new FocusInfo(false, false, null, "button"), IntPtr.Zero]);
+        Assert.True(focus.IsCurrent(token), "イベントの瞬間は有効");
+        focus.NoteClick();
+        Assert.True(!focus.IsCurrent(token), "UIスレッドへの通知中に失効した結果を検出");
     }
 
     [Test]

@@ -125,3 +125,37 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/Test-675707-Integratio
 ### 状態
 
 変更をコミットし、C#回帰テストも追加したが **Windows上のビルドと実行は依然未実施**。そのため #1・#2・#5・#6 は完全解決とは扱わず、PRをDraftに据え置く。
+
+## フォーカス通知・Alt順序・有効スナップショットの修正（2026-10-18 続報）
+
+前回の追加レビューで挙がった4点をPR #13の作業ブランチへ修正した。**ここでの修正済みとはコードへの反映を指し、Windowsビルド・実機試験での合格を意味しない。**
+
+### (1) 世代に結び付いた通知
+
+- `FocusInspector.NotificationToken` に Sequence / ClickVersion / Foreground / Publication Revision を保持。
+- `ApplyFocus` は状態とトークンを同じロック内で確定。通知前と、`CompositionService` の受け側でも `IsCurrent` を使って失効を検査。
+- `CompositionService.Abandon` はUIスレッドに積んだ時点ではなく **実行する時点** に旧フォーカスの破棄通知を拒否する。
+- `TextInputEntered` もトークンを受け取り、現行フォーカスなら入力モード表示に使う。
+- この照合では Windows のフォーカス変更と処理実行を原子的にはできないため、最後の照合直後の変更は残存リスクとする。
+
+### (2) Alt切替を入力順に処理
+
+- 左Alt=英数、右Alt=日本語を `_altImeQueue` へFIFOで積み、単一ワーカーが順に処理する。
+- キーボードフックは同期的な外部IME待機を行わない。
+- HWND/PID/Focus/ThreadId/設定の再照合は維持。
+- 同じ入力先へ「左Alt→右Alt」の順で届いたのにワーカーだけ逆順で完了するレースを抑止。
+- IMM32側のタイムアウト後に外部OS操作が遅延完了するケースは別途実機測定する。
+
+### (3) 操作用フォーカスと診断用フォーカス
+
+- `Current` は最新の世代・クリック番号・前面ウィンドウと一致する場合だけ返し、それ以外は未確認（非入力欄）。
+- `LastInspected` は UIA が最後に公開した生の結果を診断用に保持。
+- これによりコード入力欄分類や表示位置で失効した結果を読む可能性を下げるが、#675の候補表示・クリック後初文字保護に影響し得るのでWindows E2Eが必要。
+
+### (4) テスト実行補助
+
+- `tools/Test-675707-Integration.ps1` は `Start-Process` で .NETのstdout/stderrを分離保存し、PowerShell 5.1の `NativeCommandError` 依存をなくした。
+- Focusトークンのクリックによる失効・通知の識別テストを追加。
+- 左右Altを高速に連続押下する実機テストも必要（純粋な32/128条件の参照モデルでは競合を検証できない）。
+
+**未実施**: Windows .NETビルド、C#テスト、Alt高速切替の実機E2E、WinPS5.1/PS7のスクリプト動作、候補表示中の初文字とクリック0/10/30ms。

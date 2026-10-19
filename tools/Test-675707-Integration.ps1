@@ -22,8 +22,8 @@ function Run-Step([string]$name, [string[]]$arguments) {
     $dotnet = (Get-Command dotnet -ErrorAction Stop).Source
     $process = Start-Process -FilePath $dotnet -ArgumentList $arguments -NoNewWindow -Wait -PassThru `
         -RedirectStandardOutput $log -RedirectStandardError $errLog
-    if (Test-Path -LiteralPath $log) { Get-Content -LiteralPath $log | ForEach-Object { Write-Host $_ } }
-    if (Test-Path -LiteralPath $errLog) { Get-Content -LiteralPath $errLog | ForEach-Object { Write-Host $_ } }
+    if (Test-Path -LiteralPath $log) { Get-Content -LiteralPath $log -Encoding UTF8 | ForEach-Object { Write-Host $_ } }
+    if (Test-Path -LiteralPath $errLog) { Get-Content -LiteralPath $errLog -Encoding UTF8 | ForEach-Object { Write-Host $_ } }
     if ($process.ExitCode -ne 0) {
         throw "$name failed: exit code $($process.ExitCode); stdout=$log; stderr=$errLog"
     }
@@ -48,8 +48,8 @@ try {
         $tipResult = Start-Process -FilePath (Get-Command powershell.exe -ErrorAction Stop).Source `
             -ArgumentList $tipArgs -NoNewWindow -Wait -PassThru -RedirectStandardOutput $tipLog `
             -RedirectStandardError $tipErrorLog
-        if (Test-Path -LiteralPath $tipLog) { Get-Content -LiteralPath $tipLog | ForEach-Object { Write-Host $_ } }
-        if (Test-Path -LiteralPath $tipErrorLog) { Get-Content -LiteralPath $tipErrorLog | ForEach-Object { Write-Host $_ } }
+        if (Test-Path -LiteralPath $tipLog) { Get-Content -LiteralPath $tipLog -Encoding UTF8 | ForEach-Object { Write-Host $_ } }
+        if (Test-Path -LiteralPath $tipErrorLog) { Get-Content -LiteralPath $tipErrorLog -Encoding UTF8 | ForEach-Object { Write-Host $_ } }
         if ($tipResult.ExitCode -ne 0) {
             throw "Native TIP build failed: exit code $($tipResult.ExitCode); stdout=$tipLog; stderr=$tipErrorLog"
         }

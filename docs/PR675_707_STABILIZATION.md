@@ -163,30 +163,30 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/Test-675707-Integratio
 
 ## フォーカス失効の追加観測 (2026-10-19)
 
-Windows 実機で通常の統合テスト (Core 515/515、Windows 550/550) と既存の Focus E2E が通過した。一方、既存E2Eでは、入力欄からボタン・パスワード欄へのクリック直後に、\`CanCaptureWaiting\` 側が入力欄として扱う試行があった。「クリックが UI スレッドに届く前に判定した」のか「新しいネイティブフォーカスに移った後も旧結果を使った」のかは、従来のログだけでは区別できない。
+Windows 実機で通常の統合テスト (Core 515/515、Windows 550/550) と既存の Focus E2E が通過した。一方、既存E2Eでは、入力欄からボタン・パスワード欄へのクリック直後に、`CanCaptureWaiting` 側が入力欄として扱う試行があった。「クリックが UI スレッドに届く前に判定した」のか「新しいネイティブフォーカスに移った後も旧結果を使った」のかは、従来のログだけでは区別できない。
 
 ### 新しい診断モード (テストコードのみ変更)
 
-\`MELTYPE_FOCUS_DIAGNOSTICS=1\` を付けて \`--focus-e2e\` を実行すると、入力欄→ボタンおよび入力欄→パスワード欄に対して、遅延別の \`FOCUS_DIAG\` と横取り判断試行の \`FOCUS_TRACE\` を出力する。Win32 \`GetGUIThreadInfo\` で確認したフォーカス HWND を「キー判定の直前」「判定終了直後」に記録する。UIAへの追加問い合わせやキー文字列の記録は行わない。
+`MELTYPE_FOCUS_DIAGNOSTICS=1` を付けて `--focus-e2e` を実行すると、入力欄→ボタンおよび入力欄→パスワード欄に対して、遅延別の `FOCUS_DIAG` と横取り判断試行の `FOCUS_TRACE` を出力する。Win32 `GetGUIThreadInfo` で確認したフォーカス HWND を「キー判定の直前」「判定終了直後」に記録する。UIAへの追加問い合わせやキー文字列の記録は行わない。
 
-\`captured_with_target_focus_at_key\` は、すでに目的の非入力欄にネイティブフォーカスが移った状態で横取りを許可した試行数。診断モードでこれが1件でもあれば、独立の期待条件により FAIL とする。HWND=0等の取得不能な試行は「安全」と推定せず、\`captured_with_unknown_focus_at_key\` として分ける。\`captured_with_target_focus_after_check\` は測定後に移動した可能性もあり、単独ではFAILにしない。
+`captured_with_target_focus_at_key` は、すでに目的の非入力欄にネイティブフォーカスが移った状態で横取りを許可した試行数。診断モードでこれが1件でもあれば、独立の期待条件により FAIL とする。HWND=0等の取得不能な試行は「安全」と推定せず、`captured_with_unknown_focus_at_key` として分ける。`captured_with_target_focus_after_check` は測定後に移動した可能性もあり、単独ではFAILにしない。
 
 Windows cmd.exe での起動例:
 
-\`\`\`bat
+```bat
 git pull --ff-only origin fix/675-707-integration-safety
 set "MELTYPE_FOCUS_DIAGNOSTICS=1"
 dotnet run --project src/Meltype.Tests -c Release -- --focus-e2e
 set "MELTYPE_FOCUS_DIAGNOSTICS="
-\`\`\`
+```
 
 検証は入力を実際に送信するものではなく、キャプチャ判定と HWND の観測である。上記の診断モードは Win32 を余分に問い合わせるため、通常の性能比較には環境変数なしの E2Eを使用する。
 
 ### 統合前との A/B 比較
 
-対象PR のベースは \`ca88a9addd689c1181a6459ff94797b69eb06232\`。このリビジョンでは \`FocusEndToEnd.cs\` が同じ既存実装であるため、診断モードなしの通常 E2E をベースとHEADの両方で複数回実施し、入力欄への復帰率・非入力欄の横取り許可数・最大フック待機時間を比較する。比較中は端末負荷・ウィンドウ状態・入力操作条件をなるべく揃える。
+対象PR のベースは `ca88a9addd689c1181a6459ff94797b69eb06232`。このリビジョンでは `FocusEndToEnd.cs` が同じ既存実装であるため、診断モードなしの通常 E2E をベースとHEADの両方で複数回実施し、入力欄への復帰率・非入力欄の横取り許可数・最大フック待機時間を比較する。比較中は端末負荷・ウィンドウ状態・入力操作条件をなるべく揃える。
 
-\`\`\`bat
+```bat
 REM 現在の Meltype リポジトリから、親ディレクトリへ別の worktree を追加
 git worktree add --detach ..\Meltype-675707-baseline ca88a9addd689c1181a6459ff94797b69eb06232
 cd ..\Meltype-675707-baseline
@@ -194,6 +194,6 @@ dotnet run --project src/Meltype.Tests -c Release -- --focus-e2e
 cd ..\Meltype
 REM 診断環境変数が解除されていることを確認したうえでHEAD側でも同じコマンドを実行
 dotnet run --project src/Meltype.Tests -c Release -- --focus-e2e
-\`\`\`
+```
 
-既存の E2E の \`captured\` は、アプリに文字が実際に入力されたことや機密漏えいが生じたことを意味しない。旧コードからの回帰かどうかは A/B 実測を確認して判定する。製品コードのIME・フォーカス処理はこの診断追加では変更しない。
+既存の E2E の `captured` は、アプリに文字が実際に入力されたことや機密漏えいが生じたことを意味しない。旧コードからの回帰かどうかは A/B 実測を確認して判定する。製品コードのIME・フォーカス処理はこの診断追加では変更しない。

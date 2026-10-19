@@ -230,6 +230,7 @@ internal static class WindowsTests
         Assert.Equal(field, focus.LastInspected, "診断用は最後に調査した結果を保持");
         Assert.True(focus.IsCurrent(token), "調査直後の通知は有効");
         Assert.Equal(field, focus.Current, "有効な結果は操作に使える");
+        var originalToken = token; // 後続の通知で token が上書きされても、古い通知の失効を検証する。
 
         focus.NoteClick();
         Assert.True(!focus.IsCurrent(token), "クリック後は過去の通知が無効");
@@ -241,7 +242,8 @@ internal static class WindowsTests
         var clickSnapshot = typeof(FocusInspector).GetField("_inspectedClickVersion", flags)!;
         clickSnapshot.SetValue(focus, 1L);
         apply.Invoke(focus, [1L, field with { Description = "new editor" }, IntPtr.Zero]);
-        Assert.True(!focus.IsCurrent(token), "別の公開状態では旧通知を再利用しない");
+        Assert.True(!focus.IsCurrent(originalToken), "別の公開状態では旧通知を再利用しない");
+        Assert.True(token != originalToken, "新しい公開結果には別の通知トークンが付与される");
     }
 
     [Test]

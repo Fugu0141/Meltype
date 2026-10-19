@@ -8,11 +8,13 @@
     <Nullable>enable</Nullable>
     <AssemblyName>Meltype</AssemblyName>
     <RootNamespace>Meltype</RootNamespace>
-    <Version>1.2.2-pre.2</Version>
+    <Version>1.3.0</Version>
     <Product>Meltype</Product>
     <Authors>Yukishiro</Authors>
     <Copyright>Copyright (C) 2026 雪代 / Yukishiro. GPL-3.0-or-later</Copyright>
     <Description>半角/全角 キーを押さなくても日本語と英語を打ち分けられるようにする常駐ツール</Description>
+    <!-- Meltype.exe のアイコン (インストーラーの「アプリと機能」にも出る)。web/scripts/make-icons.mjs で作る -->
+    <ApplicationIcon>..\..\native\tip\meltype.ico</ApplicationIcon>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <!-- WinRtCandidates で COM の関数表を直接呼ぶため -->
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

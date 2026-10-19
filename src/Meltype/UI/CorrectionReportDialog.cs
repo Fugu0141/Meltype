@@ -61,9 +61,11 @@ internal sealed class CorrectionReportDialog : Form
 
         var open = new Button { Text = "GitHub で報告", AutoSize = true };
         var copy = new Button { Text = "コピー", AutoSize = true };
-        var close = new Button { Text = "閉じる", AutoSize = true, DialogResult = DialogResult.Cancel };
+        var close = new Button { Text = "閉じる", AutoSize = true };
         open.Click += (_, _) => Open();
         copy.Click += (_, _) => Copy();
+        // Show() で開く (モードレス) ので、DialogResult では閉じない (issue #864)
+        close.Click += (_, _) => Close();
         var buttons = new FlowLayoutPanel { Dock = DockStyle.Bottom, AutoSize = true, FlowDirection = FlowDirection.RightToLeft, Padding = new Padding(6) };
         buttons.Controls.AddRange([close, open, copy, _status]);
 

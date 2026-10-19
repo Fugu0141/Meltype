@@ -114,6 +114,7 @@ TSF の IME は、入力するアプリ全部のプロセスに読み込まれ�
 - 最初のパイプは FirstPipeInstance で作り、先に作られていたらサーバーを始めない
 - DLL は、つないだ相手が自分と同じユーザーの、整合性レベル Medium 以上のプロセスかを確かめる (Meltype.exe が止まっている間に、権限の低いプログラムが同じ名前のパイプを作って打鍵を受け取るのを防ぐ)。
   相手が自分 (IME を読み込んだアプリ) より低い権限 (整合性レベル) なら、つながない。相手を調べられない (ほかのユーザーのプロセスなど) ときもつながない。
+  ただし自分が Low (ストアアプリなど) で相手のプロセスを開けないときは、パイプの所有者が自分と同じユーザーかだけを確かめる (Meltype.exe もパイプの印を Low にしているので、印では見分けられない)
   そのため、UAC が有効な PC で Meltype.exe を管理者として動かすと、ふつうのアプリからはつながらない (Meltype.exe はふつうの権限で動かす)
 - つなぎかけて切れたパイプは DisconnectNamedPipe で戻して待ち直す (閉じると、ほかにつながりが無いときに独占と印が外れる)
 
@@ -134,7 +135,7 @@ DLL の中で、Direct2D + DirectWrite で描く (絵文字もカラーで出る
 <img src="images/headings/tsf-design/05.svg" alt="Meltype.exe 側" height="53"><br>
 
 
-- 動作モードに `Tsf` (Meltype IME) を足した。Tsf のときは、キーボードフックは左右の Alt の単独押し (設定「左 Alt で英数 / 右 Alt で日本語」) だけを見て、前面のアプリの IME を IMC_SETOPENSTATUS で開く / 閉じる。今までの方式 (変換ボックス・IME 自動切替) も残している
+- 動作モードに `Tsf` (Meltype IME) を足した。Tsf のときは、キーボードフックは左右の Alt の単独押し (設定「左 Alt で英数 / 右 Alt で日本語」) だけを見て、前面のアプリの IME を IMC_SETOPENSTATUS で開く / 閉じる。今までの方式 (変換ボックス) も残している
 - Meltype IME が登録されていて、このユーザーのキーボードの一覧にも入っていれば、一度だけ自動で Tsf にする。
   そのとき (とトレイで Meltype IME を選んだとき) は、いま使う入力方式も Meltype IME にする (ITfInputProcessorProfileMgr::ActivateProfile の TF_IPPMF_FORSESSION)
 - Meltype.exe 自身の画面 (はじめに・設定など) でも使える。そこでは UI スレッドが DLL の中で応答を待って止まるので、

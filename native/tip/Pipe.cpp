@@ -3,6 +3,7 @@
 
 #include "Pipe.h"
 
+#include <aclapi.h>
 #include <sddl.h>
 
 namespace meltype {
@@ -52,19 +53,41 @@ static DWORD SelfIntegrity() {
 // 自分が整合性レベル Low 以下 (ストアアプリ・サンドボックス) で動いているか
 static bool SelfIsLowIntegrity() { return SelfIntegrity() < SECURITY_MANDATORY_MEDIUM_RID; }
 
+// パイプの所有者が自分と同じユーザーか。所有者は作ったプロセスのユーザーになり、ほかのユーザーには自分の SID を所有者にできない。
+// 整合性レベルの印は、Meltype.exe もストアアプリのために Low にしているので見ない。
+// 読むのに要る READ_CONTROL は、つなぐときの GENERIC_READ と、Meltype.exe がストアアプリに渡す権限に含まれる
+static bool PipeOwnedBySelf(HANDLE pipe) {
+    PSID owner = nullptr;
+    PSECURITY_DESCRIPTOR descriptor = nullptr;
+    if (GetSecurityInfo(pipe, SE_KERNEL_OBJECT, OWNER_SECURITY_INFORMATION, &owner, nullptr, nullptr, nullptr, &descriptor) != ERROR_SUCCESS) return false;
+    bool same = false;
+    HANDLE token = nullptr;
+    if (owner != nullptr && OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &token)) {
+        DWORD size = 0;
+        GetTokenInformation(token, TokenUser, nullptr, 0, &size);
+        std::vector<BYTE> user(size);
+        if (size > 0 && GetTokenInformation(token, TokenUser, user.data(), size, &size)) {
+            same = EqualSid(owner, reinterpret_cast<TOKEN_USER*>(user.data())->User.Sid) != FALSE;
+        }
+        CloseHandle(token);
+    }
+    LocalFree(descriptor);
+    return same;
+}
+
 // つないだパイプのサーバーが、自分と同じユーザーの、整合性レベル Medium 以上で、自分より低くないプロセスか。
 // (Meltype.exe が動いていない間に、権限の低いプログラムが同じ名前のパイプを作って打鍵を受け取るのを防ぐ。
 //  管理者として動いているアプリの打鍵を、ふつうの権限で動く Meltype.exe に渡さない。UAC を切っていて、
 //  アプリも Meltype.exe も管理者として動いている PC では使える)
-// ストアアプリなど自分が Low のときは、ほかのプロセスを調べられないので確かめない。このときは、Meltype.exe が動いていない間に
-// 同じユーザーの Low のプロセスが同じ名前のパイプを作ると見分けられない (SECURITY.md。Meltype.exe は先に作られていたらログに書く)
+// ストアアプリなど自分が Low のときは、ほかのプロセスを調べられないので、パイプの所有者が自分と同じユーザーかだけを確かめる。このときは、
+// Meltype.exe が動いていない間に同じユーザーの Low のプロセスが同じ名前のパイプを作ると見分けられない (SECURITY.md。Meltype.exe は先に作られていたらログに書く)
 // lower: 相手が自分より低い権限だったので断った (Meltype.exe を起動し直すまで変わらない)
 static bool IsTrustedServer(HANDLE pipe, bool& lower) {
     lower = false;
     ULONG pid = 0;
     if (!GetNamedPipeServerProcessId(pipe, &pid)) return false;
     HANDLE process = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
-    if (process == nullptr) return SelfIsLowIntegrity();
+    if (process == nullptr) return SelfIsLowIntegrity() && PipeOwnedBySelf(pipe);
     bool trusted = false;
     HANDLE token = nullptr;
     if (OpenProcessToken(process, TOKEN_QUERY, &token)) {

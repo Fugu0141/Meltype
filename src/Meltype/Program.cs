@@ -70,8 +70,18 @@ internal static class Program
             WriteCrashLog(e.ExceptionObject);
         };
 
-        AppPaths.MigrateFromOldName();
-        Directory.CreateDirectory(AppPaths.DataDirectory);
+        if (!AppPaths.IsPortable) AppPaths.MigrateFromOldName();
+        try
+        {
+            Directory.CreateDirectory(AppPaths.DataDirectory);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                $"データ保存先を作成できませんでした。保存先に書き込めることを確認してください。\n\n{AppPaths.DataDirectory}\n\n{ex.Message}",
+                "Meltype", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return 1;
+        }
         if (restore is not null) RestoreBackup(restore);
         var settings = Settings.Load(AppPaths.ConfigFile);
         if (!File.Exists(AppPaths.ConfigFile))
@@ -82,21 +92,21 @@ internal static class Program
         // 動作モードが Meltype IME なのに使えない: どこでも何も起きなくなるので、Meltype キーボードに戻して保存する
         // (Meltype IME を入れ直したら、トレイで選び直す)。
         // 保存しておくと、あとで前の版 (動作モード「Meltype IME」を読めない) を入れても、設定が初期化されない
-        if (ShouldFallBackToKeyboard(settings, Tip.TipServer.IsKnownUnregistered, Tip.TipServer.IsInUserLanguageList, System.Runtime.InteropServices.RuntimeInformation.OSArchitecture))
+        if (ShouldUseKeyboardOnStartup(settings, AppPaths.IsPortable, Tip.TipServer.IsKnownUnregistered, Tip.TipServer.IsInUserLanguageList, System.Runtime.InteropServices.RuntimeInformation.OSArchitecture))
         {
             settings.Mode = InputMode.Keyboard;
             try { settings.Save(AppPaths.ConfigFile); } catch { }
-            Diagnostics.Log.Warn("Meltype IME を使えない (ARM64 の Windows・登録されていない・キーボードの一覧に無い) ので、動作モードを Meltype キーボードに戻しました。");
+            Diagnostics.Log.Warn(AppPaths.IsPortable ? "ポータブル版では Meltype IME を使わないため、Meltype キーボードに戻しました。" : "Meltype IME を使えない (ARM64 の Windows・登録されていない・キーボードの一覧に無い) ので、動作モードを Meltype キーボードに戻しました。");
         }
 
         // ダウンロード済みの新しい版があれば、起動せずに更新する (install.ps1 が新しい版を起動する)。
-        if (Updater.ApplyStagedAtStartup(() => settings.AutoUpdate,
+        if (!AppPaths.IsPortable && Updater.ApplyStagedAtStartup(() => settings.AutoUpdate,
                 version => UpdateChangesDialog.Confirm(new Composition.LanguageMemory(AppPaths.LanguageMemoryFile), version, settings))) return 0;
 
         MeltypeEngine engine;
         try
         {
-            engine = new MeltypeEngine(settings, AppPaths.ConfigFile, AppPaths.ModelFile, AppPaths.UserDictionaryDirectory);
+            engine = new MeltypeEngine(settings, AppPaths.ConfigFile, AppPaths.UserDictionaryDirectory);
             engine.Start();
         }
         catch (Exception ex)
@@ -107,7 +117,7 @@ internal static class Program
         }
 
         // スタートアップのフォルダー・Run の登録 (サインインの後、遅れて起動する) を、すぐ起動するタスクに移す (#283)
-        ThreadPool.QueueUserWorkItem(_ => Startup.MigrateToTask());
+        if (!AppPaths.IsPortable) ThreadPool.QueueUserWorkItem(_ => Startup.MigrateToTask());
 
         using (engine)
         {
@@ -126,6 +136,9 @@ internal static class Program
     internal static bool ShouldFallBackToKeyboard(Settings settings, bool knownUnregistered, bool inUserLanguageList, System.Runtime.InteropServices.Architecture architecture) =>
         settings.Mode == InputMode.Tsf &&
         (architecture == System.Runtime.InteropServices.Architecture.Arm64 || knownUnregistered || (!settings.TsfIntroduced && !inUserLanguageList));
+
+    internal static bool ShouldUseKeyboardOnStartup(Settings settings, bool isPortable, bool knownUnregistered, bool inUserLanguageList, System.Runtime.InteropServices.Architecture architecture) =>
+        (isPortable && settings.Mode != InputMode.Keyboard) || ShouldFallBackToKeyboard(settings, knownUnregistered, inUserLanguageList, architecture);
 
     /// <summary>
     /// 落ちたとき (起動できなかったとき) の例外を crash.log に書き足す。ファイルへのログ (設定) が OFF でも書く:

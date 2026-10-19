@@ -148,7 +148,6 @@ internal static class WindowsTests
     {
         // トレイでも設定画面でも、動作モードを Meltype IME に変えたら入力方式も Meltype IME にする。
         Assert.True(MeltypeEngine.SwitchesToTsf(InputMode.Keyboard, InputMode.Tsf), "Meltype キーボードから");
-        Assert.True(MeltypeEngine.SwitchesToTsf(InputMode.AutoSwitch, InputMode.Tsf), "IME 自動切替から");
         Assert.True(!MeltypeEngine.SwitchesToTsf(InputMode.Tsf, InputMode.Tsf), "ほかの設定だけ変えたときは切り替えない");
         Assert.True(!MeltypeEngine.SwitchesToTsf(InputMode.Keyboard, InputMode.Keyboard), "Meltype IME を使えずに元のモードに戻したときは切り替えない");
         Assert.True(!MeltypeEngine.SwitchesToTsf(InputMode.Tsf, InputMode.Keyboard), "Meltype IME から外したときは切り替えない");
@@ -418,6 +417,21 @@ internal static class WindowsTests
     }
 
     [Test]
+    public static void Portable_UsesDataFolderBesideExecutable()
+    {
+        Assert.Equal(Path.Combine(@"C:\Apps\Meltype", "data"), AppPaths.ResolveDataDirectory(true, null, @"C:\Apps\Meltype", @"C:\Users\User\AppData\Local"));
+        Assert.Equal(@"D:\MeltypeData", AppPaths.ResolveDataDirectory(true, @"D:\MeltypeData", @"C:\Apps\Meltype", @"C:\Users\User\AppData\Local"), "開発用の上書き先は portable より優先");
+    }
+
+    [Test]
+    public static void Portable_StartupResetsModeToKeyboard()
+    {
+        var x64 = System.Runtime.InteropServices.Architecture.X64;
+        Assert.True(global::Meltype.Program.ShouldUseKeyboardOnStartup(new Settings { Mode = InputMode.Tsf }, isPortable: true, knownUnregistered: false, inUserLanguageList: true, x64), "ポータブル版は Meltype IME から戻す");
+        Assert.True(!global::Meltype.Program.ShouldUseKeyboardOnStartup(new Settings { Mode = InputMode.Keyboard }, isPortable: true, knownUnregistered: false, inUserLanguageList: true, x64), "キーボード方式は維持");
+    }
+
+    [Test]
     public static void AffinityCandidate_RejectsOtherProductsAndMenus()
     {
         Assert.True(FocusInspector.IsAffinityCanvasCandidate("AFFINITY.EXE", UiAutomation.ControlTypePane, "Static"), "大小文字と Pane");
@@ -583,7 +597,7 @@ internal static class WindowsTests
     [Test]
     public static void SettingsForm_UsesToggleSwitchesForEveryOnOffSetting()
     {
-        using var engine = new MeltypeEngine(new Settings(), null, null, null);
+        using var engine = new MeltypeEngine(new Settings(), null, null);
         using var form = new UI.SettingsForm(engine);
         var controls = Descendants(form).ToList();
         // 設定画面に出す bool の項目は、すべてスイッチ (ON/OFF だけのプルダウン・チェックボックスを残さない)
@@ -593,7 +607,7 @@ internal static class WindowsTests
         Assert.Equal(settings + 2, controls.OfType<UI.ToggleSwitch>().Count(), "ON/OFF の設定 + 上の表示オプション 2 つ");
         Assert.True(!controls.OfType<ComboBox>().Any(c => c.Items.Count == 2 && c.Items.Contains("ON")), "ON/OFF だけのプルダウンが残っていない");
         Assert.True(!controls.OfType<CheckBox>().Any(), "チェックボックスが残っていない");
-        // 表の ON/OFF の列 (アプリ別設定の「自動切替」・独自の種類の「最初は英数」) もスイッチで、値は bool
+        // 表の ON/OFF の列 (アプリ別設定の「有効」・独自の種類の「最初は英数」) もスイッチで、値は bool
         var columns = controls.OfType<DataGridView>().SelectMany(g => g.Columns.Cast<DataGridViewColumn>()).ToList();
         Assert.Equal(2, columns.OfType<UI.ToggleSwitchColumn>().Count(), "表のスイッチの列");
         Assert.True(!columns.OfType<DataGridViewComboBoxColumn>().Any(c => c.Items.Count == 2 && c.Items.Contains("ON")), "表に ON/OFF だけのプルダウンの列が残っていない");

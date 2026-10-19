@@ -13,6 +13,13 @@ public sealed record AppInfo(IntPtr Window, uint ProcessId, string ProcessName, 
     public static AppInfo None { get; } = new(IntPtr.Zero, 0, "", false, false, false);
 }
 
+/// <summary>打鍵を保留してよいかの判断。</summary>
+public readonly record struct CollectPermission(bool Allowed, string Reason)
+{
+    public static CollectPermission Allow { get; } = new(true, "");
+    public static CollectPermission Deny(string reason) => new(false, reason);
+}
+
 /// <summary>
 /// 前面ウィンドウごとにプロセス名・権限・全画面かどうかをキャッシュする。
 /// フックのスレッドから呼ばれるので、取得は前面ウィンドウが変わったときの 1 回だけにする。
@@ -21,7 +28,7 @@ public sealed record AppInfo(IntPtr Window, uint ProcessId, string ProcessName, 
 internal sealed class ForegroundTracker
 {
     private static readonly uint OwnProcessId = (uint)Environment.ProcessId;
-    private static readonly bool SelfElevated = QueryElevation(Process.GetCurrentProcess().Handle) ?? false;
+    internal static readonly bool SelfElevated = QueryElevation(Process.GetCurrentProcess().Handle) ?? false;
     private readonly object _gate = new();
     private AppInfo _current = AppInfo.None;
     private long _checkedAt;
@@ -106,7 +113,7 @@ internal sealed class ForegroundTracker
     /// <summary>このアプリで打鍵を保留してよいか。</summary>
     public CollectPermission Check(Settings settings)
     {
-        if (!settings.Enabled) return CollectPermission.Deny("自動切替が無効");
+        if (!settings.Enabled) return CollectPermission.Deny("Meltype が無効");
         var app = Current;
         if (app.Window == IntPtr.Zero) return CollectPermission.Deny("前面ウィンドウがない");
         if (app.IsOwnProcess) return CollectPermission.Deny("Meltype 自身のウィンドウ");

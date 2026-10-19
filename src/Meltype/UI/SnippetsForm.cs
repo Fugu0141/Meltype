@@ -102,6 +102,11 @@ internal sealed class SnippetsForm : Form
             _message.Text = "文を入れてください。";
             return;
         }
+        if (!SnippetStore.IsValidText(_text.Text))
+        {
+            _message.Text = "文に、改行・タブ以外の制御文字は使えません。";
+            return;
+        }
         var replaced = _store.Get(name) is not null;
         _store.Set(name, _text.Text);
         _message.Text = "";

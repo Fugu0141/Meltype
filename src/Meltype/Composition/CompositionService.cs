@@ -104,6 +104,7 @@ internal sealed class CompositionService : ICompositionHost, IDisposable
             TranslationHistory = options.TranslationHistory ?? new TranslationHistory(Config.AppPaths.TranslationHistoryFile),
             Predictor = options.Predictor ?? new Predictor(new PhraseHistory(Config.AppPaths.PhraseHistoryFile), UserDictionary, History),
             Predictions = options.Predictions,
+            EnglishNamePredictions = options.EnglishNamePredictions,
         };
         Phrases = resolved.Predictor?.Phrases;
         TranslationHistory = resolved.TranslationHistory;
@@ -301,7 +302,7 @@ internal sealed class CompositionService : ICompositionHost, IDisposable
         if (_invoker.IsHandleCreated && !_invoker.IsDisposed) _invoker.BeginInvoke(Controller.ResetContext);
     }
 
-    /// <summary>自動切替を止めたときなど。未確定の内容を確定し、残りの入力を通す。</summary>
+    /// <summary>Meltype を止めたときなど。未確定の内容を確定し、残りの入力を通す。</summary>
     public void Flush()
     {
         if (!InputAllowed())

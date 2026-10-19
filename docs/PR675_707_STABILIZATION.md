@@ -215,9 +215,9 @@ dotnet run --project src/Meltype.Tests -c Release -- --focus-e2e
 
 **結論**: 10ms後のネイティブフォーカスがパスワード欄にあると確認できた状態で、CanCaptureWaiting() が入力キャプチャを許可したケースが1件ある。ここで LastInspected が Edit "" になっているのは、テストが RecheckAfterClick を実行した **後** に読み取った診断値であり、最初の判定の状態と同一である証拠ではない。実際のキーストロークやパスワード文字列は送出していないため、実際の入力横取りや漏えいが起きたとは断定できない。
 
-旧ベースは FOCUS_DIAG を搭載しておらず、同じ target_focus_at_key 条件について A/B 結果はまだない。通常E2Eのキャプチャ許可回数は実行ごとの変動を含み、この3回の数値だけでは改善・悪化の有意な差を確定できない。**PRはDraftを維持**し、原因を追うこと。
+**追試により、旧ベースでも同じ事象を確認**: `ca88a9a` の別worktreeへ診断テストのみ一時移植し、Win32 HWNDを比較。入力欄→ボタンは `captured=10/30`, `captured_with_target_focus_at_key=0`。入力欄→パスワード欄は `captured=11/30`、10ms遅延の `captured_with_target_focus_at_key=1/10` が発生（`target=0x80A64`, `at_key=0x80A64`, `captured_before_recheck=True`, `captured_by_recheck=False`）。旧ベースでも診断条件がFAILし、ユーザーは移植したテストファイルをworktreeのHEADへ復元済み。**PR #13固有の新規不具合ではなく、ベース段階から存在する問題であると確認できた**。ただし、1回ずつのサンプルでは発生頻度の差やPRによる変動までは判断できない。**PRはDraftを維持**し、修正のスコープおよび追加のIME実機検証を判断すること。
 
 追試候補:
 1. 最初の CanCaptureWaiting() が true を返したときの _state に含まれる FocusWindow / ClickVersion / Sequence と現在の Win32 HWND を、計測オーバーヘッドを抑えて近接タイミングで採取する。
 2. 確定した非入力ネイティブフォーカスへの移動を CanCaptureWaiting の公開状態検証へ追加する案を検証。ただし Discord 等のDOM入力欄・補完UI・特殊IME HWND と #675 初文字保護への影響を確認してから実装判断する。
-3. 同じ診断コードを別 worktree のベースにテスト専用で移植し、両リビジョンで同じ診断条件をA/B比較。実測・Windows E2Eで安全性と初文字回帰を確認する。
+3. ベース版にも同じ症状があるため、修正する場合は事前に修正範囲を決める。必要なら両リビジョンで同一条件を複数回測定し、初文字・Discord補完・パスワード欄・処理時間への影響を比較する。

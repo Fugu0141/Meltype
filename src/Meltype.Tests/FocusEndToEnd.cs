@@ -100,6 +100,10 @@ internal static class FocusEndToEnd
             }
         }
         Report(results, "input-to-button");
+        if (DiagnosticsEnabled)
+            Expect(results.All(r => !r.Captured || r.NativeFocusAtKey == IntPtr.Zero || r.TargetHwnd == IntPtr.Zero ||
+                r.NativeFocusAtKey != r.TargetHwnd),
+                "ボタンにネイティブフォーカスが移った時点では、入力を横取りしない");
         Expect(results.All(r => !r.ByRecheck), "クリック直後の調べ直しで、ボタンを入力欄にしたことは無い");
         // 直す前からの動き: 調べ終わる前に打つと、クリックする前の判定 (入力欄) のまま変換ボックスに入れることがある (この変更では変わらない)
         Expect(Settled(focus, button) == false, "落ち着いた後、ボタンは入力欄ではない");
@@ -115,6 +119,10 @@ internal static class FocusEndToEnd
             }
         }
         Report(results, "input-to-password");
+        if (DiagnosticsEnabled)
+            Expect(results.All(r => !r.Captured || r.NativeFocusAtKey == IntPtr.Zero || r.TargetHwnd == IntPtr.Zero ||
+                r.NativeFocusAtKey != r.TargetHwnd),
+                "パスワード欄にネイティブフォーカスが移った時点では、入力を横取りしない");
         Expect(results.All(r => !r.ByRecheck), "クリック直後の調べ直しで、パスワード欄を入力欄にしたことは無い");
         Expect(Settled(focus, password) == false, "落ち着いた後、パスワード欄は入力欄ではない");
 

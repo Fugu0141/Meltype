@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 Fugu0141
 # #675/#707 の統合回帰テスト。既定では入力フックやインストール処理を実行しない。
 param(
     [switch]$RunFocusE2E,

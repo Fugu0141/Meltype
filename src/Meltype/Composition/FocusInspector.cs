@@ -19,11 +19,25 @@ public sealed record FocusInfo(bool IsTextInput, bool IsPassword, Rectangle? Bou
 /// </summary>
 public sealed class FocusInspector : IDisposable
 {
+    // フックの失効通知と UIA の結果公開を短いクリティカルセクションで直列化する。
+    private readonly object _focusStateGate = new();
     private readonly BlockingCollection<Action> _work = new();
     private readonly Thread _thread;
     private long _focusSequence;
+    private long _clickVersion;
+    // UIA の調査を始めた時点のクリック世代。公開直前の値を代入すると、調査中のクリックを見逃す。
+    private long _inspectedClickVersion;
     private long _resolvedSequence = -1;
-    private sealed record FocusState(FocusInfo Info, IntPtr AffinityWindow = default);
+    private long _publicationRevision;
+    // 外部イベントを受けた側が、UIスレッドに届くまでに失効していないか判定する。
+    public readonly record struct NotificationToken(long Sequence, long ClickVersion, IntPtr Foreground, long Revision);
+    private sealed record FocusState(
+        FocusInfo Info, IntPtr AffinityWindow = default, long Sequence = -1,
+        IntPtr Foreground = default, IntPtr FocusWindow = default, long ClickVersion = 0, long Revision = 0)
+    {
+        public NotificationToken Token => new(Sequence, ClickVersion, Foreground, Revision);
+    }
+    private static readonly FocusInfo UnresolvedInfo = new(false, false, null, "未確認・フォーカス失効");
     private volatile FocusState _state = new(new FocusInfo(false, false, null, "未確認"));
     private FocusInfo _info => _state.Info;
     private string? _loggedDescription;
@@ -32,10 +46,10 @@ public sealed class FocusInspector : IDisposable
     /// <summary>
     /// 別の入力欄 (パスワード以外) にフォーカスが移った (このクラスのスレッドから呼ばれる)。入力モード (あ / A) の表示に使う。
     /// </summary>
-    public event Action? TextInputEntered;
+    public event Action<NotificationToken>? TextInputEntered;
 
     /// <summary>フォーカスが入力欄でない所・パスワード欄に移ったと分かったとき (このクラスのスレッドから呼ばれる)。引数は理由。</summary>
-    public event Action<string>? CaptureLost;
+    public event Action<string, NotificationToken>? CaptureLost;
 
     public FocusInspector()
     {
@@ -47,7 +61,8 @@ public sealed class FocusInspector : IDisposable
     /// <summary>フォーカスが変わったとき (フックのスレッドから呼ばれる。ブロックしない)。</summary>
     public void Invalidate()
     {
-        var sequence = Interlocked.Increment(ref _focusSequence);
+        long sequence;
+        lock (_focusStateGate) sequence = Interlocked.Increment(ref _focusSequence);
         Enqueue(() => InspectIfLatest(sequence));
     }
 
@@ -62,13 +77,23 @@ public sealed class FocusInspector : IDisposable
     private long _foregroundChangedAt = long.MinValue / 2;
     private long _gaveUpSequence = -1;
 
+    /// <summary>公開したフォーカス結果と通知が現在も有効か。UIスレッドへの通知遅延も検出する。</summary>
+    public bool IsCurrent(NotificationToken token)
+    {
+        var state = _state;
+        return state.Token == token && token.Sequence == Interlocked.Read(ref _focusSequence) &&
+               token.Sequence == Interlocked.Read(ref _resolvedSequence) &&
+               token.ClickVersion == Interlocked.Read(ref _clickVersion) &&
+               token.Foreground == Native.GetForegroundWindow();
+    }
+
     /// <summary>最新のフォーカスについて調べ終わっていて、パスワード以外の入力欄なら true。</summary>
     public bool CanCapture
     {
         get
         {
-            if (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence)) return false;
-            return AllowsCapture(_state);
+            var state = _state;
+            return IsCurrent(state.Token) && AllowsCapture(state) && IsCurrent(state.Token);
         }
     }
 
@@ -83,13 +108,18 @@ public sealed class FocusInspector : IDisposable
         // Meltype 自身の画面 (プロファイルの名前の入力など) では、自分のプロセスの WinEvent を受けないので、窓やフォーカスが移っても通知が来ない。
         // 前に調べたのが別のウィンドウ・別の欄 (Tab で移ったとき) なら、移った直後として調べ直す。
         var foreground = Native.GetForegroundWindow();
-        if (Input.ForegroundTracker.TypingAllowedWindows.ContainsKey(foreground) && Interlocked.Read(ref _resolvedSequence) == Interlocked.Read(ref _focusSequence) &&
-            (foreground != _inspectedForeground || FocusedWindow(foreground) != _inspectedFocus)) InvalidateForeground();
+        var published = _state;
+        if (Input.ForegroundTracker.TypingAllowedWindows.ContainsKey(foreground) && published.Sequence == Interlocked.Read(ref _focusSequence) &&
+            (foreground != published.Foreground || FocusedWindow(foreground) != published.FocusWindow)) InvalidateForeground();
         // 待つのは、同じウィンドウで直前に調べた所が入力欄だったときだけ (Discord の # の候補)。
         // ゲームなど入力欄の無いウィンドウでは待たない: クリックのたびに調べ直すので、
         // キーを押すたびにフックで最大 waitMs 止まり、ゲームの操作が遅れていた (PSO2 NGS)。
         var lastState = _state;
-        if (lastState.AffinityWindow != IntPtr.Zero) return AllowsCapture(lastState);
+        if (lastState.AffinityWindow != IntPtr.Zero)
+            return lastState.Sequence == Interlocked.Read(ref _focusSequence) &&
+                   lastState.ClickVersion == Interlocked.Read(ref _clickVersion) &&
+                   lastState.Foreground == Native.GetForegroundWindow() &&
+                   AllowsCapture(lastState);
         var last = lastState.Info;
         // 別のウィンドウに移った直後 (500ms 以内) で、移った先をまだ調べているときも待つ。前のウィンドウ (デスクトップなど) の
         // 「入力欄ではない」で決めると、移った先の入力欄で打った先頭のキーがローマ字のまま入っていた。
@@ -97,20 +127,45 @@ public sealed class FocusInspector : IDisposable
         var sequence = Interlocked.Read(ref _focusSequence);
         var moved = Interlocked.Read(ref _resolvedSequence) != sequence && Interlocked.Read(ref _gaveUpSequence) != sequence &&
             Environment.TickCount64 - Interlocked.Read(ref _foregroundChangedAt) < 500;
-        if (!moved && (!last.IsTextInput || last.IsPassword || Native.GetForegroundWindow() != _inspectedForeground)) waitMs = 0;
+        if (!moved && (!last.IsTextInput || last.IsPassword || foreground != lastState.Foreground)) waitMs = 0;
         var deadline = Environment.TickCount64 + waitMs;
         while (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence) && Environment.TickCount64 < deadline) Thread.Sleep(5);
         if (moved && Interlocked.Read(ref _resolvedSequence) != sequence) Interlocked.Exchange(ref _gaveUpSequence, sequence);
-        // 調べ終わらなかったときに直前の結果を使うのは、前面のウィンドウが同じときだけ (別のアプリのパスワード欄などに移った直後は使わない)。
-        if (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence) && Native.GetForegroundWindow() != _inspectedForeground) return false;
-        return AllowsCapture(_state);
+        if (Interlocked.Read(ref _resolvedSequence) == Interlocked.Read(ref _focusSequence)) return CanCapture;
+        // 解決待ちで、以前の入力欄を信用できるのは、クリックも HWND 切替も無かったときのみ。
+        // 同じウィンドウで入力欄→ボタンへクリックした直後の古い判定を再利用すると、ショートカットを奪ってしまう。
+        var snapshot = _state;
+        var currentForeground = Native.GetForegroundWindow();
+        var currentFocus = FocusedWindow(currentForeground);
+        if (!CanReuseUnresolvedFocus(snapshot.Foreground == currentForeground,
+                snapshot.Info.IsTextInput, snapshot.Info.IsPassword,
+                snapshot.ClickVersion != Interlocked.Read(ref _clickVersion),
+                snapshot.FocusWindow == IntPtr.Zero || currentFocus == IntPtr.Zero || snapshot.FocusWindow == currentFocus))
+            return CanCapture; // 判定中に現世代の調査が完了した可能性がある。
+        var pendingSequence = Interlocked.Read(ref _focusSequence);
+        // 調査が終わっていたら最新結果を使用する。古いスナップショットを「未解決」として捨てない。
+        if (Interlocked.Read(ref _resolvedSequence) == pendingSequence) return CanCapture;
+        // 調査完了・新世代への失効・クリックがこの間に発生しても、古い判定を使わない。
+        var reusable = AllowsCapture(snapshot) && pendingSequence == Interlocked.Read(ref _focusSequence) &&
+                       Interlocked.Read(ref _resolvedSequence) != pendingSequence &&
+                       ReferenceEquals(snapshot, _state) &&
+                       snapshot.ClickVersion == Interlocked.Read(ref _clickVersion) &&
+                       currentForeground == Native.GetForegroundWindow();
+        if (!reusable && Interlocked.Read(ref _resolvedSequence) == Interlocked.Read(ref _focusSequence))
+            return CanCapture; // 解決した直後は最新状態で判定し直す（#675の初文字保護）。
+        return reusable;
     }
+
+    /// <summary>前回の調査結果を再利用してよいか。クリックがあった場合は未解決状態を信頼しない。</summary>
+    internal static bool CanReuseUnresolvedFocus(bool sameForeground, bool priorTextInput, bool priorPassword, bool clicked,
+        bool sameNativeFocus) =>
+        sameForeground && priorTextInput && !priorPassword && !clicked && sameNativeFocus;
 
     /// <summary>同じ HWND のまま編集を抜ける Affinity は、打ち始めごとに最大 20ms の読み取りで確認する。</summary>
     private bool AllowsCapture(FocusState snapshot)
     {
         if (snapshot.AffinityWindow == IntPtr.Zero) return snapshot.Info.IsTextInput && !snapshot.Info.IsPassword;
-        var foreground = _inspectedForeground;
+        var foreground = snapshot.Foreground;
         var sequence = Interlocked.Read(ref _focusSequence);
         bool Current() => sequence == Interlocked.Read(ref _focusSequence) && Native.GetForegroundWindow() == foreground &&
             _state.AffinityWindow == snapshot.AffinityWindow && !_info.IsPassword;
@@ -128,7 +183,18 @@ public sealed class FocusInspector : IDisposable
         return active && Current();
     }
 
-    public FocusInfo Current => _info;
+    /// <summary>操作・表示に使ってよい、失効していない調査結果。調査中は未確認にする。</summary>
+    public FocusInfo Current
+    {
+        get
+        {
+            var state = _state;
+            return IsCurrent(state.Token) ? state.Info : UnresolvedInfo;
+        }
+    }
+
+    /// <summary>診断・UIA候補補完用。失効した結果も保持するため操作の判断には使わない。</summary>
+    public FocusInfo LastInspected => _info;
 
     private long _lastRecheck;
     private long _lastRecheckForeground;
@@ -151,7 +217,7 @@ public sealed class FocusInspector : IDisposable
         var foreground = Native.GetForegroundWindow();
         var lastForeground = new IntPtr(Interlocked.Read(ref _lastRecheckForeground));
         if (RecheckCooldownActive(foreground, lastForeground, now, Interlocked.Read(ref _lastRecheck))) return false;
-        if (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence) || foreground != _inspectedForeground) return false;
+        if (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence) || foreground != _state.Foreground) return false;
         if (_info is { IsTextInput: true } or { IsPassword: true }) return false;
         Interlocked.Exchange(ref _lastRecheck, now);
         Interlocked.Exchange(ref _lastRecheckForeground, foreground.ToInt64());
@@ -166,7 +232,11 @@ public sealed class FocusInspector : IDisposable
     private readonly ConcurrentDictionary<IntPtr, long> _windowsWithTextInput = new();
 
     /// <summary>マウスのボタンを押したとき (フックのスレッドから呼ばれる。ブロックしない)。</summary>
-    public void NoteClick() => Interlocked.Exchange(ref _lastClick, Environment.TickCount64);
+    public void NoteClick()
+    {
+        Interlocked.Increment(ref _clickVersion);
+        Interlocked.Exchange(ref _lastClick, Environment.TickCount64);
+    }
 
     /// <summary>クリックの直後 (windowMs 以内) か。lastClick が 0 なら、クリックしていない (1 回使った後)。</summary>
     internal static bool IsRightAfterClick(long now, long lastClick, int windowMs = 1000) => lastClick != 0 && now - lastClick <= windowMs;
@@ -349,30 +419,39 @@ public sealed class FocusInspector : IDisposable
 
     private void ApplyFocus(long sequence, FocusInfo info, IntPtr affinityWindow)
     {
-        _state = new FocusState(info, affinityWindow);
-        // 調べている間にまたフォーカスが変わっていたら、この結果は採用しない (次の要求で調べ直す)。
-        if (sequence == Interlocked.Read(ref _focusSequence)) Interlocked.Exchange(ref _resolvedSequence, sequence);
-
-        // 変換中に入力先がパスワード欄・入力欄でない所に変わったら、変換中の内容を捨てさせる (移った先に入らないように)。
-        // UI Automation で調べられなかっただけ (確認できない・フォーカスなし) のときは捨てない。
-        if (sequence == Interlocked.Read(ref _focusSequence) && (info.IsPassword || !info.IsTextInput && !info.Description.StartsWith("確認できない") && info.Description != "フォーカスなし"))
+        // UIA の問い合わせ中に世代が変わった結果を公開しない。Invalidate と同じ短いロックで判定する。
+        // 結果に世代も刻み、フックが古い状態を確定済みと誤認しないようにする。
+        NotificationToken token;
+        lock (_focusStateGate)
         {
-            CaptureLost?.Invoke(info.IsPassword ? "パスワード欄にフォーカスが移った" : "入力欄でない所にフォーカスが移った");
+            if (sequence != Interlocked.Read(ref _focusSequence) ||
+                _inspectedClickVersion != Interlocked.Read(ref _clickVersion)) return;
+            _state = new FocusState(info, affinityWindow, sequence, _inspectedForeground, _inspectedFocus,
+                _inspectedClickVersion, ++_publicationRevision);
+            token = _state.Token;
+            Interlocked.Exchange(ref _resolvedSequence, sequence);
         }
+        if (!IsCurrent(token)) return;
 
+        // 実際の副作用は、通知先(UIスレッド)でもトークンを検証してから行う。
+        // ここでの再チェックだけでは、Invoke直前の失効を防ぎ切れない。
+        if (info.IsPassword || !info.IsTextInput && !info.Description.StartsWith("確認できない") && info.Description != "フォーカスなし")
+            CaptureLost?.Invoke(info.IsPassword ? "パスワード欄にフォーカスが移った" : "入力欄でない所にフォーカスが移った", token);
+
+        if (!IsCurrent(token)) return;
         if (info.IsTextInput && !info.IsPassword)
         {
-            RememberTextInputWindow(_inspectedForeground);
+            RememberTextInputWindow(token.Foreground);
             var key = (info.Description, info.Bounds);
             if (_lastTextInput != key)
             {
                 _lastTextInput = key;
-                TextInputEntered?.Invoke();
+                TextInputEntered?.Invoke(token);
             }
         }
         else _lastTextInput = null;
 
-        // 変換ボックスが出ない理由を後から追えるように、判断が変わったらログに残す。
+        if (!IsCurrent(token)) return;
         var summary = $"{(info.IsPassword ? "パスワード欄" : info.IsTextInput ? "入力欄" : "入力欄ではない")}: {info.Description}";
         if (summary != _loggedDescription)
         {
@@ -435,6 +514,8 @@ public sealed class FocusInspector : IDisposable
         affinityWindow = IntPtr.Zero;
         try
         {
+            // UIA 呼び出しより前のクリック世代を固定し、途中のクリックでは結果を破棄する。
+            _inspectedClickVersion = Interlocked.Read(ref _clickVersion);
             _inspectedForegroundBefore = _inspectedForeground;
             _inspectedForeground = Native.GetForegroundWindow();
             _inspectedFocus = FocusedWindow(_inspectedForeground);

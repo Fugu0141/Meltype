@@ -179,7 +179,7 @@ internal static class FocusEndToEnd
         if (before) focus.RecheckAfterClick(out _); // 使わなかったクリックを消しておく (次の回に残さない)
         var elapsed = sw.ElapsedMilliseconds;
         var afterCheck = DiagnosticsEnabled ? SnapshotNativeFocus() : default;
-        return new Result(before || byRecheck, before, byRecheck, waited, elapsed, keyDelayMs, focus.Current.Description,
+        return new Result(before || byRecheck, before, byRecheck, waited, elapsed, keyDelayMs, focus.LastInspected.Description,
             targetHwnd, atKey.Focus, afterCheck.Focus, atKey.Foreground, afterCheck.Foreground);
     }
 

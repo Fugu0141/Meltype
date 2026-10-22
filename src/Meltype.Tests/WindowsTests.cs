@@ -229,11 +229,15 @@ internal static class WindowsTests
         Assert.Equal(field, focus.LastInspected, "診断用は最後に調査した結果を保持");
         Assert.True(focus.IsCurrent(token), "調査直後の通知は有効");
         Assert.Equal(field, focus.Current, "有効な結果は操作に使える");
+        Assert.True(focus.TryGetCurrent(out var current), "有効な結果を明示的に取得できる");
+        Assert.Equal(field, current);
         var originalToken = token; // 後続の通知で token が上書きされても、古い通知の失効を検証する。
 
         focus.NoteClick();
         Assert.True(!focus.IsCurrent(token), "クリック後は過去の通知が無効");
         Assert.True(!focus.Current.IsTextInput, "クリック直後に古い入力欄を公開しない");
+        Assert.True(!focus.TryGetCurrent(out var unresolved), "失効した結果は有効として取得できない");
+        Assert.Equal(focus.Current, unresolved, "調査中の結果は未確認を返す");
         Assert.Equal(field, focus.LastInspected, "診断用の結果まで消さない");
 
         // UIA再調査が完了しても、同じトークンを再利用してはならない。
@@ -243,6 +247,18 @@ internal static class WindowsTests
         apply.Invoke(focus, [1L, field with { Description = "new editor" }, IntPtr.Zero]);
         Assert.True(!focus.IsCurrent(originalToken), "別の公開状態では旧通知を再利用しない");
         Assert.True(token != originalToken, "新しい公開結果には別の通知トークンが付与される");
+    }
+
+    [Test]
+    public static void CodeFocus_UnresolvedInspectionDoesNotBecomeChat()
+    {
+        // Code.exe's empty UIA name would otherwise classify as non-code.
+        Assert.Equal(CodeFocus.None, LineContext.ClassifyFocus("Code.exe", "", ""));
+        Assert.Equal(CodeFocus.Editor, MeltypeEngine.CodeFocusWhileUnresolved("Code.exe"),
+            "調査中はコード入力を保守的に扱う");
+        Assert.Equal(CodeFocus.Editor, MeltypeEngine.CodeFocusWhileUnresolved("Cursor.exe"));
+        Assert.Equal(CodeFocus.Terminal, MeltypeEngine.CodeFocusWhileUnresolved("WindowsTerminal.exe"),
+            "ターミナルの種別は保持する");
     }
 
     [Test]

@@ -209,8 +209,9 @@ public sealed class FocusInspector : IDisposable
     public bool TryGetCurrent(out FocusInfo info)
     {
         var state = _state;
-        info = IsCurrent(state.Token) ? state.Info : UnresolvedInfo;
-        return !ReferenceEquals(info, UnresolvedInfo);
+        var valid = IsCurrent(state.Token);
+        info = valid ? state.Info : UnresolvedInfo;
+        return valid;
     }
 
     /// <summary>診断・UIA候補補完用。失効した結果も保持するため操作の判断には使わない。</summary>

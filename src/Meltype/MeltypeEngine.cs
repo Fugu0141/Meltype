@@ -496,15 +496,24 @@ internal sealed class MeltypeEngine : IDisposable
     {
         var settings = request.Settings;
         var origin = request.Origin;
-        if (!ReferenceEquals(settings, _settings) || !settings.Enabled || settings.Mode != InputMode.Tsf ||
+        if (!ReferenceEquals(settings, _settings))
+        {
+            Log.Info("左右の Alt: 設定が更新されたため、待機中の IME 切替要求を破棄しました。");
+            return;
+        }
+        if (!settings.Enabled || settings.Mode != InputMode.Tsf ||
             !settings.AltKeysSwitchKeyboard || !settings.IsAppEnabled(origin.ProcessName) ||
             settings.IsGame(origin.ProcessName, looksLikeGame: false)) return;
         var target = ImeTarget.FromForeground();
         if (target is null || !ImeTargetMatchesOrigin(origin, request.Initial, target, Native.GetForegroundWindow())) return;
         if ((Native.GetKeyboardLayout(target.ThreadId).ToInt64() & 0xFFFF) != 0x0411) return;
         // 待機中に他の入力先・設定へ変わった場合は操作しない。同じ入力先への要求はこのワーカーで直列実行する。
-        if (!ReferenceEquals(settings, _settings) ||
-            !ImeTargetMatchesOrigin(origin, request.Initial, ImeTarget.FromForeground(), Native.GetForegroundWindow())) return;
+        if (!ReferenceEquals(settings, _settings))
+        {
+            Log.Info("左右の Alt: IME 切替の実行直前に設定が更新されたため、要求を破棄しました。");
+            return;
+        }
+        if (!ImeTargetMatchesOrigin(origin, request.Initial, ImeTarget.FromForeground(), Native.GetForegroundWindow())) return;
         if (_imm32.TrySetOpen(target, request.Japanese, null, settings.ImeTimeoutMs))
             Log.Info(request.Japanese ? "左右の Alt: 日本語入力にしました (右 Alt)" : "左右の Alt: 英数にしました (左 Alt)");
         else
@@ -570,8 +579,18 @@ internal sealed class MeltypeEngine : IDisposable
     {
         var app = _foreground.Current;
         if (settings.ProfileFor(app.ProcessName) != AppProfile.Code || LineContext.IsDocumentTitle(KeyText.WindowTitle(app.Window))) return CodeFocus.None;
-        var focus = _composition?.Focus.Current;
-        return LineContext.ClassifyFocus(app.ProcessName, focus?.Name ?? "", focus?.ClassName ?? "");
+        if (_composition is not { } composition) return CodeFocus.None;
+        if (!composition.Focus.TryGetCurrent(out var focus))
+            return CodeFocusWhileUnresolved(app.ProcessName);
+        return LineContext.ClassifyFocus(app.ProcessName, focus.Name, focus.ClassName);
+    }
+
+    // Until UIA resolves, do not treat an editor as a chat box simply because
+    // UnresolvedInfo has an empty name/class. Use a conservative code-mode fallback.
+    internal static CodeFocus CodeFocusWhileUnresolved(string process)
+    {
+        var kind = LineContext.ClassifyFocus(process, "", "");
+        return kind == CodeFocus.None ? CodeFocus.Editor : kind;
     }
 
     private bool IsCodeApp(Settings settings) => CurrentCodeFocus(settings) != CodeFocus.None;
@@ -846,7 +865,12 @@ internal sealed class MeltypeEngine : IDisposable
         {
             try
             {
-                if (!ReferenceEquals(settings, _settings) || !IsKeyboardActive || TakeoverPending) return;
+                if (!ReferenceEquals(settings, _settings))
+                {
+                    Log.Info("Microsoft IME 自動 OFF: 設定が更新されたため、待機中の要求を破棄しました。");
+                    return;
+                }
+                if (!IsKeyboardActive || TakeoverPending) return;
                 var target = ImeTarget.FromForeground();
                 if (target is null || !ImeTargetMatchesOrigin(origin, initial, target, Native.GetForegroundWindow()) ||
                     !KeyboardLayoutPolicy.AllowsInput(settings, target)) return;
@@ -855,7 +879,12 @@ internal sealed class MeltypeEngine : IDisposable
                 var state = _imm32.GetState(target);
                 if (!KeyboardLayoutPolicy.AllowsInput(settings, state.KeyboardLayout)) return;
                 // GetState 中にも前面ウィンドウや設定が変わり得る。元の対象以外には送らない。
-                if (!ReferenceEquals(settings, _settings) || !IsKeyboardActive || TakeoverPending ||
+                if (!ReferenceEquals(settings, _settings))
+                {
+                    Log.Info("Microsoft IME 自動 OFF: IME 状態の取得中に設定が更新されたため、要求を破棄しました。");
+                    return;
+                }
+                if (!IsKeyboardActive || TakeoverPending ||
                     !ImeTargetMatchesOrigin(origin, initial, ImeTarget.FromForeground(), Native.GetForegroundWindow()) ||
                     !_foreground.Check(settings).Allowed) return;
                 if (state.Mode == IME.ImeMode.Open && _imm32.TrySetOpen(target, false, null, settings.ImeTimeoutMs))

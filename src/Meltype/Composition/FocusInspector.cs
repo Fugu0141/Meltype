@@ -88,13 +88,32 @@ public sealed class FocusInspector : IDisposable
     }
 
     /// <summary>最新のフォーカスについて調べ終わっていて、パスワード以外の入力欄なら true。</summary>
-    public bool CanCapture
+    public bool CanCapture => CanCaptureResolved(_state);
+
+    // AllowsCapture may query a remote IME context. Check the published token both before
+    // and after that call; a single snapshot is not sufficient against invalidation.
+    private bool CanCaptureResolved(FocusState snapshot)
     {
-        get
-        {
-            var state = _state;
-            return IsCurrent(state.Token) && AllowsCapture(state) && IsCurrent(state.Token);
-        }
+        if (!IsCurrent(snapshot.Token)) return false;
+        var allowed = AllowsCapture(snapshot);
+        return allowed && IsCurrent(snapshot.Token);
+    }
+
+    private bool HasResolvedCurrentFocus() =>
+        Interlocked.Read(ref _resolvedSequence) == Interlocked.Read(ref _focusSequence);
+
+    // Affinity can be evaluated while another inspection is pending, so it does not
+    // require _resolvedSequence, but the source window/click/state must remain unchanged.
+    private bool CanCaptureAffinity(FocusState snapshot)
+    {
+        if (snapshot.Sequence != Interlocked.Read(ref _focusSequence) ||
+            snapshot.ClickVersion != Interlocked.Read(ref _clickVersion) ||
+            snapshot.Foreground != Native.GetForegroundWindow()) return false;
+        var allowed = AllowsCapture(snapshot);
+        return allowed && ReferenceEquals(snapshot, _state) &&
+               snapshot.Sequence == Interlocked.Read(ref _focusSequence) &&
+               snapshot.ClickVersion == Interlocked.Read(ref _clickVersion) &&
+               snapshot.Foreground == Native.GetForegroundWindow();
     }
 
     /// <summary>
@@ -115,11 +134,7 @@ public sealed class FocusInspector : IDisposable
         // ゲームなど入力欄の無いウィンドウでは待たない: クリックのたびに調べ直すので、
         // キーを押すたびにフックで最大 waitMs 止まり、ゲームの操作が遅れていた (PSO2 NGS)。
         var lastState = _state;
-        if (lastState.AffinityWindow != IntPtr.Zero)
-            return lastState.Sequence == Interlocked.Read(ref _focusSequence) &&
-                   lastState.ClickVersion == Interlocked.Read(ref _clickVersion) &&
-                   lastState.Foreground == Native.GetForegroundWindow() &&
-                   AllowsCapture(lastState);
+        if (lastState.AffinityWindow != IntPtr.Zero) return CanCaptureAffinity(lastState);
         var last = lastState.Info;
         // 別のウィンドウに移った直後 (500ms 以内) で、移った先をまだ調べているときも待つ。前のウィンドウ (デスクトップなど) の
         // 「入力欄ではない」で決めると、移った先の入力欄で打った先頭のキーがローマ字のまま入っていた。
@@ -129,31 +144,35 @@ public sealed class FocusInspector : IDisposable
             Environment.TickCount64 - Interlocked.Read(ref _foregroundChangedAt) < 500;
         if (!moved && (!last.IsTextInput || last.IsPassword || foreground != lastState.Foreground)) waitMs = 0;
         var deadline = Environment.TickCount64 + waitMs;
-        while (Interlocked.Read(ref _resolvedSequence) != Interlocked.Read(ref _focusSequence) && Environment.TickCount64 < deadline) Thread.Sleep(5);
-        if (moved && Interlocked.Read(ref _resolvedSequence) != sequence) Interlocked.Exchange(ref _gaveUpSequence, sequence);
-        if (Interlocked.Read(ref _resolvedSequence) == Interlocked.Read(ref _focusSequence)) return CanCapture;
-        // 解決待ちで、以前の入力欄を信用できるのは、クリックも HWND 切替も無かったときのみ。
-        // 同じウィンドウで入力欄→ボタンへクリックした直後の古い判定を再利用すると、ショートカットを奪ってしまう。
+        while (!HasResolvedCurrentFocus() && Environment.TickCount64 < deadline) Thread.Sleep(5);
+        if (moved && !HasResolvedCurrentFocus()) Interlocked.Exchange(ref _gaveUpSequence, sequence);
+        if (HasResolvedCurrentFocus()) return CanCapture;
+
+        // During UIA inspection, reuse the previous input only if no click, native focus
+        // change, or foreground change occurred. Fall back to the new result if it resolves.
         var snapshot = _state;
-        var currentForeground = Native.GetForegroundWindow();
-        var currentFocus = FocusedWindow(currentForeground);
-        if (!CanReuseUnresolvedFocus(snapshot.Foreground == currentForeground,
+        var pendingSequence = Interlocked.Read(ref _focusSequence);
+        return TryReusePendingSnapshot(snapshot, pendingSequence) ||
+               (HasResolvedCurrentFocus() && CanCapture); // #675: first key after inspection finishes
+    }
+
+    private bool TryReusePendingSnapshot(FocusState snapshot, long pendingSequence)
+    {
+        var foreground = Native.GetForegroundWindow();
+        var nativeFocus = FocusedWindow(foreground);
+        if (!CanReuseUnresolvedFocus(snapshot.Foreground == foreground,
                 snapshot.Info.IsTextInput, snapshot.Info.IsPassword,
                 snapshot.ClickVersion != Interlocked.Read(ref _clickVersion),
-                snapshot.FocusWindow == IntPtr.Zero || currentFocus == IntPtr.Zero || snapshot.FocusWindow == currentFocus))
-            return CanCapture; // 判定中に現世代の調査が完了した可能性がある。
-        var pendingSequence = Interlocked.Read(ref _focusSequence);
-        // 調査が終わっていたら最新結果を使用する。古いスナップショットを「未解決」として捨てない。
-        if (Interlocked.Read(ref _resolvedSequence) == pendingSequence) return CanCapture;
-        // 調査完了・新世代への失効・クリックがこの間に発生しても、古い判定を使わない。
-        var reusable = AllowsCapture(snapshot) && pendingSequence == Interlocked.Read(ref _focusSequence) &&
-                       Interlocked.Read(ref _resolvedSequence) != pendingSequence &&
-                       ReferenceEquals(snapshot, _state) &&
-                       snapshot.ClickVersion == Interlocked.Read(ref _clickVersion) &&
-                       currentForeground == Native.GetForegroundWindow();
-        if (!reusable && Interlocked.Read(ref _resolvedSequence) == Interlocked.Read(ref _focusSequence))
-            return CanCapture; // 解決した直後は最新状態で判定し直す（#675の初文字保護）。
-        return reusable;
+                snapshot.FocusWindow == IntPtr.Zero || nativeFocus == IntPtr.Zero || snapshot.FocusWindow == nativeFocus))
+            return false;
+        if (HasResolvedCurrentFocus() || !AllowsCapture(snapshot)) return false;
+
+        // AllowsCapture may wait for an IME response. Reject results invalidated while waiting.
+        return pendingSequence == Interlocked.Read(ref _focusSequence) &&
+               !HasResolvedCurrentFocus() &&
+               ReferenceEquals(snapshot, _state) &&
+               snapshot.ClickVersion == Interlocked.Read(ref _clickVersion) &&
+               foreground == Native.GetForegroundWindow();
     }
 
     /// <summary>前回の調査結果を再利用してよいか。クリックがあった場合は未解決状態を信頼しない。</summary>
@@ -184,13 +203,14 @@ public sealed class FocusInspector : IDisposable
     }
 
     /// <summary>操作・表示に使ってよい、失効していない調査結果。調査中は未確認にする。</summary>
-    public FocusInfo Current
+    public FocusInfo Current => TryGetCurrent(out var info) ? info : UnresolvedInfo;
+
+    /// <summary>調査中・失効時を明示的に判別する。古い Info を現行の入力欄として扱わない。</summary>
+    public bool TryGetCurrent(out FocusInfo info)
     {
-        get
-        {
-            var state = _state;
-            return IsCurrent(state.Token) ? state.Info : UnresolvedInfo;
-        }
+        var state = _state;
+        info = IsCurrent(state.Token) ? state.Info : UnresolvedInfo;
+        return !ReferenceEquals(info, UnresolvedInfo);
     }
 
     /// <summary>診断・UIA候補補完用。失効した結果も保持するため操作の判断には使わない。</summary>
